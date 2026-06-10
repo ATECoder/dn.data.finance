@@ -1,0 +1,70 @@
+{
+  "profiles": {
+    "Age74-94-7%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 74 20 35.0 35.0 9.3 9.3 25.0 2.75 7.0"
+      /*
+      */
+    },
+    "Age74-84-7%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 74 10 35.0 35.0 9.3 9.3 25.0 2.75 7.0"
+      /*
+      */
+    },
+    "Age74-94-7%-LowerCashOutRate": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 74 20 35.0 15.0 9.3 3.3 15.0 2.75 7.0"
+      /*
+      */
+    },
+    "Age74-94-6%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 74 20 35.0 35.0 9.3 9.3 25.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age74-84-6%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 74 10 35.0 35.0 9.3 9.3 25.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age84-94-6%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 84 10 35.0 35.0 9.3 9.3 25.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age84-94-6%-LowCashoutTax": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 84 10 35.0 15.0 9.3 3.3 15.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age94-104-6%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 94 10 35.0 35.0 9.3 9.3 25.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age94-104-6%-LowCashoutTax": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 94 10 35.0 15.0 9.3 3.3 15.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age34-94-6%": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 34 60 35.0 35.0 9.3 9.3 25.0 2.75 6.0"
+      /*
+      */
+    },
+    "Age34-94-6%-LowCashoutTax": {
+      "commandName": "Project",
+      "commandLineArgs": "50000 34 60 35.0 15.0 9.3 3.3 15.0 2.75 6.0"
+      /*
+      */
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="calculator.console/SepIraCalculatorConsoleApp.csproj" />
+  <Project Path="calculator/cc.isr.Finance.Sep.Ira.Calculator.csproj" />
+</Solution>

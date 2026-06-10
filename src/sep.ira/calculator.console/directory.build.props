@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+    <WaningsNotAsErrors>NU1900;NU1901;NU1802</WaningsNotAsErrors>
+  </PropertyGroup>
+</Project>
