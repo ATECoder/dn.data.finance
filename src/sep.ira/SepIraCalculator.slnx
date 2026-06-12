@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/~docs/">
+    <File Path="../../changelog.md" />
+    <File Path="../../todo.md" />
+  </Folder>
+  <Project Path="calculator.app/SepIraCalculatorFormsApp.csproj" />
   <Project Path="calculator.console/SepIraCalculatorConsoleApp.csproj" />
+  <Project Path="calculator.xunits/cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj" />
   <Project Path="calculator/cc.isr.Finance.Sep.Ira.Calculator.csproj" />
 </Solution>

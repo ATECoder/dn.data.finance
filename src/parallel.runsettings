@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
   <RunConfiguration>
-    <ResultsDirectory>r:\TestResults\lib\vs\vi\vi</ResultsDirectory>
+    <ResultsDirectory>r:\TestResults\lib\vs\data\finance</ResultsDirectory>
   </RunConfiguration>
   <MSTest>
     <Parallelize>
