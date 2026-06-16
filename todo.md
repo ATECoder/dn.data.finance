@@ -6,8 +6,5 @@
 * review the code for validity.
 * figure out a way to incorporate changes in tax rates that are applied to the distributions from the SEP IRA account.
 
-## SEP IRA Forms Application
-* Add both outputs
-
 ## User Interface
 * Add Maui, Uno and Avalonia forms applications.

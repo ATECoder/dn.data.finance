@@ -11,7 +11,7 @@ Successfully created a comprehensive unit test suite for the SEP-IRA Calculator 
 ### 1. Test Project Created
 - **Project Name**: `cc.isr.Finance.Sep.Ira.Calculator.XUnits`
 - **Framework**: .NET 10.0-windows
-- **Test Framework**: xUnit 2.9.3
+- **Test Framework**: xUnit 3.2.2
 - **Status**: ✅ Created and integrated into solution
 
 ### 2. Test Implementation
@@ -56,9 +56,9 @@ Successfully created a comprehensive unit test suite for the SEP-IRA Calculator 
 
 | Category | Count | Status |
 |----------|-------|--------|
-| Principal Validation | 5 | ✅ PASS |
-| Age Validation | 6 | ✅ PASS |
-| Years Validation | 4 | ✅ PASS |
+| Invested Amount Validation | 5 | ✅ PASS |
+| Initial Age Validation | 6 | ✅ PASS |
+| Investment Duration Validation | 4 | ✅ PASS |
 | Tax Rate Validation | 12 | ✅ PASS |
 | Economic Rates Validation | 8 | ✅ PASS |
 | Multiple Errors Tests | 1 | ✅ PASS |
@@ -69,24 +69,23 @@ Successfully created a comprehensive unit test suite for the SEP-IRA Calculator 
 
 ## 🎯 Validation Rules Tested
 
-### Principal
+### InvestedAmount
 - ✅ Zero/negative handling
 - ✅ Valid range ($1 - $10M)
 - ✅ Boundary conditions
 
-### Age
-- ✅ Below/above/within range (18-120)
-- ✅ Age + Years combination (≤150)
+### InitialAge
+- ✅ Below/above/within range (18-119)
+- ✅ InitialAge + InvestmentDuration combination (≤120)
 - ✅ Boundary conditions
 
-### Years
+### Investment Duration (Years)
 - ✅ Zero/negative handling
-- ✅ Valid range (1-100)
-- ✅ Age + Years constraint
+- ✅ Valid range (1-102)
+- ✅ InitialAge + InvestmentDuration constraint
 
 ### Tax Rates
-- ✅ Individual rate bounds (0-100%)
-- ✅ Combined federal+state ≤ 100%
+- ✅ Individual rate bounds
 - ✅ All tax types (federal, state, capital gains)
 
 ### Economic Rates
@@ -149,7 +148,7 @@ Successfully created a comprehensive unit test suite for the SEP-IRA Calculator 
 ### Example 1: Valid Input Test
 ```csharp
 [Fact]
-public void ValidateInputsWithValidPrincipalNoErrors()
+public void ValidateInputsWithValidInvestedAmountNoErrors()
 {
     var errors = AppreciatorInputValidator.ValidateInputs(
         50000, 50, 20, 35, 35, 9.3, 9.3, 25, 2.75, 7);
@@ -161,27 +160,13 @@ public void ValidateInputsWithValidPrincipalNoErrors()
 ### Example 2: Boundary Test
 ```csharp
 [Fact]
-public void ValidateInputsWithZeroPrincipalReturnsError()
+public void ValidateInputsWithZeroInvestedAmountReturnsError()
 {
     var errors = AppreciatorInputValidator.ValidateInputs(
         0, 50, 20, 35, 35, 9.3, 9.3, 25, 2.75, 7);
 
     Assert.Single(errors);
-    Assert.Contains("Principal must be greater than $0", errors[0]);  // ✅ PASS
-}
-```
-
-### Example 3: Combined Constraint Test
-```csharp
-[Fact]
-public void ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError()
-{
-    var errors = AppreciatorInputValidator.ValidateInputs(
-        50000, 50, 20, 60, 35, 50, 9.3, 25, 2.75, 7);
-
-    Assert.Single(errors);
-    Assert.Contains("Combined Present Tax Rate", errors[0]);
-    Assert.Contains("exceeds 100%", errors[0]);  // ✅ PASS
+    Assert.Contains("Invested amount must be greater than $0", errors[0]);  // ✅ PASS
 }
 ```
 
@@ -190,7 +175,7 @@ public void ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError()
 [Theory]
 [InlineData(-0.1)]
 [InlineData(-50)]
-public void ValidateInputsWithNegativePresentFederalTaxRateReturnsError(double rate)
+public void ValidateInputsWithNegativeInitialFederalTaxRateReturnsError(double rate)
 {
     var errors = AppreciatorInputValidator.ValidateInputs(
         50000, 50, 20, rate, 35, 9.3, 9.3, 25, 2.75, 7);
@@ -255,9 +240,9 @@ Form1.cs
 ├── UI Controls
 ├── Button Click Handler
 └── Validation Logic (embedded)
-    ├── Principal check
-    ├── Age check
-    ├── Years check
+    ├── InvestedAmount check
+    ├── InitialAge check
+    ├── InvestmentDuration check
     ├── Tax rate checks
     └── Error handling
 ```
@@ -266,9 +251,9 @@ Form1.cs
 ```
 AppreciatorInputValidator.cs (Testable)
 ├── ValidateInputs() [static]
-├── ValidatePrincipal() [static]
+├── ValidateInvestedAmount() [static]
 ├── ValidateAge() [static]
-├── ValidateYears() [static]
+├── ValidateInvestmentDuration() [static]
 ├── ValidateTaxRates() [static]
 └── ValidateEconomicRates() [static]
 
@@ -322,9 +307,9 @@ AppreciatorTests.cs (Tests)
 ## ✨ Key Achievements
 
 ✅ **45 Comprehensive Tests**
-   - Principal validation (5 tests)
-   - Age validation (6 tests)
-   - Years validation (4 tests)
+   - InvestedAmount validation (5 tests)
+   - InitialAge validation (6 tests)
+   - Investment Duration validation (4 tests)
    - Tax rate validation (12 tests)
    - Economic rates validation (8 tests)
    - Multiple errors (1 test)
@@ -433,6 +418,6 @@ C:\my\lib\vs\data\finance\src\sep.ira\cc.isr.Finance.Sep.Ira.Calculator.XUnits\
 ---
 
 **Date Completed**: 2024
-**Framework**: xUnit 2.9.3 on .NET 10.0-windows
+**Framework**: xUnit 3.2.2 on .NET 10.0-windows
 **Total Development Time**: Single session
 **Documentation**: Comprehensive (4 files)

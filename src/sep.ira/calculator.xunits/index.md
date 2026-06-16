@@ -129,9 +129,9 @@ Code Coverage:            100% ✅
 **Contains**:
 - InputValidatorTests class
 - 45 test methods organized into regions:
-  - Principal Validation Tests (5)
-  - Age Validation Tests (6)
-  - Years Validation Tests (4)
+  - InvestedAmount Validation Tests (5)
+  - Initial Age Validation Tests (6)
+  - Investment Duration Validation Tests (4)
   - Tax Rate Validation Tests (12)
   - Economic Rates Validation Tests (8)
   - Multiple Errors Tests (1)
@@ -147,9 +147,9 @@ Code Coverage:            100% ✅
 Validation Topic                    Documentation Location
 ────────────────────────────────────────────────────────
 
-Principal Validation                readme.md (Test Categories)
-Age Validation                      readme.md (Test Categories)
-Years Validation                    readme.md (Test Categories)
+InvestedAmount Validation           readme.md (Test Categories)
+Initial Age Validation              readme.md (Test Categories)
+Investment Duration Validation      readme.md (Test Categories)
 Tax Rate Validation                 TestDocumentation.md (Detailed)
 Economic Rates Validation           TestDocumentation.md (Detailed)
 
@@ -180,7 +180,7 @@ dotnet watch test
 
 ### Run Specific Test
 ```powershell
-dotnet test --filter "ValidateInputsWithValidPrincipalNoErrors"
+dotnet test --filter "ValidateInputsWithValidInvestedAmountNoErrors"
 ```
 
 ### Run Test Class
@@ -205,14 +205,14 @@ dotnet test --filter "InputValidatorTests"
 
 ## 🔍 What Each Test Category Tests
 
-### 1. Principal Validation (5 tests)
-Tests $0 to $10,000,000 range with edge cases
+### 1. InvestedAmount Validation (5 tests)
+Tests $0 to $1,000,000 range with edge cases
 
-### 2. Age Validation (6 tests)
-Tests 18 to 120 years range with Age+Years constraint
+### 2. Initial Age Validation (6 tests)
+Tests 18 to 119 years range with InitialAge+InvestmentDuration constraint
 
-### 3. Years Validation (4 tests)
-Tests 1 to 100 years duration
+### 3. Investment Duration Validation (4 tests)
+Tests 1 to 102 years duration
 
 ### 4. Tax Rate Validation (12 tests)
 Tests 0-100% individual rates and combined constraints
@@ -259,15 +259,15 @@ Tests boundary conditions and special scenarios
 cc.isr.Finance.Sep.Ira.Calculator.XUnits/
 │
 ├── Documentation/
-│   ├── 📄 readme.md                 (5.88 KB)  ← START HERE
-│   ├── 📄 TestDocumentation.md     (9.18 KB)  ← Detailed docs
-│   ├── 📄 ImplementationSummary.md (9.12 KB)  ← Architecture
+│   ├── 📄 readme.md                 (5.88 KB) ← START HERE
+│   ├── 📄 TestDocumentation.md      (9.18 KB) ← Detailed docs
+│   ├── 📄 ImplementationSummary.md  (9.12 KB) ← Architecture
 │   ├── 📄 VisualSummary.md         (12.77 KB) ← Statistics
 │   ├── 📄 CompletionReport.md      (11.12 KB) ← Summary
 │   └── 📄 index.md                  (this file)
 │
 ├── Source Code/
-│   ├── 🧪 AppreciatorTests.cs              (17.63 KB) ← 45 Tests
+│   ├── 🧪 AppreciatorTests.cs       (17.63 KB) ← 45 Tests
 │   └── ⚙️  cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj
 │
 └── Configuration/
@@ -337,5 +337,5 @@ This comprehensive test suite provides:
 ---
 
 **Last Updated**: 2024
-**Framework**: xUnit 2.9.3 on .NET 10.0-windows
+**Framework**: xUnit 3.2.2 on .NET 10.0-windows
 **Status**: ✅ COMPLETE AND ALL TESTS PASSING

@@ -9,54 +9,60 @@ public partial class Appreciator : ObservableObject
 {
     #region " inputs "
 
-    /// <summary>   Gets or sets the investment principal. </summary>
-    /// <value> The principal. </value>
+    /// <summary>   Gets or sets the invested amount. </summary>
+    /// <value> The invested amount. </value>
     [ObservableProperty]
-    public partial double Principal { get; set; } = 10000.00;
+    public partial double InvestedAmount { get; set; } = 10000.00;
 
-    /// <summary>   Gets or sets initial the age. </summary>
+    /// <summary>   Gets or sets the initial age. </summary>
     /// <value> The initial age. </value>
     [ObservableProperty]
     public partial int InitialAge { get; set; } = 75;
 
-    /// <summary>   Investment duration (x years) </summary>
-    /// <value> The years. </value>
+    /// <summary>   Gets or sets the duration of the investment in years. </summary>
+    /// <value> The investment duration. </value>
     [ObservableProperty]
-    public partial int Years { get; set; } = 20;
+    public partial int InvestmentDuration { get; set; } = 20;
 
-    /// <summary>   Gets or sets the present federal tax rate. </summary>
-    /// <value> The present federal tax rate. </value>
+    /// <summary>   Gets or sets the initial federal tax rate. </summary>
+    /// <value> The initial federal tax rate. </value>
     [ObservableProperty]
-    public partial double PresentFederalTaxRate { get; set; } = 35.0;
+    public partial double InitialFederalTaxRate { get; set; } = 35.0;
 
-    /// <summary>   Gets or sets the future federal tax rate. </summary>
-    /// <value> The future federal tax rate. </value>
+    /// <summary>   Gets or sets the withdrawal federal tax rate. </summary>
+    /// <value> The withdrawal federal tax rate. </value>
     [ObservableProperty]
-    public partial double FutureFederalTaxRate { get; set; } = 35.0;
+    public partial double WithdrawalFederalTaxRate { get; set; } = 35.0;
 
-    /// <summary>   Gets or sets the present state tax rate. </summary>
-    /// <value> The present state tax rate. </value>
+    /// <summary>   Gets or sets the initial state tax rate. </summary>
+    /// <value> The initial state tax rate. </value>
     [ObservableProperty]
-    public partial double PresentStateTaxRate { get; set; } = 9.3;
+    public partial double InitialStateTaxRate { get; set; } = 9.3;
 
-    /// <summary>   Gets or sets the future state tax rate. </summary>
-    /// <value> The future state tax rate. </value>
+    /// <summary>   Gets or sets the withdrawal state tax rate. </summary>
+    /// <value> The withdrawal state tax rate. </value>
     [ObservableProperty]
-    public partial double FutureStateTaxRate { get; set; } = 9.3;
+    public partial double WithdrawalStateTaxRate { get; set; } = 9.3;
 
-    /// <summary>   Gets or sets the capital gains tax rate. </summary>
-    /// <value> The capital gains tax rate. </value>
+    /// <summary>   Gets or sets the federal capital gains tax rate. </summary>
+    /// <value> The federal capital gains tax rate. </value>
     [ObservableProperty]
-    public partial double CapitalGainsTaxRate { get; set; } = 25.0;
+    public partial double FederalCapitalGainsTaxRate { get; set; } = 25.0;
 
-    /// <summary>   Gets or sets the inflation rate. </summary>
-    /// <value> The inflation rate. </value>
+    /// <summary>   Gets or sets the state capital gains tax rate. </summary>
+    /// <value> The state capital gains tax rate. </value>
     [ObservableProperty]
-    public partial double InflationRate { get; set; } = 2.75;
+    public partial double StateCapitalGainsTaxRate { get; set; } = 9.3;
 
-    // <summary> Assumed annual investment growth rate. </summary>
+    /// <summary>   Gets or sets the annual inflation rate. </summary>
+    /// <value> The annual inflation rate. </value>
     [ObservableProperty]
-    public partial double AnnualReturn { get; set; } = 7.0;
+    public partial double AnnualInflationRate { get; set; } = 2.75;
+
+    /// <summary>   Gets or sets the annual growth rate. </summary>
+    /// <value> The annual growth rate. </value>
+    [ObservableProperty]
+    public partial double AnnualGrowthRate { get; set; } = 7.0;
 
     /// <summary>   Gets or sets the uniform lifetime table. </summary>
     /// <remarks> Based on IRS Publication 1406 2025. </remarks>
@@ -77,11 +83,6 @@ public partial class Appreciator : ObservableObject
 
     #region " outputs "
 
-    /// <summary>   Gets or sets the growth rate. </summary>
-    /// <value> The growth rate. </value>
-    [ObservableProperty]
-    public partial double GrowthRate { get; private set; }
-
     /// <summary>   Gets or sets the SEP IRA account balance - future value before tax. </summary>
     /// <value> The SEP IRA account balance - future value before tax. </value>
     [ObservableProperty]
@@ -95,42 +96,47 @@ public partial class Appreciator : ObservableObject
     /// <summary>   Total Tax liability upon withdrawal. </summary>
     /// <value> The total tax liability. </value>
     [ObservableProperty]
-    public partial double FutureTaxLiability { get; private set; }
+    public partial double WithdrawalTaxLiability { get; private set; }
 
-    /// <summary>   Gets or sets the present tax liability. </summary>
-    /// <value> The present tax liability. </value>
+    /// <summary>   Gets or sets the initial tax liability. </summary>
+    /// <value> The initial tax liability. </value>
     [ObservableProperty]
-    public partial double PresentTaxLiability { get; private set; }
+    public partial double InitialTaxLiability { get; private set; }
 
     /// <summary>   Federal Tax liability upon withdrawal. </summary>
     /// <value> The Federal tax liability. </value>
     [ObservableProperty]
-    public partial double FutureFederalTaxLiability { get; private set; }
+    public partial double WithdrawalFederalTaxLiability { get; private set; }
 
-    /// <summary>   Gets or sets the present federal tax liability. </summary>
-    /// <value> The present federal tax liability. </value>
+    /// <summary>   Gets or sets the initial federal tax liability. </summary>
+    /// <value> The initial federal tax liability. </value>
     [ObservableProperty]
-    public partial double PresentFederalTaxLiability { get; private set; }
+    public partial double InitialFederalTaxLiability { get; private set; }
 
     /// <summary>   State Tax liability upon withdrawal. </summary>
     /// <value> The State tax liability. </value>
     [ObservableProperty]
-    public partial double FutureStateTaxLiability { get; private set; }
+    public partial double WithdrawalStateTaxLiability { get; private set; }
 
-    /// <summary>   Gets or sets the present state tax liability. </summary>
-    /// <value> The present state tax liability. </value>
+    /// <summary>   Gets or sets the initial state tax liability. </summary>
+    /// <value> The initial state tax liability. </value>
     [ObservableProperty]
-    public partial double PresentStateTaxLiability { get; private set; }
+    public partial double InitialStateTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the capital gain. </summary>
     /// <value> The capital gain. </value>
     [ObservableProperty]
     public partial double CapitalGain { get; private set; }
 
-    /// <summary>   Capital Gains Tax liability upon withdrawal. </summary>
-    /// <value> The tax liability. </value>
+    /// <summary>   Gets or sets the federal capital gains tax liability. </summary>
+    /// <value> The federal capital gains tax liability. </value>
     [ObservableProperty]
-    public partial double CapitalGainsTaxLiability { get; private set; }
+    public partial double FederalCapitalGainsTaxLiability { get; private set; }
+
+    /// <summary>   Gets or sets the state capital gains tax liability. </summary>
+    /// <value> The state capital gains tax liability. </value>
+    [ObservableProperty]
+    public partial double StateCapitalGainsTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the net cash out value. </summary>
     /// <value> The net cash out value. </value>
@@ -142,7 +148,6 @@ public partial class Appreciator : ObservableObject
     [ObservableProperty]
     public partial double FinalAge { get; private set; }
 
-
     /// <summary>   Gets or sets the discounted (present value) federal taxes paid. </summary>
     /// <value> The federal taxes paid. </value>
     [ObservableProperty]
@@ -153,53 +158,62 @@ public partial class Appreciator : ObservableObject
     [ObservableProperty]
     public partial double DiscountedStateTaxesPaid { get; private set; }
 
+    /// <summary>   Gets or sets the discounted taxes paid. </summary>
+    /// <value> The discounted taxes paid. </value>
+    [ObservableProperty]
+    public partial double DiscountedTaxesPaid { get; private set; }
+
     #endregion
 
     #region " calculations "
 
     /// <summary>   Calculates the future value. </summary>
     /// <remarks>   Calculates the future value of a capital investment after applying
-    ///             the present tax rates to the initial principal and then applying 
+    ///             the present tax rates to the initial investedAmount and then applying 
     ///             the assumed annual growth rate for the specified for number of 
     ///             years and then applying the future capital gains and state taxes.
     /// </remarks>
     public void CalculateFutureValue()
     {
-        this.PresentFederalTaxLiability = this.Principal * (this.PresentFederalTaxRate / 100.0);
-        this.PresentStateTaxLiability = this.Principal * (this.PresentStateTaxRate / 100.0);
-        this.PresentTaxLiability = this.PresentFederalTaxLiability + this.PresentStateTaxLiability;
-        double initialCapital = this.Principal * (1 - ((this.PresentFederalTaxRate + this.PresentStateTaxRate) / 100.0));
+        this.InitialFederalTaxLiability = this.InvestedAmount * (this.InitialFederalTaxRate / 100.0);
+        this.InitialStateTaxLiability = this.InvestedAmount * (this.InitialStateTaxRate / 100.0);
+        this.InitialTaxLiability = this.InitialFederalTaxLiability + this.InitialStateTaxLiability;
+        double initialCapital = this.InvestedAmount * (1 - ((this.InitialFederalTaxRate + this.InitialStateTaxRate) / 100.0));
 
-        double growthRate = 1 + (this.AnnualReturn / 100.0);
+        double growthRate = 1 + (this.AnnualGrowthRate / 100.0);
+
+        // zero irelevant outcomes
+        this.DiscountedFederalTaxesPaid = 0;
+        this.DiscountedStateTaxesPaid = 0;
+        this.DiscountedTaxesPaid = 0;
+        this.SepIraAccountBalance = 0;
+        this.WithdrawalFederalTaxLiability = 0;
+        this.WithdrawalStateTaxLiability = 0;
 
         // Future capital is the growth of the initial capital investment,
         // which is subject to capital gains taxes upon withdrawal.
-        this.CapitalAccountBalance = initialCapital * Math.Pow( growthRate, this.Years );
+        this.CapitalAccountBalance = initialCapital * Math.Pow( growthRate, this.InvestmentDuration );
         this.CapitalGain = this.CapitalAccountBalance - initialCapital;
-        this.CapitalGainsTaxLiability = this.CapitalGain * (this.CapitalGainsTaxRate / 100.0);
-        this.FutureFederalTaxLiability = this.CapitalGainsTaxLiability;
-        this.FutureStateTaxLiability = this.CapitalGain * (this.FutureStateTaxRate / 100.0);
-        this.FutureTaxLiability = this.FutureFederalTaxLiability + this.FutureStateTaxLiability;
-        this.NetCashOutValue = this.CapitalAccountBalance - this.FutureTaxLiability;
+        this.FederalCapitalGainsTaxLiability = this.CapitalGain * (this.FederalCapitalGainsTaxRate / 100.0);
+        this.StateCapitalGainsTaxLiability = this.CapitalGain * (this.StateCapitalGainsTaxRate / 100.0);
+        this.WithdrawalTaxLiability = this.FederalCapitalGainsTaxLiability + this.StateCapitalGainsTaxLiability;
+        this.NetCashOutValue = this.CapitalAccountBalance - this.WithdrawalTaxLiability;
 
         // Display the results
-        Console.WriteLine( $"--- Capital Investment not using SEP IRA ---" );
-        Console.WriteLine( $"      Initial Investment: {this.Principal:C0}" );
-        Console.WriteLine( $"                Duration: {this.Years} years" );
-        Console.WriteLine( $"   Assumed Annual Growth: {this.AnnualReturn}%" );
-        Console.WriteLine( $"Initial Federal Tax Rate: {this.PresentFederalTaxRate}%" );
-        Console.WriteLine( $"  Initial State Tax Rate: {this.PresentStateTaxRate}%" );
-        Console.WriteLine( $"  Final Federal Tax Rate: {this.FutureFederalTaxRate}%" );
-        Console.WriteLine( $"    Final State Tax Rate: {this.FutureStateTaxRate}%" );
-        Console.WriteLine( $"  Capital Gains Tax Rate: {this.CapitalGainsTaxRate}%" );
-        Console.WriteLine( $"-----------------------------------" );
-        Console.WriteLine( $"   Initial Tax Liability: {this.PresentTaxLiability:C0}" );
-        Console.WriteLine( $"-----------------------------------" );
-        Console.WriteLine( $"       Pre-Tax Account Balance: {this.CapitalAccountBalance:C0}" );
-        Console.WriteLine( $"  State Tax Owed on Withdrawal: {this.FutureStateTaxLiability:C0}" );
-        Console.WriteLine( $"Federal Tax Owed on Withdrawal: {this.FutureFederalTaxLiability:C0}" );
-        Console.WriteLine( $"        Tax Owed on Withdrawal: {this.FutureTaxLiability:C0}" );
-        Console.WriteLine( $"            Net Cash-Out Value: {this.NetCashOutValue:C0}" );
+        // Console.WriteLine( $"- Simple Capital Investment -" );
+        // Console.WriteLine( $"            Initial Investment: {this.InvestedAmount:C0}" );
+        // Console.WriteLine( $"                      Duration: {this.InvestmentDuration} years" );
+        // Console.WriteLine( $"         Assumed Annual Growth: {this.AnnualGrowthRate:F1}%" );
+        // Console.WriteLine( $"      Initial Federal Tax Rate: {this.InitialFederalTaxRate:F1}%" );
+        // Console.WriteLine( $"        Initial State Tax Rate: {this.InitialStateTaxRate:F1}%" );
+        // Console.WriteLine( $"Federal Capital Gains Tax Rate: {this.FederalCapitalGainsTaxRate:F1}%" );
+        // Console.WriteLine( $"  State Capital Gains Tax Rate: {this.StateCapitalGainsTaxRate:F1}%" );
+        // Console.WriteLine( $"         Initial Tax Liability: {this.InitialTaxLiability:C0}" );
+        // Console.WriteLine( $"       Pre-Tax Account Balance: {this.CapitalAccountBalance:C0}" );
+        // Console.WriteLine( $"  State Tax Owed on Withdrawal: {this.StateCapitalGainsTaxLiability:C0}" );
+        // Console.WriteLine( $"Federal Tax Owed on Withdrawal: {this.FederalCapitalGainsTaxLiability:C0}" );
+        // Console.WriteLine( $"        Tax Owed on Withdrawal: {this.WithdrawalTaxLiability:C0}" );
+        // Console.WriteLine( $"            Net Cash-Out Value: {this.NetCashOutValue:C0}" );
     }
 
     /// <summary>   Calculates the future value of SEP IRA investment with RMD. </summary>
@@ -207,16 +221,16 @@ public partial class Appreciator : ObservableObject
     /// <param name="debug">    (Optional) True output debug messages. </param>
     public void CalculateFutureValueSepIraWithRmd( bool debug = false )
     {
-        // no taxes are paid on the initial principal amount, so we start with the full principal
+        // no taxes are paid on the initial investedAmount amount, so we start with the full investedAmount
         // as the initial capital for growth calculations
-        this.PresentFederalTaxLiability = 0;
-        this.PresentStateTaxLiability = 0;
-        this.PresentTaxLiability = this.PresentFederalTaxLiability + this.PresentStateTaxLiability;
+        this.InitialFederalTaxLiability = 0;
+        this.InitialStateTaxLiability = 0;
+        this.InitialTaxLiability = this.InitialFederalTaxLiability + this.InitialStateTaxLiability;
 
         // capital refers to the after tax RMD that is invested in a capital gains account.
-        // This is tracked separately from the growth of the initial principal investment
+        // This is tracked separately from the growth of the initial investedAmount investment
         // because it is subject to capital gains taxes upon withdrawal, whereas the growth of
-        // the initial principal investment is subject to ordinary income taxes upon withdrawal.
+        // the initial investedAmount investment is subject to ordinary income taxes upon withdrawal.
         double initialCapital = 0;
 
         // the discounted taxes paid on the RMD are tracked separately from the tax liability upon
@@ -229,11 +243,11 @@ public partial class Appreciator : ObservableObject
         this.CapitalAccountBalance = 0;
 
         // This is the future value of the SEP IRA account before taxes, which grows based on the
-        // initial principal and the growth rate of the capital invested in the SEP IRA.
-        this.SepIraAccountBalance = this.Principal;
+        // initial investedAmount and the growth rate of the capital invested in the SEP IRA.
+        this.SepIraAccountBalance = this.InvestedAmount;
 
-        double growthRate = 1 + (this.AnnualReturn / 100.0);
-        for ( int age = this.InitialAge; age <= this.InitialAge + this.Years; age++ )
+        double growthRate = 1 + (this.AnnualGrowthRate / 100.0);
+        for ( int age = this.InitialAge; age <= this.InitialAge + this.InvestmentDuration; age++ )
         {
             this.FinalAge = age;
 
@@ -250,7 +264,7 @@ public partial class Appreciator : ObservableObject
 
             if ( age >= 72 )
             {
-                // RMD = Account Balance at End of Previous Year / Uniform Lifetime Table Value for Age
+                // RMD = Account Balance at End of Previous Year / Uniform Lifetime Table Value for InitialAge
                 double rmd = previousYearBalance / this.UniformLifetimeTable[age];
 
                 // The end of year balance of the SEP IRA account is reduced by the RMD amount,
@@ -260,8 +274,8 @@ public partial class Appreciator : ObservableObject
                 // the RMD amount is subject to ordinary income taxes at the present tax rates.
                 // it is assumed here that the taxes on the RMD remain unchanged until the end of 
                 // the calculation period.
-                double federalTax = rmd * (this.PresentFederalTaxRate / 100.0);
-                double stateTax = rmd * (this.PresentStateTaxRate / 100.0);
+                double federalTax = rmd * (this.InitialFederalTaxRate / 100.0);
+                double stateTax = rmd * (this.InitialStateTaxRate / 100.0);
 
                 // The after tax RMD is invested back into the capital account,
                 // so we calculate the capital invested as the RMD minus the taxes paid on the RMD.
@@ -272,8 +286,9 @@ public partial class Appreciator : ObservableObject
 
                 // The discounted taxes paid on the RMD are calculated by discounting 
                 // the federal and state taxes paid back to the present value using the inflation rate.
-                this.DiscountedFederalTaxesPaid += federalTax / Math.Pow( 1 + (this.InflationRate / 100.0), age - this.InitialAge );
-                this.DiscountedStateTaxesPaid += stateTax / Math.Pow( 1 + (this.InflationRate / 100.0), age - this.InitialAge );
+                this.DiscountedFederalTaxesPaid += federalTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), age - this.InitialAge );
+                this.DiscountedStateTaxesPaid += stateTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), age - this.InitialAge );
+                this.DiscountedTaxesPaid = this.DiscountedFederalTaxesPaid + this.DiscountedStateTaxesPaid;
                 if ( debug )
                 {
                     Console.WriteLine( $"RMD: {rmd:C0}, Capital Invested: {capitalInvested:C0}" );
@@ -282,7 +297,7 @@ public partial class Appreciator : ObservableObject
 
             if ( debug )
             {
-                Console.WriteLine( $"Age: {age}, SEP IRA: {this.SepIraAccountBalance:C0}" );
+                Console.WriteLine( $"InitialAge: {age}, SEP IRA: {this.SepIraAccountBalance:C0}" );
                 Console.Write( $", Capital: {this.CapitalAccountBalance:C0}" );
                 Console.Write( $", Discounted Fed. Taxes Paid: {this.DiscountedFederalTaxesPaid:C0}" );
                 Console.Write( $", Discounted State Taxes Paid: {this.DiscountedStateTaxesPaid:C0}" );
@@ -291,47 +306,51 @@ public partial class Appreciator : ObservableObject
             this.CapitalAccountBalance = endYearCapital;
             this.SepIraAccountBalance = endYearBalance;
             this.CapitalGain = this.CapitalAccountBalance - initialCapital;
-            this.CapitalGainsTaxLiability = this.CapitalGain * (this.CapitalGainsTaxRate / 100.0);
 
             // the federal tax liability upon withdrawal is based on the capital gains tax liability
             // plus the taxes owed on the SEP IRA account balance, which is taxed as ordinary income upon withdrawal.
-            this.FutureFederalTaxLiability = this.CapitalGainsTaxLiability + (this.SepIraAccountBalance * (this.FutureFederalTaxRate / 100.0));
+            this.WithdrawalFederalTaxLiability = this.SepIraAccountBalance * (this.WithdrawalFederalTaxRate / 100.0);
+            this.FederalCapitalGainsTaxLiability = this.CapitalGain * (this.FederalCapitalGainsTaxRate / 100.0);
 
             // for the state tax liability both the capital gain and the SEP IRA balance are taxed as ordinary income.
-            this.FutureStateTaxLiability = (this.SepIraAccountBalance + this.CapitalGain) * (this.FutureStateTaxRate / 100.0);
+            this.WithdrawalStateTaxLiability = this.SepIraAccountBalance * (this.WithdrawalStateTaxRate / 100.0);
+            this.StateCapitalGainsTaxLiability = this.CapitalGain * (this.StateCapitalGainsTaxRate / 100.0);
 
             // the total tax liability upon withdrawal is the sum of the federal and state tax liabilities.
-            this.FutureTaxLiability = this.FutureFederalTaxLiability + this.FutureStateTaxLiability;
+            this.WithdrawalTaxLiability = this.WithdrawalFederalTaxLiability + this.FederalCapitalGainsTaxLiability +
+                this.WithdrawalStateTaxLiability + this.StateCapitalGainsTaxLiability;
 
             // the net cash-out value is the total account balance (SEP IRA + Capital) minus
             // the total tax liability upon withdrawal.
-            this.NetCashOutValue = this.CapitalAccountBalance + this.SepIraAccountBalance - this.FutureTaxLiability;
+            this.NetCashOutValue = this.CapitalAccountBalance + this.SepIraAccountBalance - this.WithdrawalTaxLiability;
         }
 
         // Display the results
-        Console.WriteLine( $"--- Capital Investment using SEP IRA ---" );
-        Console.WriteLine( $"      Initial Investment: {this.Principal:C0}" );
-        Console.WriteLine( $"                Duration: {this.Years} years" );
-        Console.WriteLine( $"   Assumed Annual Growth: {this.AnnualReturn}%" );
-        Console.WriteLine( $"Initial Federal Tax Rate: {this.PresentFederalTaxRate}%" );
-        Console.WriteLine( $"  Initial State Tax Rate: {this.PresentStateTaxRate}%" );
-        Console.WriteLine( $"  Final Federal Tax Rate: {this.FutureFederalTaxRate}%" );
-        Console.WriteLine( $"    Final State Tax Rate: {this.FutureStateTaxRate}%" );
-        Console.WriteLine( $"  Capital Gains Tax Rate: {this.CapitalGainsTaxRate}%" );
-        Console.WriteLine( $"          Inflation Rate: {this.InflationRate}%" );
-        Console.WriteLine( $"             Initial Age: {this.InitialAge}" );
-        Console.WriteLine( $"-----------------------------------" );
-        Console.WriteLine( $"         Initial Tax Liability: {this.PresentTaxLiability:C0}" );
-        Console.WriteLine( $"  Discounted Taxes Paid on RMD: {this.DiscountedFederalTaxesPaid + this.DiscountedStateTaxesPaid:C0}" );
-        Console.WriteLine( $"-----------------------------------" );
-        Console.WriteLine( $"       SEP IRA Account Balance: {this.SepIraAccountBalance:C0}" );
-        Console.WriteLine( $"                  Capital Gain: {this.CapitalGain:C0}" );
-        Console.WriteLine( $" Pre-Tax Total Account Balance: {this.CapitalGain + this.SepIraAccountBalance:C0}" );
-        Console.WriteLine( $"  State Tax Owed on Withdrawal: {this.FutureStateTaxLiability:C0}" );
-        Console.WriteLine( $"Federal Tax Owed on Withdrawal: {this.FutureFederalTaxLiability:C0}" );
-        Console.WriteLine( $"        Tax Owed on Withdrawal: {this.FutureTaxLiability:C0}" );
-        Console.WriteLine( $"            Net Cash-Out Value: {this.NetCashOutValue:C0}" );
-        Console.WriteLine( $"                     Final Age: {this.FinalAge}" );
+        // Console.WriteLine( $"--- Capital Investment using SEP IRA ---" );
+        // Console.WriteLine( $"      Initial Investment: {this.InvestedAmount:C0}" );
+        // Console.WriteLine( $"                Duration: {this.InvestmentDuration} years" );
+        // Console.WriteLine( $"   Assumed Annual Growth: {this.AnnualGrowthRate:F1}%" );
+        // Console.WriteLine( $"Initial Federal Tax Rate: {this.InitialFederalTaxRate:F1}%" );
+        // Console.WriteLine( $"  Initial State Tax Rate: {this.InitialStateTaxRate:F1}%" );
+        // Console.WriteLine( $"  Final Federal Tax Rate: {this.WithdrawalFederalTaxRate:F1}%" );
+        // Console.WriteLine( $"    Final State Tax Rate: {this.WithdrawalStateTaxRate:F1}%" );
+        // Console.WriteLine( $"  Capital Gains Tax Rate: {this.FederalCapitalGainsTaxRate:F1}%" );
+        // Console.WriteLine( $"          Inflation Rate: {this.AnnualInflationRate:F1}%" );
+        // Console.WriteLine( $"             Initial Age: {this.InitialAge}" );
+        // Console.WriteLine( $"-----------------------------------" );
+        // Console.WriteLine( $"         Initial Tax Liability: {this.InitialTaxLiability:C0}" );
+        // Console.WriteLine( $"  Discounted Taxes Paid on RMD: {this.DiscountedFederalTaxesPaid + this.DiscountedStateTaxesPaid:C0}" );
+        // Console.WriteLine( $"-----------------------------------" );
+        // Console.WriteLine( $"       SEP IRA Account Balance: {this.SepIraAccountBalance:C0}" );
+        // Console.WriteLine( $"                  Capital Gain: {this.CapitalGain:C0}" );
+        // Console.WriteLine( $" Pre-Tax Total Account Balance: {this.CapitalGain + this.SepIraAccountBalance:C0}" );
+        // Console.WriteLine( $"         State Income Tax Owed: {this.WithdrawalStateTaxLiability:C0}" );
+        // Console.WriteLine( $"       Federal Income Tax Owed: {this.WithdrawalFederalTaxLiability:C0}" );
+        // Console.WriteLine( $"  State Capital Gains Tax Owed: {this.StateCapitalGainsTaxLiability:C0}" );
+        // Console.WriteLine( $"Federal Capital Gains Tax Owed: {this.FederalCapitalGainsTaxLiability:C0}" );
+        // Console.WriteLine( $"        Tax Owed on Withdrawal: {this.WithdrawalTaxLiability:C0}" );
+        // Console.WriteLine( $"            Net Cash-Out Value: {this.NetCashOutValue:C0}" );
+        // Console.WriteLine( $"                     Final Age: {this.FinalAge}" );
     }
 
     #endregion

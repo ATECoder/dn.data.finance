@@ -42,13 +42,13 @@
 ## Test Category Breakdown
 
 ```
-Principal Validation        ████░░░░░░  5 tests (11%)
-Age Validation             ██████░░░░  6 tests (13%)
-Years Validation           ████░░░░░░  4 tests (9%)
-Tax Rate Validation        ████████░░  12 tests (27%)
-Economic Rates Validation  ████████░░  8 tests (18%)
-Multiple Errors Test       ██░░░░░░░░  1 test (2%)
-Edge Cases                 ████░░░░░░  4 tests (9%)
+Invested Amount Validation      ████░░░░░░  5 tests (11%)
+Initial Initial Age Validation  ██████░░░░  6 tests (13%)
+Investment Duration Validation  ████░░░░░░  4 tests (9%)
+Tax Rate Validation             ████████░░  12 tests (27%)
+Economic Rates Validation       ████████░░  8 tests (18%)
+Multiple Errors Test            ██░░░░░░░░  1 test (2%)
+Edge Cases                      ████░░░░░░  4 tests (9%)
 ```
 
 ## Key Features Implemented
@@ -58,10 +58,10 @@ Edge Cases                 ████░░░░░░  4 tests (9%)
 public static class AppreciatorInputValidator
 {
     public static List<string> ValidateInputs(
-        double principal, int initialAge, int years,
+        double investedAmount, int initialAge, int years,
         double presentFederalTaxRate, double futureFederalTaxRate,
         double presentStateTaxRate, double futureStateTaxRate,
-        double capitalGainsTaxRate, double inflationRate, double annualReturn)
+        double federalCapitalGainsTaxRate, double stateCapitalGainsTaxRate, double inflationRate, double annualReturn)
 ```
 
 - ✅ Static method for easy unit testing
@@ -70,19 +70,19 @@ public static class AppreciatorInputValidator
 - ✅ Clear error messages for users
 
 ### 2. Validation Rules
-- **Principal**: $1 - $10,000,000
-- **Age**: 18 - 120 years (Age + Years ≤ 150)
-- **Years**: 1 - 100 years
+- **InvestedAmount**: $1 - $1,000,000
+- **InitialAge**: 18 - 119 years (InitialAge + Investment Duration ≤ 120)
+- **Investment Duration**: 1 - 102 years
 - **Tax Rates**: 0% - 100% (combined ≤ 100%)
-- **Inflation**: -10% - 50%
-- **Annual Return**: -50% - 100%
+- **Inflation**: -10% - 100%
+- **Annual Growth Rate**: -50% - 100%
 
 ### 3. Test Organization
 ```
 InputValidatorTests
-├── Principal Validation Tests (5)
-├── Age Validation Tests (6)
-├── Years Validation Tests (4)
+├── InvestedAmount Validation Tests (5)
+├── Initial Age Validation Tests (6)
+├── Investment Duration Validation Tests (4)
 ├── Tax Rate Validation Tests (12)
 ├── Economic Rates Validation Tests (8)
 ├── Multiple Errors Tests (1)
@@ -102,9 +102,9 @@ Form1.cs
 ```
 AppreciatorInputValidator.cs (testable)
 │   ├── ValidateInputs() [static]
-│   ├── ValidatePrincipal() [static]
+│   ├── ValidateInvestedAmount() [static]
 │   ├── ValidateAge() [static]
-│   ├── ValidateYears() [static]
+│   ├── ValidateInvestmentDuration() [static]
 │   ├── ValidateTaxRates() [static]
 │   └── ValidateEconomicRates() [static]
 │
@@ -120,41 +120,26 @@ AppreciatorTests.cs (tests)
 ### Example 1: Valid Input
 ```csharp
 [Fact]
-public void ValidateInputsWithValidPrincipalNoErrors()
+public void ValidateInputsWithValidInvestedAmountNoErrors()
 {
     var errors = AppreciatorInputValidator.ValidateInputs(
-        50000, 50, 20, 35, 35, 9.3, 9.3, 25, 2.75, 7);
+        50000, 50, 20, 35, 35, 9.3, 9.3, 25, 9.3, 2.75, 7);
 
     Assert.Empty(errors);
 }
 ```
 ✅ Result: PASS
 
-### Example 2: Invalid Principal
+### Example 2: Invalid InvestedAmount
 ```csharp
 [Fact]
-public void ValidateInputsWithZeroPrincipalReturnsError()
+public void ValidateInputsWithZeroInvestedAmountReturnsError()
 {
     var errors = AppreciatorInputValidator.ValidateInputs(
-        0, 50, 20, 35, 35, 9.3, 9.3, 25, 2.75, 7);
+        0, 50, 20, 35, 35, 9.3, 9.3, 25, 9.3, 2.75, 7);
 
     Assert.Single(errors);
-    Assert.Contains("Principal must be greater than $0", errors[0]);
-}
-```
-✅ Result: PASS
-
-### Example 3: Combined Tax Rate Violation
-```csharp
-[Fact]
-public void ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError()
-{
-    var errors = AppreciatorInputValidator.ValidateInputs(
-        50000, 50, 20, 60, 35, 50, 9.3, 25, 2.75, 7);
-
-    Assert.Single(errors);
-    Assert.Contains("Combined Present Tax Rate", errors[0]);
-    Assert.Contains("exceeds 100%", errors[0]);
+    Assert.Contains("Invested amount must be greater than $0", errors[0]);
 }
 ```
 ✅ Result: PASS
@@ -164,10 +149,10 @@ public void ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError()
 [Theory]
 [InlineData(-0.1)]
 [InlineData(-50)]
-public void ValidateInputsWithNegativePresentFederalTaxRateReturnsError(double taxRate)
+public void ValidateInputsWithNegativeInitialFederalTaxRateReturnsError(double taxRate)
 {
     var errors = AppreciatorInputValidator.ValidateInputs(
-        50000, 50, 20, taxRate, 35, 9.3, 9.3, 25, 2.75, 7);
+        50000, 50, 20, taxRate, 35, 9.3, 9.3, 25, 9.3, 2.75, 7);
 
     Assert.Single(errors);
     Assert.Contains("Present Federal Tax Rate must be between 0% and 100%", errors[0]);
@@ -202,16 +187,16 @@ The Form1.cs now calls the validation:
 private void CalculateButton_Click(object? sender, EventArgs e)
 {
     // Extract values from controls
-    double principal = (double)controls[0].Value;
+    double investedAmount = (double)controls[0].Value;
     int initialAge = (int)controls[1].Value;
     // ... extract other values ...
 
     // Use AppreciatorInputValidator for validation
     var validationErrors = AppreciatorInputValidator.ValidateInputs(
-        principal, initialAge, years,
+        investedAmount, initialAge, years,
         presentFederalTaxRate, futureFederalTaxRate,
         presentStateTaxRate, futureStateTaxRate,
-        capitalGainsTaxRate, inflationRate, annualReturn);
+        federalCapitalGainsTaxRate, stateCapitalGainsTax, annualInflationRate, annualGrowthRate);
 
     if (validationErrors.Count > 0)
     {
@@ -301,17 +286,18 @@ src/sep.ira/cc.isr.Finance.Sep.Ira.Calculator.XUnits/cc.isr.Finance.Sep.Ira.Calc
 ### All Validation Constraints
 
 ```
-Principal         : > 0 AND ≤ 10,000,000
-InitialAge        : ≥ 18 AND ≤ 120
-Years             : > 0 AND ≤ 100
-Age + Years       : ≤ 150
-PresentFedTax     : ≥ 0 AND ≤ 100 AND (+ PresentStateTax) ≤ 100
-FutureFedTax      : ≥ 0 AND ≤ 100 AND (+ FutureStateTax) ≤ 100
-PresentStateTax   : ≥ 0 AND ≤ 100 AND (+ PresentFedTax) ≤ 100
-FutureStateTax    : ≥ 0 AND ≤ 100 AND (+ FutureFedTax) ≤ 100
-CapitalGainsTax   : ≥ 0 AND ≤ 100
-InflationRate     : ≥ -10 AND ≤ 50
-AnnualReturn      : ≥ -50 AND ≤ 100
+InvestedAmount         : >= 1 AND ≤ 1,000,000
+InitialAge             : ≥ 18 AND ≤ 119
+InvestmentDuration     : > 0 AND ≤ 102
+InitialAge + Duration  : ≤ 120
+InitialFedTax          : ≥ 0 AND ≤ 65
+WithdrawalFedTax       : ≥ 0 AND ≤ 65
+InitialStateTax        : ≥ 0 AND ≤ 35
+WithdrawalStateTax     : ≥ 0 AND ≤ 35
+FederalCapitalGainsTax : ≥ 0 AND ≤ 35
+StateCapitalGainsTax : ≥ 0 AND ≤ 25
+AnnualInflationRate    : ≥ -10 AND ≤ 50
+AnnualGrowthRage       : ≥ -50 AND ≤ 100
 ```
 
 ## Test Results
@@ -324,9 +310,9 @@ Skipped: 0
 Duration: ~200ms
 
 Category Results:
-✅ Principal Validation: 5/5 PASS
-✅ Age Validation: 6/6 PASS
-✅ Years Validation: 4/4 PASS
+✅ InvestedAmount Validation: 5/5 PASS
+✅ Initial Age Validation: 6/6 PASS
+✅ Investment Duration Validation: 4/4 PASS
 ✅ Tax Rate Validation: 12/12 PASS
 ✅ Economic Rates Validation: 8/8 PASS
 ✅ Multiple Errors: 1/1 PASS
@@ -336,6 +322,6 @@ Category Results:
 ---
 
 **Status**: ✅ Complete and All Tests Passing
-**Framework**: xUnit 2.9.3
+**Framework**: xUnit 3.2.2
 **Target**: .NET 10.0-windows
 **Documentation**: Complete (readme.md + TestDocumentation.md)

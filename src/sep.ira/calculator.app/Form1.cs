@@ -2,6 +2,7 @@ namespace cc.isr.Finance.Sep.Ira;
 
 public partial class Form1 : Form
 {
+    private TextBox? _resultsLabel;
     private Appreciator? _appreciator;
 
     public Form1()
@@ -13,33 +14,60 @@ public partial class Form1 : Form
     private void InitializeFormLayout()
     {
         this.Text = "SEP-IRA Calculator";
-        this.Size = new Size( 600, 700 );
+        this.Size = new Size( 600, 750 );
         this.StartPosition = FormStartPosition.CenterScreen;
 
-        TableLayoutPanel tableLayout = new()
+        TableLayoutPanel inputsTableLayout = new()
         {
-            Dock = DockStyle.Fill,
+            Dock = DockStyle.Top,
             ColumnCount = 2,
-            RowCount = 12,
+            RowCount = 11,
             AutoSize = true,
             Padding = new Padding( 10 )
         };
 
         // Configure column styles
-        _ = tableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Absolute, 200 ) );
-        _ = tableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 100 ) );
+        _ = inputsTableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 200 ) );
+        _ = inputsTableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Absolute, 100 ) );
 
         // Add labels and controls for each command-line option
-        AddLabelAndControl( tableLayout, 0, "Principal ($):", CreateNumericUpDown( 10000, 0, 10000000, 100 ) );
-        AddLabelAndControl( tableLayout, 1, "Initial Age:", CreateNumericUpDown( 75, 0, 150, 1 ) );
-        AddLabelAndControl( tableLayout, 2, "Years:", CreateNumericUpDown( 20, 0, 100, 1 ) );
-        AddLabelAndControl( tableLayout, 3, "Present Federal Tax Rate (%):", CreateNumericUpDown( 35, 0, 100, 0.1m ) );
-        AddLabelAndControl( tableLayout, 4, "Future Federal Tax Rate (%):", CreateNumericUpDown( 35, 0, 100, 0.1m ) );
-        AddLabelAndControl( tableLayout, 5, "Present State Tax Rate (%):", CreateNumericUpDown( 9.3, 0, 100, 0.1m ) );
-        AddLabelAndControl( tableLayout, 6, "Future State Tax Rate (%):", CreateNumericUpDown( 9.3, 0, 100, 0.1m ) );
-        AddLabelAndControl( tableLayout, 7, "Capital Gains Tax Rate (%):", CreateNumericUpDown( 25, 0, 100, 0.1m ) );
-        AddLabelAndControl( tableLayout, 8, "Inflation Rate (%):", CreateNumericUpDown( 2.75, 0, 100, 0.1m ) );
-        AddLabelAndControl( tableLayout, 9, "Annual Return (%):", CreateNumericUpDown( 7, 0, 100, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 0,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.InvestedAmount )],
+            CreateNumericUpDown( AppreciatorInputsInitialValues.InvestedAmount,
+                AppreciatorInputsRanges.InvestedAmount.Minimum, AppreciatorInputsRanges.InvestedAmount.Maximum, 100 ) );
+        AddLabelAndControl( inputsTableLayout, 1,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.InitialAge )],
+            CreateNumericUpDown( AppreciatorInputsInitialValues.InitialAge,
+                AppreciatorInputsRanges.InitialAge.Minimum, AppreciatorInputsRanges.InitialAge.Maximum, 1 ) );
+        AddLabelAndControl( inputsTableLayout, 2,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.InvestmentDuration )],
+            CreateNumericUpDown( AppreciatorInputsInitialValues.InvestmentDuration,
+                AppreciatorInputsRanges.InvestmentDuration.Minimum, AppreciatorInputsRanges.InvestmentDuration.Maximum, 1 ) );
+        AddLabelAndControl( inputsTableLayout, 3,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.InitialFederalTaxRate )],
+            CreateNumericUpDown( AppreciatorInputsInitialValues.InitialFederalTaxRate,
+                AppreciatorInputsRanges.InitialFederalTaxRate.Minimum, AppreciatorInputsRanges.InitialFederalTaxRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 4,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.WithdrawalFederalTaxRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.WithdrawalFederalTaxRate, AppreciatorInputsRanges.WithdrawalFederalTaxRate.Minimum, AppreciatorInputsRanges.WithdrawalFederalTaxRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 5,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.InitialStateTaxRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.InitialStateTaxRate, AppreciatorInputsRanges.InitialStateTaxRate.Minimum, AppreciatorInputsRanges.InitialStateTaxRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 6,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.WithdrawalStateTaxRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.WithdrawalStateTaxRate, AppreciatorInputsRanges.WithdrawalStateTaxRate.Minimum, AppreciatorInputsRanges.WithdrawalStateTaxRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 7,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.FederalCapitalGainsTaxRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.FederalCapitalGainsTaxRate, AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Minimum, AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 8,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.StateCapitalGainsTaxRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.StateCapitalGainsTaxRate, AppreciatorInputsRanges.StateCapitalGainsTaxRate.Minimum, AppreciatorInputsRanges.StateCapitalGainsTaxRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 9,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.AnnualInflationRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.AnnualInflationRate, AppreciatorInputsRanges.AnnualInflationRate.Minimum, AppreciatorInputsRanges.AnnualInflationRate.Maximum, 0.1m ) );
+        AddLabelAndControl( inputsTableLayout, 10,
+            AppreciatorReportBuilder.Titles[nameof( Appreciator.AnnualGrowthRate )],
+                CreateNumericUpDown( AppreciatorInputsInitialValues.AnnualGrowthRate, AppreciatorInputsRanges.AnnualGrowthRate.Minimum, AppreciatorInputsRanges.AnnualGrowthRate.Maximum, 0.1m ) );
 
         // Buttons panel
         FlowLayoutPanel buttonPanel = new()
@@ -70,16 +98,40 @@ public partial class Form1 : Form
         buttonPanel.Controls.Add( resetButton );
 
         // Results text box
-        Label resultsLabel = new()
+        this._resultsLabel = new()
         {
             Text = "Results:",
             Dock = DockStyle.Top,
-            Height = 25,
-            Font = new Font( this.Font.FontFamily, 10, FontStyle.Bold )
+            Height = 725,
+            Font = new Font( "Consolas", 10, FontStyle.Bold ),
+            BorderStyle = BorderStyle.FixedSingle,
+            ScrollBars = ScrollBars.Both,
+            Multiline = true,
+            ReadOnly = true,
         };
 
-        this.Controls.Add( tableLayout );
-        this.Controls.Add( buttonPanel );
+        TableLayoutPanel controlsTableLayout = new()
+        {
+            Dock = DockStyle.Fill,
+            ColumnCount = 3,
+            RowCount = 3,
+            AutoSize = true,
+            Padding = new Padding( 10 )
+        };
+
+        // Configure column styles
+        _ = controlsTableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Absolute, 10 ) );
+        _ = controlsTableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 100 ) );
+        _ = controlsTableLayout.ColumnStyles.Add( new ColumnStyle( SizeType.Absolute, 10 ) );
+
+        _ = controlsTableLayout.RowStyles.Add( new RowStyle( SizeType.Percent, 100 ) );
+        _ = controlsTableLayout.RowStyles.Add( new RowStyle( SizeType.AutoSize, inputsTableLayout.Height ) );
+        _ = controlsTableLayout.RowStyles.Add( new RowStyle( SizeType.AutoSize, buttonPanel.Height ) );
+
+        controlsTableLayout.Controls.Add( this._resultsLabel, 1, 0 );
+        controlsTableLayout.Controls.Add( inputsTableLayout, 1, 1 );
+        controlsTableLayout.Controls.Add( buttonPanel, 1, 2 );
+        this.Controls.Add( controlsTableLayout );
     }
 
     private static void AddLabelAndControl( TableLayoutPanel table, int row, string labelText, NumericUpDown control )
@@ -88,7 +140,7 @@ public partial class Form1 : Form
         {
             Text = labelText,
             Dock = DockStyle.Fill,
-            TextAlign = ContentAlignment.MiddleLeft
+            TextAlign = ContentAlignment.MiddleRight
         };
 
         table.Controls.Add( label, 0, row );
@@ -121,58 +173,82 @@ public partial class Form1 : Form
             }
 
             // Extract values
-            double principal = ( double ) controls[0].Value;
+            double investedAmount = ( double ) controls[0].Value;
             int initialAge = ( int ) controls[1].Value;
-            int years = ( int ) controls[2].Value;
-            double presentFederalTaxRate = ( double ) controls[3].Value;
-            double futureFederalTaxRate = ( double ) controls[4].Value;
-            double presentStateTaxRate = ( double ) controls[5].Value;
-            double futureStateTaxRate = ( double ) controls[6].Value;
-            double capitalGainsTaxRate = ( double ) controls[7].Value;
-            double inflationRate = ( double ) controls[8].Value;
-            double annualReturn = ( double ) controls[9].Value;
+            int investmentDuration = ( int ) controls[2].Value;
+            double initialFederalTaxRate = ( double ) controls[3].Value;
+            double withdrawalFederalTaxRate = ( double ) controls[4].Value;
+            double initialStateTaxRate = ( double ) controls[5].Value;
+            double withdrawalStateTaxRate = ( double ) controls[6].Value;
+            double federalCapitalGainsTaxRate = ( double ) controls[7].Value;
+            double stateCapitalGainsTaxRate = ( double ) controls[8].Value;
+            double annualInflationRate = ( double ) controls[9].Value;
+            double annualGrownthRate = ( double ) controls[10].Value;
 
             // Validate all inputs
             List<string> validationErrors = AppreciatorInputValidator.ValidateInputs(
-                principal, initialAge, years,
-                presentFederalTaxRate, futureFederalTaxRate,
-                presentStateTaxRate, futureStateTaxRate,
-                capitalGainsTaxRate, inflationRate, annualReturn );
+                investedAmount, initialAge, investmentDuration,
+                initialFederalTaxRate, withdrawalFederalTaxRate,
+                initialStateTaxRate, withdrawalStateTaxRate,
+                federalCapitalGainsTaxRate, stateCapitalGainsTaxRate,
+                annualInflationRate, annualGrownthRate );
 
             if ( validationErrors.Count > 0 )
             {
-                string errorMessage = "Please correct the following validation errors:\n\n" + string.Join( "\n", validationErrors );
+                string errorMessage = "Please correct the following validation errors:\n\n" +
+                    string.Join( "\n", validationErrors );
                 _ = MessageBox.Show( errorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return;
+            }
+
+            if ( this._resultsLabel != null )
+            {
+                this._resultsLabel.Text = "Calculating...";
+            }
+            else
+            {
+                string errorMessage = "Results label not initialized.";
+                _ = MessageBox.Show( errorMessage, "Construction Error", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return;
             }
 
             // Create appreciator and perform calculation
             this._appreciator = new Appreciator
             {
-                Principal = principal,
+                InvestedAmount = investedAmount,
                 InitialAge = initialAge,
-                Years = years,
-                PresentFederalTaxRate = presentFederalTaxRate,
-                FutureFederalTaxRate = futureFederalTaxRate,
-                PresentStateTaxRate = presentStateTaxRate,
-                FutureStateTaxRate = futureStateTaxRate,
-                CapitalGainsTaxRate = capitalGainsTaxRate,
-                InflationRate = inflationRate,
-                AnnualReturn = annualReturn
+                InvestmentDuration = investmentDuration,
+                InitialFederalTaxRate = initialFederalTaxRate,
+                WithdrawalFederalTaxRate = withdrawalFederalTaxRate,
+                InitialStateTaxRate = initialStateTaxRate,
+                WithdrawalStateTaxRate = withdrawalStateTaxRate,
+                FederalCapitalGainsTaxRate = federalCapitalGainsTaxRate,
+                StateCapitalGainsTaxRate = stateCapitalGainsTaxRate,
+                AnnualInflationRate = annualInflationRate,
+                AnnualGrowthRate = annualGrownthRate
             };
 
             this._appreciator.CalculateFutureValue();
+            Dictionary<string, string> skipIraResult = AppreciatorReportBuilder.BuildSimpleCapitalInvestmentResult( this._appreciator );
+
             this._appreciator.CalculateFutureValueSepIraWithRmd( debug: false );
+            Dictionary<string, string> sepIraResult = AppreciatorReportBuilder.BuildSepIraInvestmentResult( this._appreciator );
+
+            string title = $"* Simple Investment vs. SEP IRA Comparison *";
+            string subtitle = $"-- from {this._appreciator.InitialAge} to {this._appreciator.FinalAge} at {this._appreciator.AnnualGrowthRate:F1}% growth rate --";
+            this._resultsLabel.Text = AppreciatorReportBuilder.BuildReport( title, subtitle,
+                    AppreciatorReportBuilder.BuildComparisonReport( skipIraResult, sepIraResult, true ), 1 );
 
             // Display results
-            _ = MessageBox.Show(
-                "Calculation completed successfully!\n\n" +
-                $"Principal: {this._appreciator.Principal:C0}\n" +
-                $"Account Balance: {this._appreciator.CapitalAccountBalance:C0}\n" +
-                $"Capital Gain: {this._appreciator.CapitalGain:C0}",
-                "Calculation Results",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information );
+            //_ = MessageBox.Show(
+            //    "Calculation completed successfully!\n\n" +
+            //    $"Invested Amount: {this._appreciator.InvestedAmount:C0}\n" +
+            //    $"Account Balance: {this._appreciator.CapitalAccountBalance + this._appreciator.SepIraAccountBalance:C0}\n" +
+            //    $"Capital Gain: {this._appreciator.CapitalGain:C0}\n" +
+            //    $"Cashout Value: {this._appreciator.NetCashOutValue:C0}",
+            //    "Calculation Results",
+            //    MessageBoxButtons.OK,
+            //    MessageBoxIcon.Information );
         }
         catch ( Exception ex )
         {
@@ -183,16 +259,17 @@ public partial class Form1 : Form
     private void ResetButton_Click( object? sender, EventArgs e )
     {
         List<NumericUpDown> controls = this.GetAllNumericControls();
-        controls[0].Value = 10000; // Principal
-        controls[1].Value = 75;    // Initial Age
-        controls[2].Value = 20;    // Years
-        controls[3].Value = 35;    // Present Federal Tax Rate
-        controls[4].Value = 35;    // Future Federal Tax Rate
-        controls[5].Value = ( decimal ) 9.3;  // Present State Tax Rate
-        controls[6].Value = ( decimal ) 9.3;  // Future State Tax Rate
-        controls[7].Value = 25;    // Capital Gains Tax Rate
-        controls[8].Value = ( decimal ) 2.75; // Inflation Rate
-        controls[9].Value = 7;     // Annual Return
+        controls[0].Value = ( decimal ) AppreciatorInputsInitialValues.InvestedAmount;
+        controls[1].Value = AppreciatorInputsInitialValues.InitialAge;
+        controls[2].Value = AppreciatorInputsInitialValues.InvestmentDuration;
+        controls[3].Value = ( decimal ) AppreciatorInputsInitialValues.InitialFederalTaxRate;
+        controls[4].Value = ( decimal ) AppreciatorInputsInitialValues.WithdrawalFederalTaxRate;
+        controls[5].Value = ( decimal ) AppreciatorInputsInitialValues.InitialStateTaxRate;
+        controls[6].Value = ( decimal ) AppreciatorInputsInitialValues.WithdrawalStateTaxRate;
+        controls[7].Value = ( decimal ) AppreciatorInputsInitialValues.FederalCapitalGainsTaxRate;
+        controls[8].Value = ( decimal ) AppreciatorInputsInitialValues.StateCapitalGainsTaxRate;
+        controls[9].Value = ( decimal ) AppreciatorInputsInitialValues.AnnualInflationRate;
+        controls[10].Value = ( decimal ) AppreciatorInputsInitialValues.AnnualGrowthRate;
     }
 
     private List<NumericUpDown> GetAllNumericControls()
@@ -204,9 +281,15 @@ public partial class Form1 : Form
             {
                 foreach ( Control child in tableLayout.Controls )
                 {
-                    if ( child is NumericUpDown numericUpDown )
+                    if ( child is TableLayoutPanel nestedTableLayout )
                     {
-                        numericControls.Add( numericUpDown );
+                        foreach ( Control nestedChild in nestedTableLayout.Controls )
+                        {
+                            if ( nestedChild is NumericUpDown numericUpDown )
+                            {
+                                numericControls.Add( numericUpDown );
+                            }
+                        }
                     }
                 }
             }

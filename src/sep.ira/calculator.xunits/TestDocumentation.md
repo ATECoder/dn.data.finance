@@ -8,14 +8,14 @@ This document describes the comprehensive unit test suite for the SEP-IRA Calcul
 
 - **Project**: `cc.isr.Finance.Sep.Ira.Calculator.XUnits`
 - **Framework**: .NET 10.0-windows
-- **Testing Framework**: xUnit 2.9.3
+- **Testing Framework**: xUnit 3.2.2
 - **Test Class**: `InputValidatorTests`
 - **Test Count**: 45 tests, all passing ✅
 
 ## Test Validation Logic
 
 The tests validate the `AppreciatorInputValidator.ValidateInputs()` static method which checks:
-- Principal amount
+- InvestedAmount amount
 - Initial age
 - Investment duration (years)
 - Tax rates (federal and state, present and future)
@@ -25,40 +25,40 @@ The tests validate the `AppreciatorInputValidator.ValidateInputs()` static metho
 
 ## Test Categories
 
-### 1. Principal Validation Tests (5 tests)
+### 1. InvestedAmount Validation Tests (5 tests)
 
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
-| `ValidateInputsWithValidPrincipalNoErrors` | Valid principal | 50,000 | No errors |
-| `ValidateInputsWithZeroPrincipalReturnsError` | Zero principal | 0 | Error: Principal must be > $0 |
-| `ValidateInputsWithNegativePrincipalReturnsError` | Negative principal | -1,000 | Error: Principal must be > $0 |
-| `ValidateInputsWithExcessivelyHighPrincipalReturnsError` | Excessive principal | 11,000,000 | Error: Exceeds $10,000,000 limit |
-| `ValidateInputsWithMaximumPrincipalNoErrors` | Maximum valid principal | 10,000,000 | No errors |
+| `ValidateInputsWithValidInvestedAmountNoErrors` | Valid investedAmount | 50,000 | No errors |
+| `ValidateInputsWithZeroInvestedAmountReturnsError` | Zero investedAmount | 0 | Error: Invested amount must be > $0 |
+| `ValidateInputsWithNegativeInvestedAmountReturnsError` | Negative investedAmount | -1,000 | Error: Invested amount must be > $0 |
+| `ValidateInputsWithExcessivelyHighInvestedAmountReturnsError` | Excessive investedAmount | 11,000,000 | Error: Exceeds $1,000,000 limit |
+| `ValidateInputsWithMaximumInvestedAmountNoErrors` | Maximum valid investedAmount | 1,000,000 | No errors |
 
-**Range**: $1 to $10,000,000
+**Range**: $1 to $1,000,000
 
-### 2. Age Validation Tests (6 tests)
+### 2. Initial Age Validation Tests (6 tests)
 
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
-| `ValidateInputsWithValidAgeNoErrors` | Valid age | 50 | No errors |
-| `ValidateInputsWithAgeBelowMinimumReturnsError` | Below minimum | 17 | Error: Must be ≥ 18 |
-| `ValidateInputsWithMinimumAgeNoErrors` | Minimum valid | 18 | No errors |
-| `ValidateInputsWithAgeAboveMaximumReturnsError` | Above maximum | 121 | Error: Cannot exceed 120 |
-| `ValidateInputsWithAgeYearsCombinationExceeding150ReturnsError` | Age + Years > 150 | Age 100, Years 51 | Error: Results in age > 150 |
-| `ValidateInputsWithAgeYearsCombinationAt150NoErrors` | Age + Years = 150 | Age 100, Years 50 | No errors |
+| `ValidateInputsWithValidInitialAgeNoErrors` | Valid age | 50 | No errors |
+| `ValidateInputsWithInitialAgeBelowMinimumReturnsError` | Below minimum | 17 | Error: Must be ≥ 18 |
+| `ValidateInputsWithMinimumInitialAgeNoErrors` | Minimum valid | 18 | No errors |
+| `ValidateInputsWithFinalAgeAboveMaximumReturnsError` | Above maximum | 121 | Error: Cannot exceed 120 |
+| `    public void ValidateInputsWithFinalAgeAtMaxNoErrors()` | InitialAge + InvestmentDuration > 120 | InitialAge 74, InvestmentDuration 47 | Error: Results in age > 120 |
+| `ValidateInputsWithFinalAgeAtMaxNoErrors` | FinalAge = 120 | InitialAge 74, InvestmentDuration 46 | No errors |
 
 **Range**: 18 to 120 years
-**Constraint**: Initial Age + Years ≤ 150
+**Constraint**: Initial Age + InvestmentDuration ≤ 120
 
-### 3. Years (Duration) Validation Tests (4 tests)
+### 3. InvestmentDuration (Duration) Validation Tests (4 tests)
 
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
-| `ValidateInputsWithZeroYearsReturnsError` | Zero years | 0 | Error: Years must be > 0 |
-| `ValidateInputsWithNegativeYearsReturnsError` | Negative years | -5 | Error: Years must be > 0 |
-| `ValidateInputsWithYearsAboveMaximumReturnsError` | Above maximum | 101 | Error: Cannot exceed 100 |
-| `ValidateInputsWithMaximumYearsNoErrors` | Maximum valid | 100 | No errors |
+| `ValidateInputsWithZeroInvestmentDurationReturnsError` | Zero years | 0 | Error: InvestmentDuration must be > 0 |
+| `ValidateInputsWithNegativeInvestmentDurationReturnsError` | Negative years | -5 | Error: InvestmentDuration must be > 0 |
+| `ValidateInputsWithInvestmentDurationAboveMaximumReturnsError` | Above maximum | 101 | Error: Cannot exceed 100 |
+| `ValidateInputsWithMaximumInvestmentDurationNoErrors` | Maximum valid | 100 | No errors |
 
 **Range**: 1 to 100 years
 
@@ -68,17 +68,11 @@ The tests validate the `AppreciatorInputValidator.ValidateInputs()` static metho
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
 | `ValidateInputsWithValidTaxRatesNoErrors` | Valid rates | 35%, 35%, 9.3%, 9.3%, 25% | No errors |
-| `ValidateInputsWithNegativePresentFederalTaxRateReturnsError` | Negative rate | -0.1% | Error: Must be 0-100% |
-| `ValidateInputsWithExcessiveFutureFederalTaxRateReturnsError` | Excessive rate | 100.1%, 150% | Error: Must be 0-100% |
-| `ValidateInputsWithNegativePresentStateTaxRateReturnsError` | Negative state tax | -0.1% | Error: Must be 0-100% |
-| `ValidateInputsWithNegativeCapitalGainsTaxRateReturnsError` | Negative cap gains tax | -50% | Error: Must be 0-100% |
-
-#### Combined Tax Rate Validation (2 tests)
-| Test Name | Purpose | Input | Expected Result |
-|-----------|---------|-------|-----------------|
-| `ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError` | Fed + State > 100% | 60% + 50% | Error: Combined > 100% |
-| `ValidateInputsWithCombinedFutureTaxRateExceeding100ReturnsError` | Future combined > 100% | 60% + 50% | Error: Combined > 100% |
-| `ValidateInputsWithCombinedTaxRatesAt100NoErrors` | Combined = 100% | 60% + 40% | No errors |
+| `ValidateInputsWithNegativeInitialFederalTaxRateReturnsError` | Negative rate | -0.1% | Error: Must be 0-100% |
+| `ValidateInputsWithExcessiveWithdrawalFederalTaxRateReturnsError` | Excessive rate | 100.1%, 150% | Error: Must be 0-100% |
+| `ValidateInputsWithNegativeInitialStateTaxRateReturnsError` | Negative state tax | -0.1% | Error: Must be 0-100% |
+| `ValidateInputsWithNegativeFederalCapitalGainsTaxRateReturnsError` | Negative cap gains tax | -50% | Error: Must be 0-100% |
+| `ValidateInputsWithNegativeStateCapitalGainsTaxRateReturnsError` | Negative cap gains tax | -50% | Error: Must be 0-100% |
 
 #### Edge Cases
 | Test Name | Purpose | Input | Expected Result |
@@ -90,66 +84,65 @@ The tests validate the `AppreciatorInputValidator.ValidateInputs()` static metho
 
 ### 5. Economic Rates Validation Tests (8 tests)
 
-#### Inflation Rate (4 tests)
+#### Annual Inflation Rate (4 tests)
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
 | `ValidateInputsWithValidInflationRateNoErrors` | Valid inflation | 2.75% | No errors |
 | `ValidateInputsWithInflationRateBelowMinimumReturnsError` | Below minimum | -10.1%, -50% | Error: Must be -10% to 50% |
 | `ValidateInputsWithInflationRateAboveMaximumReturnsError` | Above maximum | 50.1%, 100% | Error: Must be -10% to 50% |
 
-#### Annual Return (4 tests)
+#### Annual Growth Rate (4 tests)
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
-| `ValidateInputsWithValidAnnualReturnNoErrors` | Valid return | 7% | No errors |
-| `ValidateInputsWithAnnualReturnBelowMinimumReturnsError` | Below minimum | -50.1%, -100% | Error: Must be -50% to 100% |
-| `ValidateInputsWithAnnualReturnAboveMaximumReturnsError` | Above maximum | 100.1%, 150% | Error: Must be -50% to 100% |
+| `ValidateInputsWithValidAnnualGrowthRageNoErrors` | Valid return | 7% | No errors |
+| `ValidateInputsWithAnnualGrowthRageBelowMinimumReturnsError` | Below minimum | -50.1%, -100% | Error: Must be -50% to 100% |
+| `ValidateInputsWithAnnualGrowthRageAboveMaximumReturnsError` | Above maximum | 100.1%, 150% | Error: Must be -50% to 100% |
 | `ValidateInputsWithNegativeReturnNoErrors` | Negative return | -10% | No errors (allows market downturns) |
 
 **Ranges**:
 - Inflation Rate: -10% to 50% (allows deflation scenarios)
-- Annual Return: -50% to 100% (allows market downturns)
+- Annual Growth Rate: -50% to 100% (allows market downturns)
 
 ### 6. Multiple Errors Test (1 test)
 
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
-| `ValidateInputsWithMultipleErrors_ReturnsAllErrors` | Multiple violations | Principal -1000, Age 17, Years 0, Tax Rate 150%, Inflation -50%, Return 150% | Returns ≥4 error messages |
+| `ValidateInputsWithMultipleErrors_ReturnsAllErrors` | Multiple violations | InvestedAmount -1000, InitialAge 17, InvestmentDuration 0, Tax Rate 150%, Inflation -50%, Return 150% | Returns ≥4 error messages |
 
 ### 7. Edge Case Tests (4 tests)
 
 | Test Name | Purpose | Input | Expected Result |
 |-----------|---------|-------|-----------------|
-| `ValidateInputsWithMinimumValidInputsNoErrors` | Minimum boundaries | Principal $1, Age 18, Years 1, Rates 0%, Econ -10%, -50% | No errors |
-| `ValidateInputsWithMaximumValidInputsNoErrors` | Maximum boundaries | Principal $10M, Age 120, Years 30, Rates 100%/0%, Econ 50%, 100% | No errors |
+| `ValidateInputsWithMinimumValidInputsNoErrors` | Minimum boundaries | InvestedAmount $1, InitialAge 18, InvestmentDuration 1, Rates 0%, Econ -10%, -50% | No errors |
+| `ValidateInputsWithMaximumValidInputsNoErrors` | Maximum boundaries | InvestedAmount $10M, InitialAge 120, InvestmentDuration 30, Rates 100%/0%, Econ 50%, 100% | No errors |
 | `ValidateInputsWithAllZeroTaxRatesNoErrors` | All zeroes | All tax rates 0% | No errors |
 | `ValidateInputsWithAllMaximumTaxRatesNoErrors` | All maxima | Federal 100%, State 0%, Cap Gains 100% | No errors |
 
 ## Validation Rules Summary
 
-### Principal
-- **Valid Range**: > $0 and ≤ $10,000,000
+### InvestedAmount
+- **Valid Range**: > $0 and ≤ $1,000,000
 - **Errors**: Zero, negative, or exceeds limit
 
-### Age
+### InitialAge
 - **Valid Range**: 18 to 120 years
-- **Constraint**: Age + Years ≤ 150
-- **Errors**: Below 18, above 120, or combination exceeds 150
+- **Constraint**: InitialAge + InvestmentDuration ≤ 120
+- **Errors**: Below 18, above 120, or combination exceeds 120
 
-### Years
-- **Valid Range**: > 0 and ≤ 100
-- **Errors**: Zero, negative, or exceeds 100
+### InvestmentDuration
+- **Valid Range**: > 0 and ≤ 1020
+- **Errors**: Zero, negative, or exceeds 102
 
 ### Tax Rates (all)
-- **Valid Range**: 0% to 100% individually
-- **Combined Constraint**: Present Federal + Present State ≤ 100%, Future Federal + Future State ≤ 100%
-- **Errors**: Negative, exceeds 100%, or combined exceeds 100%
+- **Valid Range**
+- **Errors**: Negative, exceeds maximum
 
 ### Inflation Rate
 - **Valid Range**: -10% to 50%
 - **Errors**: Below -10% or above 50%
 - **Note**: Allows deflation and high inflation scenarios
 
-### Annual Return
+### Annual Growth Rate
 - **Valid Range**: -50% to 100%
 - **Errors**: Below -50% or above 100%
 - **Note**: Allows for market downturns and strong gains

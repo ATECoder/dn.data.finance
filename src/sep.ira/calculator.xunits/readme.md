@@ -8,25 +8,24 @@ This project contains comprehensive unit tests for the SEP-IRA Calculator librar
 
 - **Total Tests**: 45
 - **Pass Rate**: 100% ✅
-- **Test Framework**: xUnit 2.9.3
+- **Test Framework**: xUnit 3.2.2
 - **Target Framework**: .NET 10.0
 
 ## Test Organization
 
 ### Test Categories
 
-1. **Principal Validation** (5 tests)
-   - Zero, negative, valid, and excessive principal amounts
+1. **InvestedAmount Validation** (5 tests)
+   - Zero, negative, valid, and excessive investedAmount amounts
 
-2. **Age Validation** (6 tests)
+2. **Initial Age Validation** (6 tests)
    - Minimum (18), maximum (120), and combined age+years constraints
 
-3. **Years Validation** (4 tests)
+3. **Investment Duration Validation** (4 tests)
    - Zero, negative, valid, and maximum (100) duration tests
 
 4. **Tax Rate Validation** (12 tests)
-   - Individual rate bounds (0-100%)
-   - Combined rate constraints (Federal + State ≤ 100%)
+   - Individual rate bounds
    - All tax types: Federal, State, Capital Gains
 
 5. **Economic Rates Validation** (8 tests)
@@ -77,19 +76,19 @@ The validation logic is isolated in a static `AppreciatorInputValidator` class f
 
 | Field | Min | Max | Notes |
 |-------|-----|-----|-------|
-| Principal | $1 | $10M | Currency |
-| Initial Age | 18 | 120 | Years |
-| Years | 1 | 100 | Investment duration |
+| Invested Amount | $1 | $10M | Currency |
+| Initial Age | 18 | 120 | InvestmentDuration |
+| Investment Duration | 1 | 102 | Investment duration |
 | Tax Rates | 0% | 100% | Individual; combined ≤ 100% |
-| Inflation Rate | -10% | 50% | Allows deflation |
-| Annual Return | -50% | 100% | Allows downturns |
+| Annual Inflation Rate | -10% | 50% | Allows deflation |
+| Annual Growth Rate | -50% | 100% | Allows downturns |
 
 ## Test Patterns
 
 ### Basic Validation Test
 ```csharp
 [Fact]
-public void ValidateInputsWithValidPrincipalNoErrors()
+public void ValidateInputsWithValidInvestedAmountNoErrors()
 {
     // Arrange & Act
     var errors = AppreciatorInputValidator.ValidateInputs(50000, 50, 20, ...);
@@ -102,14 +101,14 @@ public void ValidateInputsWithValidPrincipalNoErrors()
 ### Error Detection Test
 ```csharp
 [Fact]
-public void ValidateInputsWithZeroPrincipalReturnsError()
+public void ValidateInputsWithZeroInvestedAmountReturnsError()
 {
     // Arrange & Act
     var errors = AppreciatorInputValidator.ValidateInputs(0, 50, 20, ...);
 
     // Assert
     Assert.Single(errors);
-    Assert.Contains("Principal must be greater than $0", errors[0]);
+    Assert.Contains("Invested amount must be greater than $0", errors[0]);
 }
 ```
 
@@ -132,7 +131,6 @@ The test suite provides comprehensive coverage of:
 - ✅ All validation boundaries
 - ✅ Minimum/maximum valid values
 - ✅ Just-outside-boundary invalid values
-- ✅ Combined constraint violations
 - ✅ Multiple simultaneous errors
 - ✅ Edge cases and special scenarios
 
@@ -151,20 +149,20 @@ These tests can be integrated into your build pipeline:
 
 ## Dependencies
 
-- **xunit**: 2.9.3 (Test framework)
-- **Microsoft.NET.Test.Sdk**: 17.14.1 (Test runner)
-- **xunit.runner.visualstudio**: 3.1.4 (VS integration)
-- **coverlet.collector**: 6.0.4 (Coverage analysis)
+- **xunit**: 3.2.2 (Test framework)
+- **Microsoft.NET.Test.Sdk**: 18.6.0 (Test runner)
+- **xunit.runner.visualstudio**: 3.1.5 (VS integration)
+- **coverlet.collector**: 10.0.1 (Coverage analysis)
 - **SepIraCalculatorForms**: Project reference
 
 ## File Structure
 
 ```
 cc.isr.Finance.Sep.Ira.Calculator.XUnits/
-├── AppreciatorTests.cs                    # 45 test cases
+├── AppreciatorTests.cs                              # 45 test cases
 ├── cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj  # Project file
-├── TestDocumentation.md           # Detailed test docs
-└── readme.md                       # This file
+├── TestDocumentation.md                             # Detailed test docs
+└── readme.md                                        # This file
 ```
 
 ## Continuous Testing

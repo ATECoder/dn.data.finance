@@ -6,12 +6,12 @@ This application calculates the future value of Capital invested in a SEP IRA ac
 
 Usage: 
 ```
-SepIraCalculator.exe InitialCapital InitialAge DurationInYears InitialFederalTaxRate WithdrawlFederalTaxRate InitialStateTaxRate WithdrawlStateTaxRate WithdrawlCapitalGainsTax InflationRate AverageInvestmentReturnRate
+SepIraCalculator.exe InitialCapital InitialAge DurationInYears InitialFederalTaxRate WithdrawalFederalTaxRate InitialStateTaxRate WithdrawalStateTaxRate FederalCapitalGainsTaxRate StateCapitalGainsTaxRate InflationRate AverageInvestmentReturnRate
 ```
 
 e.g., 
 ```
-SepIraCalculator.exe 50000 74 20 35.0 35.0 9.3 9.3 25.0 2.75 7.0"
+SepIraCalculator.exe 50000 74 20 35.0 35.0 9.3 9.3 25.0 9.3 2.75 7.0"
 ```
 
 ## Critical Financial Context

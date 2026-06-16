@@ -12,7 +12,7 @@
 ║  Execution Time:               53 ms       ║
 ║  Code Coverage:                100%        ║
 ║                                            ║
-║  Framework:         xUnit 2.9.3            ║
+║  Framework:         xUnit 3.2.2            ║
 ║  Target:            .NET 10.0-windows      ║
 ║  Test Project:      SepIraCalculatorForms  ║
 ║                     .Tests                 ║
@@ -24,15 +24,15 @@
 
 ### Distribution Chart
 ```
-Principal Validation       ████████░░░░░░░░░░  5 tests (11%)
-Age Validation             ██████████░░░░░░░░  6 tests (13%)
-Years Validation           ████░░░░░░░░░░░░░░  4 tests (9%)
-Tax Rate Validation        ████████████░░░░░░  12 tests (27%)
-Economic Rates Validation  ██████████░░░░░░░░  8 tests (18%)
-Multiple Errors Test       ██░░░░░░░░░░░░░░░░  1 test (2%)
-Edge Cases                 ████░░░░░░░░░░░░░░  4 tests (9%)
-                           ══════════════════════
-                           Total: 45 tests
+InvestedAmount Validation      ████████░░░░░░░░░░  5 tests (11%)
+Initial Age Validation         ██████████░░░░░░░░  6 tests (13%)
+Investment Duration Validation ████░░░░░░░░░░░░░░  4 tests (9%)
+Tax Rate Validation            ████████████░░░░░░  12 tests (27%)
+Economic Rates Validation      ██████████░░░░░░░░  8 tests (18%)
+Multiple Errors Test           ██░░░░░░░░░░░░░░░░  1 test (2%)
+Edge Cases                     ████░░░░░░░░░░░░░░  4 tests (9%)
+                               ══════════════════════
+                               Total: 45 tests
 ```
 
 ## ✅ Test Results Matrix
@@ -43,9 +43,9 @@ Edge Cases                 ████░░░░░░░░░░░░░�
 ╠═══════════════════════════════════════════════════════╣
 ║ Category                          Tests  Passed  Fail ║
 ╠═══════════════════════════════════════════════════════╣
-║ Principal Validation                5      5     ✓    ║
-║ Age Validation                      6      6     ✓    ║
-║ Years Validation                    4      4     ✓    ║
+║ InvestedAmount Validation           5      5     ✓    ║
+║ Initial Age Validation              6      6     ✓    ║
+║ Investment Duration Validation      4      4     ✓    ║
 ║ Tax Rate Validation                12     12     ✓    ║
 ║ Economic Rates Validation           8      8     ✓    ║
 ║ Multiple Errors Tests               1      1     ✓    ║
@@ -58,45 +58,43 @@ Edge Cases                 ████░░░░░░░░░░░░░�
 ## 🧪 Individual Test Success Summary
 
 ```
-Principal Validation Tests (5/5 ✅)
-├─ ✅ ValidateInputsWithValidPrincipalNoErrors
-├─ ✅ ValidateInputsWithZeroPrincipalReturnsError
-├─ ✅ ValidateInputsWithNegativePrincipalReturnsError
-├─ ✅ ValidateInputsWithExcessivelyHighPrincipalReturnsError
-└─ ✅ ValidateInputsWithMaximumPrincipalNoErrors
+InvestedAmount Validation Tests (5/5 ✅)
+├─ ✅ ValidateInputsWithValidInvestedAmountNoErrors
+├─ ✅ ValidateInputsWithZeroInvestedAmountReturnsError
+├─ ✅ ValidateInputsWithNegativeInvestedAmountReturnsError
+├─ ✅ ValidateInputsWithExcessivelyHighInvestedAmountReturnsError
+└─ ✅ ValidateInputsWithMaximumInvestedAmountNoErrors
 
-Age Validation Tests (6/6 ✅)
-├─ ✅ ValidateInputsWithValidAgeNoErrors
-├─ ✅ ValidateInputsWithAgeBelowMinimumReturnsError
-├─ ✅ ValidateInputsWithMinimumAgeNoErrors
-├─ ✅ ValidateInputsWithAgeAboveMaximumReturnsError
-├─ ✅ ValidateInputsWithAgeYearsCombinationExceeding150ReturnsError
-└─ ✅ ValidateInputsWithAgeYearsCombinationAt150NoErrors
+Initial Age Validation Tests (6/6 ✅)
+├─ ✅ ValidateInputsWithValidInitialAgeNoErrors
+├─ ✅ ValidateInputsWithInitialAgeBelowMinimumReturnsError
+├─ ✅ ValidateInputsWithMinimumInitialAgeNoErrors
+├─ ✅ ValidateInputsWithInitialAgeAboveMaximumReturnsError
+├─ ✅ ValidateInputsWithInitialAgeInvestmentDurationCombinationExceeding150ReturnsError
+└─ ✅ ValidateInputsWithFinalAgeAtMaxNoErrors
 
-Years Validation Tests (4/4 ✅)
-├─ ✅ ValidateInputsWithZeroYearsReturnsError
-├─ ✅ ValidateInputsWithNegativeYearsReturnsError
-├─ ✅ ValidateInputsWithYearsAboveMaximumReturnsError
-└─ ✅ ValidateInputsWithMaximumYearsNoErrors
+Investment Duration Validation Tests (4/4 ✅)
+├─ ✅ ValidateInputsWithZeroInvestmentDurationReturnsError
+├─ ✅ ValidateInputsWithNegativeInvestmentDurationReturnsError
+├─ ✅ ValidateInputsWithInvestmentDurationAboveMaximumReturnsError
+└─ ✅ ValidateInputsWithMaximumInvestmentDurationNoErrors
 
-Tax Rate Validation Tests (12/12 ✅)
+Tax Rate Validation Tests (14/14 ✅)
 ├─ ✅ ValidateInputsWithValidTaxRatesNoErrors
-├─ ✅ ValidateInputsWithNegativePresentFederalTaxRateReturnsError(x2)
-├─ ✅ ValidateInputsWithExcessiveFutureFederalTaxRateReturnsError(x2)
-├─ ✅ ValidateInputsWithNegativePresentStateTaxRateReturnsError(x2)
-├─ ✅ ValidateInputsWithNegativeFutureStateTaxRateReturnsError(x2)
-├─ ✅ ValidateInputsWithNegativeCapitalGainsTaxRateReturnsError(x2)
-├─ ✅ ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError
-├─ ✅ ValidateInputsWithCombinedFutureTaxRateExceeding100ReturnsError
-└─ ✅ ValidateInputsWithCombinedTaxRatesAt100NoErrors
+├─ ✅ ValidateInputsWithNegativeInitialFederalTaxRateReturnsError(x2)
+├─ ✅ ValidateInputsWithExcessiveWithdrawalFederalTaxRateReturnsError(x2)
+├─ ✅ ValidateInputsWithNegativeInitialStateTaxRateReturnsError(x2)
+├─ ✅ ValidateInputsWithNegativeWithdrawalStateTaxRateReturnsError(x2)
+├─ ✅ ValidateInputsWithNegativeFederalCapitalGainsTaxRateReturnsError(x2)
+├─ ✅ ValidateInputsWithNegativeStateCapitalGainsTaxRateReturnsError(x2)
 
 Economic Rates Validation Tests (8/8 ✅)
 ├─ ✅ ValidateInputsWithValidInflationRateNoErrors
 ├─ ✅ ValidateInputsWithInflationRateBelowMinimumReturnsError(x2)
 ├─ ✅ ValidateInputsWithInflationRateAboveMaximumReturnsError(x2)
-├─ ✅ ValidateInputsWithValidAnnualReturnNoErrors
-├─ ✅ ValidateInputsWithAnnualReturnBelowMinimumReturnsError(x2)
-├─ ✅ ValidateInputsWithAnnualReturnAboveMaximumReturnsError(x2)
+├─ ✅ ValidateInputsWithValidAnnualGrowthRageNoErrors
+├─ ✅ ValidateInputsWithAnnualGrowthRageBelowMinimumReturnsError(x2)
+├─ ✅ ValidateInputsWithAnnualGrowthRageAboveMaximumReturnsError(x2)
 └─ ✅ ValidateInputsWithNegativeReturnNoErrors
 
 Multiple Errors Tests (1/1 ✅)
@@ -130,15 +128,14 @@ Performance Grade:        🟢 EXCELLENT
 Input Validation Coverage Matrix
 ═════════════════════════════════════════════════════
 
-Principal                 ████████████ 100% ✅
-Age                       ████████████ 100% ✅
-Years                     ████████████ 100% ✅
+InvestedAmount            ████████████ 100% ✅
+InitialAge                ████████████ 100% ✅
+InvestmentDuration        ████████████ 100% ✅
 Tax Rates (Federal)       ████████████ 100% ✅
 Tax Rates (State)         ████████████ 100% ✅
 Tax Rates (Capital Gains) ████████████ 100% ✅
-Tax Rates (Combined)      ████████████ 100% ✅
-Inflation Rate            ████████████ 100% ✅
-Annual Return             ████████████ 100% ✅
+Annual Inflation Rate     ████████████ 100% ✅
+Annual Growth Rate        ████████████ 100% ✅
 Boundary Conditions       ████████████ 100% ✅
 Edge Cases                ████████████ 100% ✅
 Multiple Errors           ████████████ 100% ✅
@@ -180,11 +177,11 @@ Test run for cc.isr.Finance.Sep.Ira.Calculator.XUnits.dll (.NETCoreApp,Version=v
 A total of 1 test files matched the specified pattern.
 
 [xUnit.net 00:00:00.00] Starting:    cc.isr.Finance.Sep.Ira.Calculator.XUnits
-[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithValidPrincipalNoErrors PASS
-[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithZeroPrincipalReturnsError PASS
-[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithNegativePrincipalReturnsError PASS
-[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithExcessivelyHighPrincipalReturnsError PASS
-[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithMaximumPrincipalNoErrors PASS
+[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithValidInvestedAmountNoErrors PASS
+[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithZeroInvestedAmountReturnsError PASS
+[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithNegativeInvestedAmountReturnsError PASS
+[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithExcessivelyHighInvestedAmountReturnsError PASS
+[xUnit.net 00:00:00.05]   ✅ ValidateInputsWithMaximumInvestedAmountNoErrors PASS
 ... (40 more tests) ...
 [xUnit.net 00:00:00.05]   Finished:    cc.isr.Finance.Sep.Ira.Calculator.XUnits
 
@@ -253,7 +250,7 @@ dotnet test --logger "console;verbosity=detailed"
 dotnet watch test
 
 # Run specific test
-dotnet test --filter "ValidateInputsWithValidPrincipalNoErrors"
+dotnet test --filter "ValidateInputsWithValidInvestedAmountNoErrors"
 
 # Run test class
 dotnet test --filter "InputValidatorTests"
@@ -278,19 +275,18 @@ dotnet test --filter "InputValidatorTests"
 Validation Logic Coverage
 ═════════════════════════════════════════
 
-Principal Validation      🟢🟢🟢🟢🟢 100% FULL
-Age Validation            🟢🟢🟢🟢🟢 100% FULL
-Years Validation          🟢🟢🟢🟢🟢 100% FULL
-Federal Tax Validation    🟢🟢🟢🟢🟢 100% FULL
-State Tax Validation      🟢🟢🟢🟢🟢 100% FULL
-Capital Gains Validation  🟢🟢🟢🟢🟢 100% FULL
-Combined Tax Validation   🟢🟢🟢🟢🟢 100% FULL
-Inflation Rate Validation 🟢🟢🟢🟢🟢 100% FULL
-Annual Return Validation  🟢🟢🟢🟢🟢 100% FULL
-Error Message Validation  🟢🟢🟢🟢🟢 100% FULL
-Edge Cases                🟢🟢🟢🟢🟢 100% FULL
+InvestedAmount Validation        🟢🟢🟢🟢🟢 100% FULL
+Initial Age Validation           🟢🟢🟢🟢🟢 100% FULL
+Investment Duration Validation   🟢🟢🟢🟢🟢 100% FULL
+Federal Tax Validation           🟢🟢🟢🟢🟢 100% FULL
+State Tax Validation             🟢🟢🟢🟢🟢 100% FULL
+Capital Gains Validation         🟢🟢🟢🟢🟢 100% FULL
+Annual Inflation Rate Validation 🟢🟢🟢🟢🟢 100% FULL
+Annual Growth Rate Validation    🟢🟢🟢🟢🟢 100% FULL
+Error Message Validation         🟢🟢🟢🟢🟢 100% FULL
+Edge Cases                       🟢🟢🟢🟢🟢 100% FULL
 
-TOTAL COVERAGE:           🟢🟢🟢🟢🟢 100% COMPLETE
+TOTAL COVERAGE:                  🟢🟢🟢🟢🟢 100% COMPLETE
 ```
 
 ---
@@ -298,5 +294,5 @@ TOTAL COVERAGE:           🟢🟢🟢🟢🟢 100% COMPLETE
 **Status**: ✅ **COMPLETE AND ALL TESTS PASSING**
 
 Generated: 2024
-Framework: xUnit 2.9.3
+Framework: xUnit 3.2.2
 Platform: .NET 10.0

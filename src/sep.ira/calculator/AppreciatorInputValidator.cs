@@ -6,136 +6,131 @@ public static class AppreciatorInputValidator
 {
     /// <summary>   Validates all calculator inputs and returns a list of validation errors. </summary>
     /// <remarks>   2026-06-11. </remarks>
-    /// <param name="principal">                The investment principal in dollars. </param>
-    /// <param name="initialAge">               The initial age in years. </param>
-    /// <param name="years">                    The investment duration in years. </param>
-    /// <param name="presentFederalTaxRate">    The present federal tax rate as a percentage. </param>
-    /// <param name="futureFederalTaxRate">     The future federal tax rate as a percentage. </param>
-    /// <param name="presentStateTaxRate">      The present state tax rate as a percentage. </param>
-    /// <param name="futureStateTaxRate">       The future state tax rate as a percentage. </param>
-    /// <param name="capitalGainsTaxRate">      The capital gains tax rate as a percentage. </param>
-    /// <param name="inflationRate">            The inflation rate as a percentage. </param>
-    /// <param name="annualReturn">             The annual return rate as a percentage. </param>
+    /// <param name="investedAmount">               The invested amount. </param>
+    /// <param name="initialAge">                   The initial age. </param>
+    /// <param name="investmentDuration">           Duration of the investment. </param>
+    /// <param name="initialFederalTaxRate">        The initial federal tax rate. </param>
+    /// <param name="withdrawalFederalTaxRate">      The withdrawal federal tax rate. </param>
+    /// <param name="initialStateTaxRate">          The initial state tax rate. </param>
+    /// <param name="withdrawalStateTaxRate">        The withdrawal state tax rate. </param>
+    /// <param name="federalCapitalGainsTaxRate">   The federal capital gains tax rate. </param>
+    /// <param name="stateCapitalGainsTaxRate">     The state capital gains tax rate. </param>
+    /// <param name="annualInflationRate">          The annual inflation rate. </param>
+    /// <param name="annualGrowthRate">             The annual growth rate. </param>
     /// <returns>   A list of validation error messages. Empty if all inputs are valid. </returns>
     public static List<string> ValidateInputs(
-        double principal, int initialAge, int years,
-        double presentFederalTaxRate, double futureFederalTaxRate,
-        double presentStateTaxRate, double futureStateTaxRate,
-        double capitalGainsTaxRate, double inflationRate, double annualReturn )
+        double investedAmount, int initialAge, int investmentDuration,
+        double initialFederalTaxRate, double withdrawalFederalTaxRate,
+        double initialStateTaxRate, double withdrawalStateTaxRate,
+        double federalCapitalGainsTaxRate, double stateCapitalGainsTaxRate,
+        double annualInflationRate, double annualGrowthRate )
     {
         List<string> errors = [];
 
-        // Principal validation
-        ValidatePrincipal( principal, errors );
+        // InvestedAmount validation
+        ValidateInvestedAmount( investedAmount, errors );
 
-        // Age validation
-        ValidateAge( initialAge, years, errors );
+        // InitialAge validation
+        ValidateInitialAge( initialAge, investmentDuration, errors );
 
-        // Years validation
-        ValidateYears( years, errors );
+        // InvestmentDuration validation
+        ValidateInvestmentDuration( investmentDuration, errors );
 
         // Tax rates validation
-        ValidateTaxRates( presentFederalTaxRate, futureFederalTaxRate, presentStateTaxRate, futureStateTaxRate, capitalGainsTaxRate, errors );
+        ValidateTaxRates( initialFederalTaxRate, withdrawalFederalTaxRate,
+            initialStateTaxRate, withdrawalStateTaxRate,
+            federalCapitalGainsTaxRate, stateCapitalGainsTaxRate, errors );
 
         // Economic rates validation
-        ValidateEconomicRates( inflationRate, annualReturn, errors );
+        ValidateEconomicRates( annualInflationRate, annualGrowthRate, errors );
 
         return errors;
     }
 
-    private static void ValidatePrincipal( double principal, List<string> errors )
+    private static void ValidateInvestedAmount( double investedAmount, List<string> errors )
     {
-        if ( principal <= 0 )
+        if ( investedAmount < AppreciatorInputsRanges.InvestedAmount.Minimum )
         {
-            errors.Add( "• Principal must be greater than $0." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )]} must be greater than {AppreciatorInputsRanges.InvestedAmount.Minimum:C0}." );
         }
-        if ( principal > 10_000_000 )
+        if ( investedAmount > AppreciatorInputsRanges.InvestedAmount.Maximum )
         {
-            errors.Add( "• Principal should not exceed $10,000,000 (unrealistic value)." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )]} should not exceed {AppreciatorInputsRanges.InvestedAmount.Maximum:C0}." );
         }
     }
 
-    private static void ValidateAge( int initialAge, int years, List<string> errors )
+    private static void ValidateInitialAge( int initialAge, int investmentDuration, List<string> errors )
     {
-        if ( initialAge < 18 )
+        if ( initialAge < AppreciatorInputsRanges.InitialAge.Minimum )
         {
-            errors.Add( "• Initial Age must be at least 18 years old." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )]} must be at least {AppreciatorInputsRanges.InitialAge.Minimum} years old." );
         }
-        if ( initialAge > 120 )
+        if ( initialAge > AppreciatorInputsRanges.InitialAge.Maximum )
         {
-            errors.Add( "• Initial Age should not exceed 120 years." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )]} should not exceed {AppreciatorInputsRanges.InitialAge.Maximum} years." );
         }
 
-        int maxAge = initialAge + years;
-        if ( maxAge > 150 )
+        int maxAge = initialAge + investmentDuration;
+        if ( maxAge > AppreciatorInputsRanges.FinalAge.Maximum )
         {
-            errors.Add( $"• The combination of Initial Age ({initialAge}) and Years ({years}) results in age {maxAge}, which exceeds 150 years." );
+            errors.Add( $"• The combination of {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )]} ({initialAge}) and {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )]} ({investmentDuration}) results in age {maxAge}, which exceeds {AppreciatorInputsRanges.FinalAge.Maximum:F0} years." );
         }
     }
 
-    private static void ValidateYears( int years, List<string> errors )
+    private static void ValidateInvestmentDuration( int investmentDuration, List<string> errors )
     {
-        if ( years <= 0 )
+        if ( investmentDuration < AppreciatorInputsRanges.InvestmentDuration.Minimum )
         {
-            errors.Add( "• Years must be greater than 0." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )]} must be greater than {AppreciatorInputsRanges.InvestmentDuration.Minimum}." );
         }
-        if ( years > 100 )
+        if ( investmentDuration > AppreciatorInputsRanges.InvestmentDuration.Maximum )
         {
-            errors.Add( "• Years should not exceed 100 (unrealistic duration)." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )]} should not exceed {AppreciatorInputsRanges.InvestmentDuration.Maximum}." );
         }
     }
 
     private static void ValidateTaxRates(
-        double presentFederalTaxRate, double futureFederalTaxRate,
-        double presentStateTaxRate, double futureStateTaxRate,
-        double capitalGainsTaxRate, List<string> errors )
+        double initialFederalTaxRate, double withdrawalFederalTaxRate,
+        double initialStateTaxRate, double withdrawalStateTaxRate,
+        double federalCapitalGainsTaxRate, double stateCapitalGainsTaxRate, List<string> errors )
     {
         // Individual rate validation
-        if ( presentFederalTaxRate is < 0 or > 100 )
+        if ( !AppreciatorInputsRanges.InitialFederalTaxRate.Contains( initialFederalTaxRate ) )
         {
-            errors.Add( "• Present Federal Tax Rate must be between 0% and 100%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialFederalTaxRate )]} must be between {AppreciatorInputsRanges.InitialFederalTaxRate.Minimum}% and {AppreciatorInputsRanges.InitialFederalTaxRate.Maximum}%." );
         }
-        if ( futureFederalTaxRate is < 0 or > 100 )
+        if ( !AppreciatorInputsRanges.WithdrawalFederalTaxRate.Contains( withdrawalFederalTaxRate ) )
         {
-            errors.Add( "• Future Federal Tax Rate must be between 0% and 100%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.WithdrawalFederalTaxRate )]} must be between {AppreciatorInputsRanges.WithdrawalFederalTaxRate.Minimum}% and {AppreciatorInputsRanges.WithdrawalFederalTaxRate.Maximum}%." );
         }
-        if ( presentStateTaxRate is < 0 or > 100 )
+        if ( !AppreciatorInputsRanges.InitialStateTaxRate.Contains( initialStateTaxRate ) )
         {
-            errors.Add( "• Present State Tax Rate must be between 0% and 100%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialStateTaxRate )]} must be between {AppreciatorInputsRanges.InitialStateTaxRate.Minimum}% and {AppreciatorInputsRanges.InitialStateTaxRate.Maximum}%." );
         }
-        if ( futureStateTaxRate is < 0 or > 100 )
+        if ( !AppreciatorInputsRanges.WithdrawalStateTaxRate.Contains( withdrawalStateTaxRate ) )
         {
-            errors.Add( "• Future State Tax Rate must be between 0% and 100%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.WithdrawalStateTaxRate )]} must be between {AppreciatorInputsRanges.WithdrawalStateTaxRate.Minimum}% and {AppreciatorInputsRanges.WithdrawalStateTaxRate.Maximum}%." );
         }
-        if ( capitalGainsTaxRate is < 0 or > 100 )
+        if ( !AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Contains( federalCapitalGainsTaxRate ) )
         {
-            errors.Add( "• Capital Gains Tax Rate must be between 0% and 100%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.FederalCapitalGainsTaxRate )]} must be between {AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Minimum}% and {AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Maximum}%." );
         }
-
-        // Combined tax rate validation
-        double combinedPresentTax = presentFederalTaxRate + presentStateTaxRate;
-        double combinedFutureTax = futureFederalTaxRate + futureStateTaxRate;
-
-        if ( combinedPresentTax > 100 )
+        if ( !AppreciatorInputsRanges.StateCapitalGainsTaxRate.Contains( stateCapitalGainsTaxRate ) )
         {
-            errors.Add( $"• Combined Present Tax Rate ({combinedPresentTax:F1}%) exceeds 100% (Present Federal {presentFederalTaxRate:F1}% + Present State {presentStateTaxRate:F1}%)." );
-        }
-        if ( combinedFutureTax > 100 )
-        {
-            errors.Add( $"• Combined Future Tax Rate ({combinedFutureTax:F1}%) exceeds 100% (Future Federal {futureFederalTaxRate:F1}% + Future State {futureStateTaxRate:F1}%)." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.StateCapitalGainsTaxRate )]} must be between {AppreciatorInputsRanges.StateCapitalGainsTaxRate.Minimum}% and {AppreciatorInputsRanges.StateCapitalGainsTaxRate.Maximum}%." );
         }
     }
 
-    private static void ValidateEconomicRates( double inflationRate, double annualReturn, List<string> errors )
+    private static void ValidateEconomicRates( double anualInflationRate, double annualGrowthRate, List<string> errors )
     {
-        if ( inflationRate is < -10 or > 50 )
+        if ( !AppreciatorInputsRanges.AnnualInflationRate.Contains( anualInflationRate ) )
         {
-            errors.Add( "• Inflation Rate must be between -10% and 50%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualInflationRate )]} must be between {AppreciatorInputsRanges.AnnualInflationRate.Minimum}% and {AppreciatorInputsRanges.AnnualInflationRate.Maximum}%." );
         }
 
-        if ( annualReturn is < -50 or > 100 )
+        if ( !AppreciatorInputsRanges.AnnualGrowthRate.Contains( annualGrowthRate ) )
         {
-            errors.Add( "• Annual Return must be between -50% and 100%." );
+            errors.Add( $"• {AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualGrowthRate )]} must be between {AppreciatorInputsRanges.AnnualGrowthRate.Minimum}% and {AppreciatorInputsRanges.AnnualGrowthRate.Maximum}%." );
         }
     }
 }

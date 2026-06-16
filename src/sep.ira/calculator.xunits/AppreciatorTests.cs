@@ -2,163 +2,81 @@ namespace cc.isr.Finance.Sep.Ira;
 
 public class AppreciatorTests
 {
-    private const double ValidPrincipal = 50000;
+    private const double ValidInvestedAmount = 50000;
     private const int ValidInitialAge = 50;
-    private const int ValidYears = 20;
+    private const int ValidInvestmentDuration = 20;
     private const double ValidTaxRate = 25;
-    private const double ValidInflationRate = 2.75;
-    private const double ValidAnnualReturn = 7;
+    private const double ValidAnnualInflationRate = 2.75;
+    private const double ValidAnnualGrowthRate = 7;
 
-    #region Principal Validation Tests
+    #region " InvestedAmount Validation Tests "
 
     [Fact]
-    public void ValidateInputsWithValidPrincipalNoErrors()
+    public void ValidateInputsWithValidInvestedAmountNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            50000, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
     }
 
     [Fact]
-    public void ValidateInputsWithZeroPrincipalReturnsError()
+    public void ValidateInputsWithZeroInvestedAmountReturnsError()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            0, ValidInitialAge, ValidYears,
+            0, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Principal must be greater than $0", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.InvestedAmount.Minimum:C0}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )], errors[0] );
     }
 
     [Fact]
-    public void ValidateInputsWithNegativePrincipalReturnsError()
+    public void ValidateInputsWithNegativeInvestedAmountReturnsError()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            -1000, ValidInitialAge, ValidYears,
+            -1000, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Principal must be greater than $0", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.InvestedAmount.Minimum:C0}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )], errors[0] );
     }
 
     [Fact]
-    public void ValidateInputsWithExcessivelyHighPrincipalReturnsError()
+    public void ValidateInputsWithExcessivelyHighInvestedAmountReturnsError()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            11_000_000, ValidInitialAge, ValidYears,
+            2 * AppreciatorInputsRanges.InvestedAmount.Maximum, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Principal should not exceed $10,000,000", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.InvestedAmount.Maximum:C0}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )], errors[0] );
     }
 
     [Fact]
-    public void ValidateInputsWithMaximumPrincipalNoErrors()
+    public void ValidateInputsWithMaximumInvestedAmountNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            10_000_000, ValidInitialAge, ValidYears,
+            AppreciatorInputsRanges.InvestedAmount.Maximum, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        Assert.Empty( errors );
-    }
-
-    #endregion
-
-    #region Age Validation Tests
-
-    [Fact]
-    public void ValidateInputsWithValidAgeNoErrors()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, 50, ValidYears,
-            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        Assert.Empty( errors );
-    }
-
-    [Fact]
-    public void ValidateInputsWithAgeBelowMinimumReturnsError()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, 17, ValidYears,
-            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        _ = Assert.Single( errors );
-        Assert.Contains( "Initial Age must be at least 18 years old", errors[0] );
-    }
-
-    [Fact]
-    public void ValidateInputsWithMinimumAgeNoErrors()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, 18, ValidYears,
-            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        Assert.Empty( errors );
-    }
-
-    [Fact]
-    public void ValidateInputsWithAgeAboveMaximumReturnsError()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, 121, ValidYears,
-            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        _ = Assert.Single( errors );
-        Assert.Contains( "Initial Age should not exceed 120 years", errors[0] );
-    }
-
-    [Fact]
-    public void ValidateInputsWithAgeYearsCombinationExceeding150ReturnsError()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, 100, 51,
-            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        _ = Assert.Single( errors );
-        Assert.Contains( "exceeds 150 years", errors[0] );
-    }
-
-    [Fact]
-    public void ValidateInputsWithAgeYearsCombinationAt150NoErrors()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, 100, 50,
-            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -166,58 +84,153 @@ public class AppreciatorTests
 
     #endregion
 
-    #region Years Validation Tests
+    #region " Initial Initial Age Validation Tests "
 
     [Fact]
-    public void ValidateInputsWithZeroYearsReturnsError()
+    public void ValidateInputsWithValidInitialAgeNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, 0,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
-        _ = Assert.Single( errors );
-        Assert.Contains( "Years must be greater than 0", errors[0] );
+        Assert.Empty( errors );
     }
 
     [Fact]
-    public void ValidateInputsWithNegativeYearsReturnsError()
+    public void ValidateInputsWithInitialAgeBelowMinimumReturnsError()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, -5,
+            ValidInvestedAmount, ( int ) AppreciatorInputsRanges.InitialAge.Minimum - 1, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Years must be greater than 0", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.InitialAge.Minimum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )], errors[0] );
     }
 
     [Fact]
-    public void ValidateInputsWithYearsAboveMaximumReturnsError()
+    public void ValidateInputsWithMinimumInitialAgeNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, 101,
+            ValidInvestedAmount, ( int ) AppreciatorInputsRanges.InitialAge.Minimum, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
+
+        // Assert
+        Assert.Empty( errors );
+    }
+
+    [Fact]
+    public void ValidateInputsWithInitialAgeAboveMaximumReturnsError()
+    {
+        // Arrange & Act
+        List<string> errors = AppreciatorInputValidator.ValidateInputs(
+            ValidInvestedAmount, ( int ) AppreciatorInputsRanges.InitialAge.Maximum + 1, ValidInvestmentDuration,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
+
+        // Assert
+        Assert.Equal( 2, errors.Count );
+        Assert.Contains( $"{AppreciatorInputsRanges.InitialAge.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )], errors[0] );
+    }
+
+    [Fact]
+    public void ValidateInputsWithFinalAgeExceedingMaxReturnsError()
+    {
+        // Arrange & Act
+        List<string> errors = AppreciatorInputValidator.ValidateInputs(
+            ValidInvestedAmount, AppreciatorInputsInitialValues.InitialAge,
+            ( int ) AppreciatorInputsRanges.FinalAge.Maximum - AppreciatorInputsInitialValues.InitialAge + 1,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
+
+        // Assert
+        _ = Assert.Single( errors );
+        Assert.Contains( $"{AppreciatorInputsRanges.FinalAge.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )], errors[0] );
+    }
+
+    [Fact]
+    public void ValidateInputsWithFinalAgeAtMaxNoErrors()
+    {
+        // Arrange & Act
+        List<string> errors = AppreciatorInputValidator.ValidateInputs(
+            ValidInvestedAmount, AppreciatorInputsInitialValues.InitialAge,
+            ( int ) AppreciatorInputsRanges.FinalAge.Maximum - AppreciatorInputsInitialValues.InitialAge,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
+
+        // Assert
+        Assert.Empty( errors );
+    }
+
+    #endregion
+
+    #region " Investment Duration Validation Tests "
+
+    [Fact]
+    public void ValidateInputsWithZeroInvestmentDurationReturnsError()
+    {
+        // Arrange & Act
+        List<string> errors = AppreciatorInputValidator.ValidateInputs(
+            ValidInvestedAmount, ValidInitialAge, 0,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
+
+        // Assert
+        _ = Assert.Single( errors );
+        Assert.Contains( $"{AppreciatorInputsRanges.InvestmentDuration.Minimum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )], errors[0] );
+    }
+
+    [Fact]
+    public void ValidateInputsWithNegativeInvestmentDurationReturnsError()
+    {
+        // Arrange & Act
+        List<string> errors = AppreciatorInputValidator.ValidateInputs(
+            ValidInvestedAmount, ValidInitialAge, -5,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
+
+        // Assert
+        _ = Assert.Single( errors );
+        Assert.Contains( $"{AppreciatorInputsRanges.InvestmentDuration.Minimum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )], errors[0] );
+    }
+
+    [Fact]
+    public void ValidateInputsWithInvestmentDurationAboveMaximumReturnsError()
+    {
+        // Arrange & Act
+        List<string> errors = AppreciatorInputValidator.ValidateInputs(
+            ValidInvestedAmount, ValidInitialAge, ( int ) AppreciatorInputsRanges.InvestmentDuration.Maximum + 1,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.True( errors.Count >= 1, "Should have at least one error" );
-        Assert.Contains( errors, e => e.Contains( "Years should not exceed 100" ) );
+        string expectedValue = $"{AppreciatorInputsRanges.InvestmentDuration.Maximum:F0}";
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
+        expectedValue = AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )];
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
     }
 
     [Fact]
-    public void ValidateInputsWithMaximumYearsNoErrors()
+    public void ValidateInputsWithMaximumInvestmentDurationNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, 100,
+            ValidInvestedAmount, ( int ) AppreciatorInputsRanges.InitialAge.Minimum, ( int ) AppreciatorInputsRanges.InvestmentDuration.Maximum,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -225,16 +238,16 @@ public class AppreciatorTests
 
     #endregion
 
-    #region Tax Rate Validation Tests
+    #region " Tax Rate Validation Tests "
 
     [Fact]
     public void ValidateInputsWithValidTaxRatesNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
-            35, 35, 9.3, 9.3,
-            25, ValidInflationRate, ValidAnnualReturn );
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -243,138 +256,117 @@ public class AppreciatorTests
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativePresentFederalTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeInitialFederalTaxRateReturnsError( double taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             taxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Present Federal Tax Rate must be between 0% and 100%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.InitialFederalTaxRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialFederalTaxRate )], errors[0] );
     }
 
     [Theory]
     [InlineData( 100.1 )]
     [InlineData( 150 )]
-    public void ValidateInputsWithExcessiveFutureFederalTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithExcessiveWithdrawalFederalTaxRateReturnsError( double taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, taxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.True( errors.Count >= 1, "Should have at least one error" );
-        Assert.Contains( errors, e => e.Contains( "Future Federal Tax Rate must be between 0% and 100%" ) );
+        Assert.Contains( $"{AppreciatorInputsRanges.WithdrawalFederalTaxRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.WithdrawalFederalTaxRate )], errors[0] );
     }
 
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativePresentStateTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeInitialStateTaxRateReturnsError( double taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, taxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Present State Tax Rate must be between 0% and 100%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.InitialStateTaxRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialStateTaxRate )], errors[0] );
     }
 
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeFutureStateTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeWithdrawalStateTaxRateReturnsError( double taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, taxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Future State Tax Rate must be between 0% and 100%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.WithdrawalStateTaxRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.WithdrawalStateTaxRate )], errors[0] );
     }
 
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeCapitalGainsTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeFederalCapitalGainsTaxRateReturnsError( double taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            taxRate, ValidInflationRate, ValidAnnualReturn );
+            taxRate, ValidTaxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Capital Gains Tax Rate must be between 0% and 100%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.FederalCapitalGainsTaxRate )], errors[0] );
     }
 
-    [Fact]
-    public void ValidateInputsWithCombinedPresentTaxRateExceeding100ReturnsError()
+    [Theory]
+    [InlineData( -0.1 )]
+    [InlineData( -50 )]
+    public void ValidateInputsWithNegativeStateCapitalGainsTaxRateReturnsError( double taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
-            60, ValidTaxRate, 50, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
+            ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
+            ValidTaxRate, taxRate, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Combined Present Tax Rate", errors[0] );
-        Assert.Contains( "exceeds 100%", errors[0] );
-    }
-
-    [Fact]
-    public void ValidateInputsWithCombinedFutureTaxRateExceeding100ReturnsError()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
-            ValidTaxRate, 60, ValidTaxRate, 50,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        _ = Assert.Single( errors );
-        Assert.Contains( "Combined Future Tax Rate", errors[0] );
-        Assert.Contains( "exceeds 100%", errors[0] );
-    }
-
-    [Fact]
-    public void ValidateInputsWithCombinedTaxRatesAt100NoErrors()
-    {
-        // Arrange & Act
-        List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
-            60, 60, 40, 40,
-            ValidTaxRate, ValidInflationRate, ValidAnnualReturn );
-
-        // Assert
-        Assert.Empty( errors );
+        Assert.Contains( $"{AppreciatorInputsRanges.StateCapitalGainsTaxRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.StateCapitalGainsTaxRate )], errors[0] );
     }
 
     #endregion
 
-    #region Economic Rates Validation Tests
+    #region " Economic Rates Validation Tests "
 
     [Fact]
     public void ValidateInputsWithValidInflationRateNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, 2.75, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, AppreciatorInputsInitialValues.AnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -387,13 +379,14 @@ public class AppreciatorTests
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, rate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, rate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Inflation Rate must be between -10% and 50%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.AnnualInflationRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualInflationRate )], errors[0] );
     }
 
     [Theory]
@@ -403,23 +396,24 @@ public class AppreciatorTests
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, rate, ValidAnnualReturn );
+            ValidTaxRate, ValidTaxRate, rate, ValidAnnualGrowthRate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Inflation Rate must be between -10% and 50%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.AnnualInflationRate.Maximum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualInflationRate )], errors[0] );
     }
 
     [Fact]
-    public void ValidateInputsWithValidAnnualReturnNoErrors()
+    public void ValidateInputsWithValidAnnualGrowthRageNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, 7 );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, AppreciatorInputsInitialValues.AnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -428,33 +422,35 @@ public class AppreciatorTests
     [Theory]
     [InlineData( -50.1 )]
     [InlineData( -100 )]
-    public void ValidateInputsWithAnnualReturnBelowMinimumReturnsError( double rate )
+    public void ValidateInputsWithAnnualGrowthRageBelowMinimumReturnsError( double rate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, rate );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, rate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Annual Return must be between -50% and 100%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.AnnualGrowthRate.Minimum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualGrowthRate )], errors[0] );
     }
 
     [Theory]
     [InlineData( 100.1 )]
     [InlineData( 150 )]
-    public void ValidateInputsWithAnnualReturnAboveMaximumReturnsError( double rate )
+    public void ValidateInputsWithAnnualGrowthRageAboveMaximumReturnsError( double rate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, rate );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, rate );
 
         // Assert
         _ = Assert.Single( errors );
-        Assert.Contains( "Annual Return must be between -50% and 100%", errors[0] );
+        Assert.Contains( $"{AppreciatorInputsRanges.AnnualGrowthRate.Minimum}", errors[0] );
+        Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualGrowthRate )], errors[0] );
     }
 
     [Fact]
@@ -462,9 +458,9 @@ public class AppreciatorTests
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             ValidTaxRate, ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, ValidInflationRate, -10 );
+            ValidTaxRate, ValidTaxRate, ValidAnnualInflationRate, -10 );
 
         // Assert
         Assert.Empty( errors );
@@ -472,39 +468,50 @@ public class AppreciatorTests
 
     #endregion
 
-    #region Multiple Errors Tests
+    #region " Multiple Errors Tests "
 
     [Fact]
     public void ValidateInputsWithMultipleErrorsReturnsAllErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            -1000,      // Invalid principal
-            17,         // Invalid age
-            0,          // Invalid years
-            150,        // Invalid tax rate
+            -1000,      // Invalid invested Amount
+            17,            // Invalid initial age
+            0,       // Invalid investment duration
+            150,   // Invalid tax rate
             ValidTaxRate, ValidTaxRate, ValidTaxRate,
-            ValidTaxRate, -50, 150 );  // Invalid inflation and return
+            ValidTaxRate, ValidTaxRate, -50, 150 );  // Invalid inflation and return
 
         // Assert
         Assert.True( errors.Count >= 4, $"Expected at least 4 errors, got {errors.Count}" );
-        Assert.Contains( errors, e => e.Contains( "Principal must be greater than $0" ) );
-        Assert.Contains( errors, e => e.Contains( "Initial Age must be at least 18" ) );
-        Assert.Contains( errors, e => e.Contains( "Years must be greater than 0" ) );
+        string expectedValue = $"{AppreciatorInputsRanges.InvestmentDuration.Minimum:C0}";
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
+        expectedValue = AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )];
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
+
+        expectedValue = $"{AppreciatorInputsRanges.InitialFederalTaxRate.Minimum}";
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
+        expectedValue = AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialFederalTaxRate )];
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
+
+        expectedValue = $"{AppreciatorInputsRanges.InvestmentDuration.Minimum}";
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
+        expectedValue = AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )];
+        Assert.Contains( errors, e => e.Contains( expectedValue ) );
     }
 
     #endregion
 
-    #region Edge Cases Tests
+    #region " Edge Cases Tests "
 
     [Fact]
     public void ValidateInputsWithAllZeroTaxRatesNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
             0, 0, 0, 0,
-            0, ValidInflationRate, ValidAnnualReturn );
+            0, 0, ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -515,9 +522,11 @@ public class AppreciatorTests
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            ValidPrincipal, ValidInitialAge, ValidYears,
-            100, 100, 0, 0,
-            100, ValidInflationRate, ValidAnnualReturn );
+            ValidInvestedAmount, ValidInitialAge, ValidInvestmentDuration,
+            AppreciatorInputsRanges.InitialFederalTaxRate.Maximum, AppreciatorInputsRanges.WithdrawalFederalTaxRate.Maximum,
+            AppreciatorInputsRanges.InitialStateTaxRate.Maximum, AppreciatorInputsRanges.WithdrawalStateTaxRate.Maximum,
+            AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Maximum, AppreciatorInputsRanges.StateCapitalGainsTaxRate.Maximum,
+            ValidAnnualInflationRate, ValidAnnualGrowthRate );
 
         // Assert
         Assert.Empty( errors );
@@ -528,9 +537,13 @@ public class AppreciatorTests
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            1, 18, 1,
-            0, 0, 0, 0,
-            0, -10, -50 );
+            AppreciatorInputsRanges.InvestedAmount.Minimum,
+            ( int ) AppreciatorInputsRanges.InitialAge.Minimum,
+            ( int ) AppreciatorInputsRanges.InvestmentDuration.Minimum,
+            AppreciatorInputsRanges.InitialFederalTaxRate.Minimum, AppreciatorInputsRanges.WithdrawalFederalTaxRate.Minimum,
+            AppreciatorInputsRanges.InitialStateTaxRate.Minimum, AppreciatorInputsRanges.WithdrawalStateTaxRate.Minimum,
+            AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Minimum, AppreciatorInputsRanges.StateCapitalGainsTaxRate.Minimum,
+            AppreciatorInputsRanges.AnnualInflationRate.Minimum, AppreciatorInputsRanges.AnnualGrowthRate.Minimum );
 
         // Assert
         Assert.Empty( errors );
@@ -541,9 +554,17 @@ public class AppreciatorTests
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
-            10_000_000, 120, 30,
-            100, 100, 0, 0,
-            100, 50, 100 );
+            AppreciatorInputsRanges.InvestedAmount.Maximum,
+            ( int ) AppreciatorInputsRanges.InitialAge.Maximum,
+            ( int ) AppreciatorInputsRanges.InvestmentDuration.Minimum,
+            AppreciatorInputsRanges.InitialFederalTaxRate.Maximum,
+            AppreciatorInputsRanges.WithdrawalFederalTaxRate.Maximum,
+            AppreciatorInputsRanges.InitialStateTaxRate.Maximum,
+            AppreciatorInputsRanges.WithdrawalStateTaxRate.Maximum,
+            AppreciatorInputsRanges.FederalCapitalGainsTaxRate.Maximum,
+            AppreciatorInputsRanges.StateCapitalGainsTaxRate.Maximum,
+            AppreciatorInputsRanges.AnnualInflationRate.Maximum,
+            AppreciatorInputsRanges.AnnualGrowthRate.Maximum );
 
         // Assert
         Assert.Empty( errors );
