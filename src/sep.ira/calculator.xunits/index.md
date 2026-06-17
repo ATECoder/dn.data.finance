@@ -6,15 +6,16 @@
 - **[readme.md](readme.md)** - Quick start guide and execution instructions
 
 ### 📊 Project Information
-- **[CompletionReport.md](CompletionReport.md)** - Executive summary and final status
-- **[VisualSummary.md](VisualSummary.md)** - Visual statistics and performance metrics
-- **[ImplementationSummary.md](ImplementationSummary.md)** - Detailed architecture and improvements
+- **[AppreciatorTestsDetails.md](AppreciatorTestsDetails.md)** - Detailed test breakdown
+- **[AppreciatorTestsSummary.md](AppreciatorTestsSummary.md)** - Executive summary and final status
+- **[AppreciatorTestsReference.md](AppreciatorTestsReference.md)** - Quick reference
+- **[AppreciatorTestsCompletionReport.md](AppreciatorTestsCompletionReport.md)** - Agent completion report
+- **[index.md](index.md)** - Documentation index
 
-### 📖 Detailed Documentation
-- **[TestDocumentation.md](TestDocumentation.md)** - Comprehensive test case documentation
 
 ### 💻 Source Code
-- **[AppreciatorTests.cs](AppreciatorTests.cs)** - 45 unit test implementations
+- **[AppreciatorInputsValidationTests.cs](AppreciatorInputsValidationTests.cs)** - 45 unit test implementations
+- **[AppreciatorCalculationTests.cs](AppreciatorCalculationTests.cs)** - 38 unit test implementations
 
 ---
 
@@ -49,7 +50,7 @@ Code Coverage:            100% ✅
 
 ---
 
-### 2. TestDocumentation.md (9.18 KB)
+### 2. AppreciatorTestsDetails.md (13.98 KB)
 **Purpose**: Comprehensive test case documentation
 
 **Contains**:
@@ -66,43 +67,7 @@ Code Coverage:            100% ✅
 
 ---
 
-### 3. ImplementationSummary.md (9.12 KB)
-**Purpose**: Project completion overview and architecture details
-
-**Contains**:
-- Deliverables summary
-- Test statistics and breakdown
-- Key features and validation rules
-- Architecture improvements (before/after)
-- Test examples with explanations
-- Integration with Form
-- Benefits and advantages
-- Files modified/created
-- Validation rule reference
-
-**When to Read**: Understanding project scope and architecture
-
----
-
-### 4. VisualSummary.md (12.77 KB)
-**Purpose**: Visual presentation of statistics and metrics
-
-**Contains**:
-- Project statistics with ASCII visualizations
-- Test breakdown by category with charts
-- Results matrix table
-- Individual test success summary
-- Performance metrics
-- Quality assessment with grades
-- Documentation deliverables
-- Quick start commands
-- Test coverage heatmap
-
-**When to Read**: Visual overview of project status
-
----
-
-### 5. CompletionReport.md (11.12 KB)
+### 3. AppreciatorTestsSummary.md (16.53 KB)
 **Purpose**: Executive summary and final status report
 
 **Contains**:
@@ -123,8 +88,33 @@ Code Coverage:            100% ✅
 
 ---
 
-### 6. AppreciatorTests.cs (17.63 KB)
+### 4. AppreciatorTestsReference.md (12.77 KB)
+**Purpose**: Visual presentation of statistics and metrics
+
+**Contains**:
+- Project statistics with ASCII visualizations
+- Test breakdown by category with charts
+- Results matrix table
+- Individual test success summary
+- Performance metrics
+- Quality assessment with grades
+- Documentation deliverables
+- Quick start commands
+- Test coverage heatmap
+
+**When to Read**: Visual overview of project status
+
+---
+
+### 6. AppreciatorCalculationTests.cs (17.63 KB)
 **Purpose**: Complete unit test implementation
+
+**When to Read**: Want to see or modify test code
+
+---
+
+### 6. AppreciatorInputsValidationTests.cs (17.63 KB)
+**Purpose**: Complete input validation unit test implementation
 
 **Contains**:
 - InputValidatorTests class
@@ -150,13 +140,13 @@ Validation Topic                    Documentation Location
 InvestedAmount Validation           readme.md (Test Categories)
 Initial Age Validation              readme.md (Test Categories)
 Investment Duration Validation      readme.md (Test Categories)
-Tax Rate Validation                 TestDocumentation.md (Detailed)
-Economic Rates Validation           TestDocumentation.md (Detailed)
+Tax Rate Validation                 AppreciatorTestsSummary.md (Detailed)
+Economic Rates Validation           AppreciatorTestsSummary.md (Detailed)
 
-All Test Cases                      AppreciatorTests.cs (Source Code)
-All Results                         VisualSummary.md (Charts)
+All Test Cases                      AppreciatorInputsValidationTests.cs (Source Code)
+All Results                         AppreciatorTestsSummary.md (Charts)
 All Metrics                         CompletionReport.md (Stats)
-Architecture Details                ImplementationSummary.md
+Architecture Details                AppreciatorTestsCompletionReport.md
 ```
 
 ---
@@ -194,10 +184,10 @@ dotnet test --filter "InputValidatorTests"
 
 | Metric | Value | Status |
 |--------|-------|--------|
-| Total Tests | 45 | ✅ |
-| Tests Passing | 45 | ✅ |
+| Total Tests | 73 | ✅ |
+| Tests Passing | 73 | ✅ |
 | Tests Failing | 0 | ✅ |
-| Execution Time | 54 ms | ✅ |
+| Execution Time | 57 ms | ✅ |
 | Code Coverage | 100% | ✅ |
 | Documentation | Complete | ✅ |
 
@@ -231,25 +221,25 @@ Tests boundary conditions and special scenarios
 ## 💡 Key Information by Use Case
 
 ### "I want to understand the project"
-→ Read: CompletionReport.md or VisualSummary.md
+→ Read: AppreciatorTestsDetails.md or AppreciatorTestsSummary.md
 
 ### "I want to run the tests"
 → Read: readme.md (Quick Start section)
 
 ### "I want to see test details"
-→ Read: TestDocumentation.md
+→ Read: AppreciatorTestsDetails.md
 
 ### "I want to modify a test"
-→ Read: AppreciatorTests.cs and readme.md (Test Patterns)
+→ Read: AppreciatorInputsValidationTests.cs and readme.md (Test Patterns)
 
 ### "I want to understand the architecture"
-→ Read: ImplementationSummary.md
+→ Read: AppreciatorTestsCompletionReport.md
 
 ### "I want performance metrics"
-→ Read: VisualSummary.md (Performance section)
+→ Read: AppreciatorTestsSummary.md (Performance section)
 
 ### "I want to add new tests"
-→ Read: readme.md (Test Patterns) + AppreciatorTests.cs
+→ Read: readme.md (Test Patterns) + AppreciatorInputsValidationTests.cs
 
 ---
 
@@ -259,15 +249,15 @@ Tests boundary conditions and special scenarios
 cc.isr.Finance.Sep.Ira.Calculator.XUnits/
 │
 ├── Documentation/
-│   ├── 📄 readme.md                 (5.88 KB) ← START HERE
-│   ├── 📄 TestDocumentation.md      (9.18 KB) ← Detailed docs
-│   ├── 📄 ImplementationSummary.md  (9.12 KB) ← Architecture
-│   ├── 📄 VisualSummary.md         (12.77 KB) ← Statistics
-│   ├── 📄 CompletionReport.md      (11.12 KB) ← Summary
-│   └── 📄 index.md                  (this file)
+│   ├── 📄 readme.md                            (5.88 KB) ← START HERE
+│   ├── 📄 AppreciatorTestsDetails.md           (13.98 KB) ← Detailed docs
+│   ├── 📄 AppreciatorTestsCompletionReport.md  (12.67 KB) ← Architecture
+│   ├── 📄 AppreciatorTestsSummary.md           (16.53 KB) ← Statistics
+│   └── 📄 index.md                             (9.47 KB) (this file)
 │
 ├── Source Code/
-│   ├── 🧪 AppreciatorTests.cs       (17.63 KB) ← 45 Tests
+│   ├── 🧪 AppreciatorCalculationTests.cs       (20.12 KB) ← 38 Tests
+│   ├── 🧪 AppreciatorInputsValidationTests.cs  (25.96 KB) ← 45 Tests
 │   └── ⚙️  cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj
 │
 └── Configuration/
@@ -294,16 +284,16 @@ cc.isr.Finance.Sep.Ira.Calculator.XUnits/
 ## 🎓 Learning Resources
 
 ### For Unit Testing Concepts
-→ See TestDocumentation.md (Best Practices section)
+→ See AppreciatorTestsSummary.md (Best Practices section)
 
 ### For Test Patterns
 → See readme.md (Test Patterns section)
 
 ### For xUnit Specific Info
-→ See TestDocumentation.md (References section)
+→ See AppreciatorTestsSummary.md (References section)
 
 ### For Input Validation Rules
-→ See TestDocumentation.md (Validation Rules Summary)
+→ See AppreciatorTestsSummary.md (Validation Rules Summary)
 
 ---
 
@@ -314,12 +304,12 @@ cc.isr.Finance.Sep.Ira.Calculator.XUnits/
 | Question | Location |
 |----------|----------|
 | How do I run tests? | readme.md |
-| What does this test do? | TestDocumentation.md |
+| What does this test do? | AppreciatorTestsSummary.md |
 | What's the project status? | CompletionReport.md |
-| How do I add a new test? | readme.md + AppreciatorTests.cs |
-| What are the validation rules? | TestDocumentation.md |
-| What's the architecture? | ImplementationSummary.md |
-| Show me statistics | VisualSummary.md |
+| How do I add a new test? | readme.md + AppreciatorInputsValidationTests.cs |
+| What are the validation rules? | AppreciatorTestsSummary.md |
+| What's the architecture? | AppreciatorTestsCompletionReport.md |
+| Show me statistics | AppreciatorTestsSummary.md |
 
 ---
 
@@ -336,6 +326,6 @@ This comprehensive test suite provides:
 
 ---
 
-**Last Updated**: 2024
-**Framework**: xUnit 3.2.2 on .NET 10.0-windows
-**Status**: ✅ COMPLETE AND ALL TESTS PASSING
+- **Last Updated**: 2026
+- **Framework**: xUnit 3.2.2 on .NET 10.0-windows
+- **Status**: ✅ COMPLETE AND ALL TESTS PASSING

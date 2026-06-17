@@ -1,6 +1,8 @@
 namespace cc.isr.Finance.Sep.Ira;
 
-public class AppreciatorTests
+/// <summary>   An appreciator inputs validation tests. </summary>
+/// <remarks>   2026-06-16. </remarks>
+public class AppreciatorInputsValidationTests
 {
     private const double ValidInvestedAmount = 50000;
     private const int ValidInitialAge = 50;
@@ -9,8 +11,12 @@ public class AppreciatorTests
     private const double ValidAnnualInflationRate = 2.75;
     private const double ValidAnnualGrowthRate = 7;
 
-    #region " InvestedAmount Validation Tests "
+    #region " Invested Amount Validation Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with valid invested amount no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithValidInvestedAmountNoErrors()
     {
@@ -24,6 +30,10 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with zero invested amount returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithZeroInvestedAmountReturnsError()
     {
@@ -39,6 +49,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with negative invested amount returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithNegativeInvestedAmountReturnsError()
     {
@@ -54,6 +68,11 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with excessively high invested amount returns
+    /// error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithExcessivelyHighInvestedAmountReturnsError()
     {
@@ -69,6 +88,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestedAmount )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with maximum invested amount no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithMaximumInvestedAmountNoErrors()
     {
@@ -86,6 +109,10 @@ public class AppreciatorTests
 
     #region " Initial Initial Age Validation Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with valid initial age no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithValidInitialAgeNoErrors()
     {
@@ -99,6 +126,10 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with initial age below minimum returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithInitialAgeBelowMinimumReturnsError()
     {
@@ -114,6 +145,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with minimum initial age no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithMinimumInitialAgeNoErrors()
     {
@@ -127,6 +162,10 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with initial age above maximum returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithInitialAgeAboveMaximumReturnsError()
     {
@@ -142,6 +181,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with final age exceeding maximum returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithFinalAgeExceedingMaxReturnsError()
     {
@@ -158,6 +201,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialAge )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with final age at maximum no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithFinalAgeAtMaxNoErrors()
     {
@@ -176,6 +223,10 @@ public class AppreciatorTests
 
     #region " Investment Duration Validation Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with zero investment duration returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithZeroInvestmentDurationReturnsError()
     {
@@ -191,6 +242,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with negative investment duration returns error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithNegativeInvestmentDurationReturnsError()
     {
@@ -206,6 +261,11 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InvestmentDuration )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with investment duration above maximum returns
+    /// error.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithInvestmentDurationAboveMaximumReturnsError()
     {
@@ -223,6 +283,10 @@ public class AppreciatorTests
         Assert.Contains( errors, e => e.Contains( expectedValue ) );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with maximum investment duration no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithMaximumInvestmentDurationNoErrors()
     {
@@ -240,6 +304,10 @@ public class AppreciatorTests
 
     #region " Tax Rate Validation Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with valid tax rates no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithValidTaxRatesNoErrors()
     {
@@ -253,6 +321,12 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with negative initial federal tax rate
+    /// returns error described by taxRate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="taxRate">  The tax rate. </param>
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
@@ -270,6 +344,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialFederalTaxRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with excessive withdrawal federal tax
+    /// rate returns error described by taxRate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="taxRate">  The tax rate. </param>
     [Theory]
     [InlineData( 100.1 )]
     [InlineData( 150 )]
@@ -287,6 +367,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.WithdrawalFederalTaxRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with negative initial state tax rate
+    /// returns error described by taxRate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="taxRate">  The tax rate. </param>
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
@@ -304,6 +390,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.InitialStateTaxRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with negative withdrawal state tax rate
+    /// returns error described by taxRate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="taxRate">  The tax rate. </param>
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
@@ -321,6 +413,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.WithdrawalStateTaxRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with negative federal capital gains tax
+    /// rate returns error described by taxRate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="taxRate">  The tax rate. </param>
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
@@ -338,6 +436,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.FederalCapitalGainsTaxRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with negative state capital gains tax
+    /// rate returns error described by taxRate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="taxRate">  The tax rate. </param>
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
@@ -359,6 +463,10 @@ public class AppreciatorTests
 
     #region " Economic Rates Validation Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with valid inflation rate no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithValidInflationRateNoErrors()
     {
@@ -372,6 +480,12 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with inflation rate below minimum returns
+    /// error described by rate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="rate"> The rate. </param>
     [Theory]
     [InlineData( -10.1 )]
     [InlineData( -50 )]
@@ -389,6 +503,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualInflationRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with inflation rate above maximum returns
+    /// error described by rate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="rate"> The rate. </param>
     [Theory]
     [InlineData( 50.1 )]
     [InlineData( 100 )]
@@ -406,6 +526,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualInflationRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with valid annual growth rage no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithValidAnnualGrowthRageNoErrors()
     {
@@ -419,6 +543,12 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with annual growth rage below minimum
+    /// returns error described by rate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="rate"> The rate. </param>
     [Theory]
     [InlineData( -50.1 )]
     [InlineData( -100 )]
@@ -436,6 +566,12 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualGrowthRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Data-driven Unit Test Method) validates the inputs with annual growth rage above maximum
+    /// returns error described by rate.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
+    /// <param name="rate"> The rate. </param>
     [Theory]
     [InlineData( 100.1 )]
     [InlineData( 150 )]
@@ -453,6 +589,10 @@ public class AppreciatorTests
         Assert.Contains( AppreciatorReportBuilder.Titles[nameof( AppreciatorInputsRanges.AnnualGrowthRate )], errors[0] );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with negative return no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithNegativeReturnNoErrors()
     {
@@ -470,6 +610,10 @@ public class AppreciatorTests
 
     #region " Multiple Errors Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with multiple errors returns all errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithMultipleErrorsReturnsAllErrors()
     {
@@ -504,6 +648,10 @@ public class AppreciatorTests
 
     #region " Edge Cases Tests "
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with all zero tax rates no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithAllZeroTaxRatesNoErrors()
     {
@@ -517,6 +665,10 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with all maximum tax rates no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithAllMaximumTaxRatesNoErrors()
     {
@@ -532,6 +684,10 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with minimum valid inputs no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithMinimumValidInputsNoErrors()
     {
@@ -549,6 +705,10 @@ public class AppreciatorTests
         Assert.Empty( errors );
     }
 
+    /// <summary>
+    /// (Unit Test Method) validates the inputs with maximum valid inputs no errors.
+    /// </summary>
+    /// <remarks>   2026-06-16. </remarks>
     [Fact]
     public void ValidateInputsWithMaximumValidInputsNoErrors()
     {

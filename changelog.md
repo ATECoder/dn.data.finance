@@ -2,7 +2,15 @@
 Notable changes to the [Finance Repository] are documented in this file using the 
 [Keep a Changelog] style. The dates specified are in coordinated universal time (UTC).
 
-[1.0.9663]: https://www.github.com/atecoder/dn.data.finance
+[1.0.9664]: https://www.github.com/atecoder/dn.data.finance
+
+## [1.0.9664] - 2026-06-17
+- SEP IRA Calculator Tests
+  - Add unit tests for the appreciator calculations.
+- SEP IRA Calculator App
+  - Add report using the report builder.
+- SEP IRA Calculator Console App
+  - Output comparison report using the report builder.
 
 ## [1.0.9663] - 2026-06-16
 - SEP IRA Calculator

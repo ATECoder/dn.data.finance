@@ -222,7 +222,7 @@ public static class AppreciatorReportBuilder
         return stringBuilder.ToString();
     }
 
-    /// <summary>   Builds separator ira investment result. </summary>
+    /// <summary>   Builds SEP IRA investment result. </summary>
     /// <remarks>   2026-06-13. </remarks>
     /// <param name="appreciator">  The appreciator. </param>
     /// <returns>   A Dictionary&lt;string,string&gt; </returns>
@@ -247,7 +247,7 @@ public static class AppreciatorReportBuilder
         };
     }
 
-    /// <summary>   Builds separator ira investment report. </summary>
+    /// <summary>   Builds SEP IRA investment report. </summary>
     /// <remarks>   2026-06-13. </remarks>
     /// <param name="appreciator">      The appreciator. </param>
     /// <param name="includeHeader">    (Optional) True to include, false to exclude the header. </param>

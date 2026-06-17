@@ -247,9 +247,10 @@ public partial class Appreciator : ObservableObject
         this.SepIraAccountBalance = this.InvestedAmount;
 
         double growthRate = 1 + (this.AnnualGrowthRate / 100.0);
-        for ( int age = this.InitialAge; age <= this.InitialAge + this.InvestmentDuration; age++ )
+        for ( int age = this.InitialAge; age < this.InitialAge + this.InvestmentDuration; age++ )
         {
-            this.FinalAge = age;
+            int endYearAge = age + 1;
+            this.FinalAge = endYearAge;
 
             // RMD is based on the account balance at the end of the previous year,
             // so we calculate that first before applying the RMD for the current year
@@ -286,8 +287,8 @@ public partial class Appreciator : ObservableObject
 
                 // The discounted taxes paid on the RMD are calculated by discounting 
                 // the federal and state taxes paid back to the present value using the inflation rate.
-                this.DiscountedFederalTaxesPaid += federalTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), age - this.InitialAge );
-                this.DiscountedStateTaxesPaid += stateTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), age - this.InitialAge );
+                this.DiscountedFederalTaxesPaid += federalTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), endYearAge - this.InitialAge );
+                this.DiscountedStateTaxesPaid += stateTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), endYearAge - this.InitialAge );
                 this.DiscountedTaxesPaid = this.DiscountedFederalTaxesPaid + this.DiscountedStateTaxesPaid;
                 if ( debug )
                 {

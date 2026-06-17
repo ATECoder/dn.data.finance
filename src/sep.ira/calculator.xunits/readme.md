@@ -6,7 +6,7 @@ This project contains comprehensive unit tests for the SEP-IRA Calculator librar
 
 ## Test Statistics
 
-- **Total Tests**: 45
+- **Total Tests**: 73
 - **Pass Rate**: 100% ✅
 - **Test Framework**: xUnit 3.2.2
 - **Target Framework**: .NET 10.0
@@ -159,9 +159,10 @@ These tests can be integrated into your build pipeline:
 
 ```
 cc.isr.Finance.Sep.Ira.Calculator.XUnits/
-├── AppreciatorTests.cs                              # 45 test cases
+├── AppreciatorCalculationTests.cs                   # 38 test cases
+├── AppreciatorInputsValidationTests.cs              # 45 test cases
 ├── cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj  # Project file
-├── TestDocumentation.md                             # Detailed test docs
+├── AppreciatorTestsSummary.md                       # Detailed test docs
 └── readme.md                                        # This file
 ```
 
@@ -179,8 +180,8 @@ dotnet watch test
 
 ## Performance
 
-- **Execution Time**: ~200ms for all 45 tests
-- **Average per Test**: ~4.4ms
+- **Execution Time**: ~200ms for all 73 tests
+- **Average per Test**: ~2.7ms
 - **No external dependencies**: All tests are pure functions
 
 ## Troubleshooting
@@ -212,7 +213,7 @@ dotnet watch test
 
 When adding new validation rules:
 1. Add validation logic to `AppreciatorInputValidator.cs`
-2. Add corresponding tests to `AppreciatorTests.cs`
+2. Add corresponding tests to `AppreciatorInputsValidationTests.cs`
 3. Ensure all tests pass
 4. Update this readme if adding new test categories
 5. Maintain >90% code coverage
