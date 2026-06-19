@@ -3,7 +3,10 @@
 All notable changes to this console application will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-[1.0.9664]: https://www.github.com/atecoder/dn.data.finance
+[1.0.9666]: https://www.github.com/atecoder/dn.data.finance
+
+## [1.0.9666] - 2026-06-19
+- Define financial values as Decimal.
 
 ## [1.0.9664] - 2026-06-17
 - Output comparison report using the report builder.

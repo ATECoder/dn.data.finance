@@ -12,7 +12,7 @@ public partial class Appreciator : ObservableObject
     /// <summary>   Gets or sets the invested amount. </summary>
     /// <value> The invested amount. </value>
     [ObservableProperty]
-    public partial double InvestedAmount { get; set; } = 10000.00;
+    public partial decimal InvestedAmount { get; set; } = 10000.00m;
 
     /// <summary>   Gets or sets the initial age. </summary>
     /// <value> The initial age. </value>
@@ -27,56 +27,56 @@ public partial class Appreciator : ObservableObject
     /// <summary>   Gets or sets the initial federal tax rate. </summary>
     /// <value> The initial federal tax rate. </value>
     [ObservableProperty]
-    public partial double InitialFederalTaxRate { get; set; } = 35.0;
+    public partial decimal InitialFederalTaxRate { get; set; } = 35.0m;
 
     /// <summary>   Gets or sets the withdrawal federal tax rate. </summary>
     /// <value> The withdrawal federal tax rate. </value>
     [ObservableProperty]
-    public partial double WithdrawalFederalTaxRate { get; set; } = 35.0;
+    public partial decimal WithdrawalFederalTaxRate { get; set; } = 35.0m;
 
     /// <summary>   Gets or sets the initial state tax rate. </summary>
     /// <value> The initial state tax rate. </value>
     [ObservableProperty]
-    public partial double InitialStateTaxRate { get; set; } = 9.3;
+    public partial decimal InitialStateTaxRate { get; set; } = 9.3m;
 
     /// <summary>   Gets or sets the withdrawal state tax rate. </summary>
     /// <value> The withdrawal state tax rate. </value>
     [ObservableProperty]
-    public partial double WithdrawalStateTaxRate { get; set; } = 9.3;
+    public partial decimal WithdrawalStateTaxRate { get; set; } = 9.3m;
 
     /// <summary>   Gets or sets the federal capital gains tax rate. </summary>
     /// <value> The federal capital gains tax rate. </value>
     [ObservableProperty]
-    public partial double FederalCapitalGainsTaxRate { get; set; } = 25.0;
+    public partial decimal FederalCapitalGainsTaxRate { get; set; } = 25.0m;
 
     /// <summary>   Gets or sets the state capital gains tax rate. </summary>
     /// <value> The state capital gains tax rate. </value>
     [ObservableProperty]
-    public partial double StateCapitalGainsTaxRate { get; set; } = 9.3;
+    public partial decimal StateCapitalGainsTaxRate { get; set; } = 9.3m;
 
     /// <summary>   Gets or sets the annual inflation rate. </summary>
     /// <value> The annual inflation rate. </value>
     [ObservableProperty]
-    public partial double AnnualInflationRate { get; set; } = 2.75;
+    public partial decimal AnnualInflationRate { get; set; } = 2.75m;
 
     /// <summary>   Gets or sets the annual growth rate. </summary>
     /// <value> The annual growth rate. </value>
     [ObservableProperty]
-    public partial double AnnualGrowthRate { get; set; } = 7.0;
+    public partial decimal AnnualGrowthRate { get; set; } = 7.0m;
 
     /// <summary>   Gets or sets the uniform lifetime table. </summary>
     /// <remarks> Based on IRS Publication 1406 2025. </remarks>
     /// <value> The uniform lifetime table. </value>
-    public Dictionary<int, double> UniformLifetimeTable { get; set; } = new Dictionary<int, double>()
+    public Dictionary<int, decimal> UniformLifetimeTable { get; set; } = new Dictionary<int, decimal>()
     {
-        { 72, 27.4 },{ 73, 26.5 },{ 74, 25.5 },{ 75, 24.6 },{ 76, 23.7 },
-        { 77, 22.9 },{ 78, 22.0 },{ 79, 21.1 },{ 80, 20.2 },{ 81, 19.4 },
-        { 82, 18.5 },{ 83, 17.7 },{ 84, 16.8 },{ 85, 16.0 },{ 86, 15.2 },
-        { 87, 14.4 },{ 88, 13.7 },{ 89, 12.9 },{90,12.2},{91, 11.5},{92, 10.8},
-        {93, 10.1},{94, 9.5 },{95 ,8.9 },{96, 8.4 },{97, 7.8 },{98, 7.3 },{99 ,6.8 },
-        {100, 6.4},{101, 5.9},{102, 5.5},{103, 5.2},{104, 4.9},{105, 4.5},{106, 4.5},
-        {107, 4.5},{108, 4.4},{ 109, 4.1},{ 110, 3.9},{111, 3.7},{112, 3.4 },{113, 3.2 },
-        {114 ,3.0 },{115 ,2.8 },{116 ,2.6 },{117 ,2.4 },{118, 2.2},{119, 2.0},{120, 1.9}
+        { 72, 27.4m },{ 73, 26.5m },{ 74, 25.5m },{ 75, 24.6m },{ 76, 23.7m },
+        { 77, 22.9m },{ 78, 22.0m },{ 79, 21.1m },{ 80, 20.2m },{ 81, 19.4m },
+        { 82, 18.5m },{ 83, 17.7m },{ 84, 16.8m },{ 85, 16.0m },{ 86, 15.2m },
+        { 87, 14.4m },{ 88, 13.7m },{ 89, 12.9m },{90,12.2m},{91, 11.5m},{92, 10.8m},
+        {93, 10.1m},{94, 9.5m },{95 ,8.9m },{96, 8.4m },{97, 7.8m },{98, 7.3m },{99 ,6.8m },
+        {100, 6.4m},{101, 5.9m},{102, 5.5m},{103, 5.2m},{104, 4.9m},{105, 4.5m},{106, 4.5m},
+        {107, 4.5m},{108, 4.4m},{ 109, 4.1m},{ 110, 3.9m},{111, 3.7m},{112, 3.4m },{113, 3.2m },
+        {114 ,3.0m },{115 ,2.8m },{116 ,2.6m },{117 ,2.4m },{118, 2.2m},{119, 2.0m},{120, 1.9m}
     };
 
     #endregion
@@ -86,82 +86,82 @@ public partial class Appreciator : ObservableObject
     /// <summary>   Gets or sets the SEP IRA account balance - future value before tax. </summary>
     /// <value> The SEP IRA account balance - future value before tax. </value>
     [ObservableProperty]
-    public partial double SepIraAccountBalance { get; private set; }
+    public partial decimal SepIraAccountBalance { get; private set; }
 
     /// <summary>   Gets or sets the capital account balance. </summary>
     /// <value> The capital account balance. </value>
     [ObservableProperty]
-    public partial double CapitalAccountBalance { get; private set; }
+    public partial decimal CapitalAccountBalance { get; private set; }
 
     /// <summary>   Total Tax liability upon withdrawal. </summary>
     /// <value> The total tax liability. </value>
     [ObservableProperty]
-    public partial double WithdrawalTaxLiability { get; private set; }
+    public partial decimal WithdrawalTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the initial tax liability. </summary>
     /// <value> The initial tax liability. </value>
     [ObservableProperty]
-    public partial double InitialTaxLiability { get; private set; }
+    public partial decimal InitialTaxLiability { get; private set; }
 
     /// <summary>   Federal Tax liability upon withdrawal. </summary>
     /// <value> The Federal tax liability. </value>
     [ObservableProperty]
-    public partial double WithdrawalFederalTaxLiability { get; private set; }
+    public partial decimal WithdrawalFederalTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the initial federal tax liability. </summary>
     /// <value> The initial federal tax liability. </value>
     [ObservableProperty]
-    public partial double InitialFederalTaxLiability { get; private set; }
+    public partial decimal InitialFederalTaxLiability { get; private set; }
 
     /// <summary>   State Tax liability upon withdrawal. </summary>
     /// <value> The State tax liability. </value>
     [ObservableProperty]
-    public partial double WithdrawalStateTaxLiability { get; private set; }
+    public partial decimal WithdrawalStateTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the initial state tax liability. </summary>
     /// <value> The initial state tax liability. </value>
     [ObservableProperty]
-    public partial double InitialStateTaxLiability { get; private set; }
+    public partial decimal InitialStateTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the capital gain. </summary>
     /// <value> The capital gain. </value>
     [ObservableProperty]
-    public partial double CapitalGain { get; private set; }
+    public partial decimal CapitalGain { get; private set; }
 
     /// <summary>   Gets or sets the federal capital gains tax liability. </summary>
     /// <value> The federal capital gains tax liability. </value>
     [ObservableProperty]
-    public partial double FederalCapitalGainsTaxLiability { get; private set; }
+    public partial decimal FederalCapitalGainsTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the state capital gains tax liability. </summary>
     /// <value> The state capital gains tax liability. </value>
     [ObservableProperty]
-    public partial double StateCapitalGainsTaxLiability { get; private set; }
+    public partial decimal StateCapitalGainsTaxLiability { get; private set; }
 
     /// <summary>   Gets or sets the net cash out value. </summary>
     /// <value> The net cash out value. </value>
     [ObservableProperty]
-    public partial double NetCashOutValue { get; private set; }
+    public partial decimal NetCashOutValue { get; private set; }
 
     /// <summary>   Gets or sets the final age. </summary>
     /// <value> The final age. </value>
     [ObservableProperty]
-    public partial double FinalAge { get; private set; }
+    public partial decimal FinalAge { get; private set; }
 
     /// <summary>   Gets or sets the discounted (present value) federal taxes paid. </summary>
     /// <value> The federal taxes paid. </value>
     [ObservableProperty]
-    public partial double DiscountedFederalTaxesPaid { get; private set; }
+    public partial decimal DiscountedFederalTaxesPaid { get; private set; }
 
     /// <summary>   Gets or sets the discounted state taxes paid. </summary>
     /// <value> The discounted state taxes paid. </value>
     [ObservableProperty]
-    public partial double DiscountedStateTaxesPaid { get; private set; }
+    public partial decimal DiscountedStateTaxesPaid { get; private set; }
 
     /// <summary>   Gets or sets the discounted taxes paid. </summary>
     /// <value> The discounted taxes paid. </value>
     [ObservableProperty]
-    public partial double DiscountedTaxesPaid { get; private set; }
+    public partial decimal DiscountedTaxesPaid { get; private set; }
 
     #endregion
 
@@ -175,12 +175,12 @@ public partial class Appreciator : ObservableObject
     /// </remarks>
     public void CalculateFutureValue()
     {
-        this.InitialFederalTaxLiability = this.InvestedAmount * (this.InitialFederalTaxRate / 100.0);
-        this.InitialStateTaxLiability = this.InvestedAmount * (this.InitialStateTaxRate / 100.0);
+        this.InitialFederalTaxLiability = this.InvestedAmount * (this.InitialFederalTaxRate / 100.0m);
+        this.InitialStateTaxLiability = this.InvestedAmount * (this.InitialStateTaxRate / 100.0m);
         this.InitialTaxLiability = this.InitialFederalTaxLiability + this.InitialStateTaxLiability;
-        double initialCapital = this.InvestedAmount * (1 - ((this.InitialFederalTaxRate + this.InitialStateTaxRate) / 100.0));
+        decimal initialCapital = this.InvestedAmount * (1 - ((this.InitialFederalTaxRate + this.InitialStateTaxRate) / 100.0m));
 
-        double growthRate = 1 + (this.AnnualGrowthRate / 100.0);
+        decimal growthRate = 1 + (this.AnnualGrowthRate / 100.0m);
 
         // zero irelevant outcomes
         this.DiscountedFederalTaxesPaid = 0;
@@ -192,10 +192,10 @@ public partial class Appreciator : ObservableObject
 
         // Future capital is the growth of the initial capital investment,
         // which is subject to capital gains taxes upon withdrawal.
-        this.CapitalAccountBalance = initialCapital * Math.Pow( growthRate, this.InvestmentDuration );
+        this.CapitalAccountBalance = initialCapital * ( decimal ) Math.Pow( ( double ) growthRate, this.InvestmentDuration );
         this.CapitalGain = this.CapitalAccountBalance - initialCapital;
-        this.FederalCapitalGainsTaxLiability = this.CapitalGain * (this.FederalCapitalGainsTaxRate / 100.0);
-        this.StateCapitalGainsTaxLiability = this.CapitalGain * (this.StateCapitalGainsTaxRate / 100.0);
+        this.FederalCapitalGainsTaxLiability = this.CapitalGain * (this.FederalCapitalGainsTaxRate / 100.0m);
+        this.StateCapitalGainsTaxLiability = this.CapitalGain * (this.StateCapitalGainsTaxRate / 100.0m);
         this.WithdrawalTaxLiability = this.FederalCapitalGainsTaxLiability + this.StateCapitalGainsTaxLiability;
         this.NetCashOutValue = this.CapitalAccountBalance - this.WithdrawalTaxLiability;
 
@@ -231,7 +231,7 @@ public partial class Appreciator : ObservableObject
         // This is tracked separately from the growth of the initial investedAmount investment
         // because it is subject to capital gains taxes upon withdrawal, whereas the growth of
         // the initial investedAmount investment is subject to ordinary income taxes upon withdrawal.
-        double initialCapital = 0;
+        decimal initialCapital = 0;
 
         // the discounted taxes paid on the RMD are tracked separately from the tax liability upon
         // withdrawal and are discounted back to the present value using the inflation rate to reflect
@@ -246,7 +246,7 @@ public partial class Appreciator : ObservableObject
         // initial investedAmount and the growth rate of the capital invested in the SEP IRA.
         this.SepIraAccountBalance = this.InvestedAmount;
 
-        double growthRate = 1 + (this.AnnualGrowthRate / 100.0);
+        decimal growthRate = 1 + (this.AnnualGrowthRate / 100.0m);
         for ( int age = this.InitialAge; age < this.InitialAge + this.InvestmentDuration; age++ )
         {
             int endYearAge = age + 1;
@@ -254,19 +254,19 @@ public partial class Appreciator : ObservableObject
 
             // RMD is based on the account balance at the end of the previous year,
             // so we calculate that first before applying the RMD for the current year
-            double previousYearBalance = this.SepIraAccountBalance;
-            double previousYearCapital = this.CapitalAccountBalance;
+            decimal previousYearBalance = this.SepIraAccountBalance;
+            decimal previousYearCapital = this.CapitalAccountBalance;
 
             // it is assumed that both the SEP IRA and Capital accounts grow at the same rate
             // during the year, so we apply the growth rate to both the SEP IRA account balance
             // and the capital account balance
-            double endYearBalance = previousYearBalance * growthRate;
-            double endYearCapital = previousYearCapital * growthRate;
+            decimal endYearBalance = previousYearBalance * growthRate;
+            decimal endYearCapital = previousYearCapital * growthRate;
 
             if ( age >= 72 )
             {
                 // RMD = Account Balance at End of Previous Year / Uniform Lifetime Table Value for InitialAge
-                double rmd = previousYearBalance / this.UniformLifetimeTable[age];
+                decimal rmd = previousYearBalance / this.UniformLifetimeTable[age];
 
                 // The end of year balance of the SEP IRA account is reduced by the RMD amount,
                 // which is withdrawn from the account.
@@ -275,20 +275,20 @@ public partial class Appreciator : ObservableObject
                 // the RMD amount is subject to ordinary income taxes at the present tax rates.
                 // it is assumed here that the taxes on the RMD remain unchanged until the end of 
                 // the calculation period.
-                double federalTax = rmd * (this.InitialFederalTaxRate / 100.0);
-                double stateTax = rmd * (this.InitialStateTaxRate / 100.0);
+                decimal federalTax = rmd * (this.InitialFederalTaxRate / 100.0m);
+                decimal stateTax = rmd * (this.InitialStateTaxRate / 100.0m);
 
                 // The after tax RMD is invested back into the capital account,
                 // so we calculate the capital invested as the RMD minus the taxes paid on the RMD.
                 // This capital is subject to capital gains taxes upon withdrawal,
                 // so we track it separately from the growth of the initial capital investment.
-                double capitalInvested = rmd - federalTax - stateTax;
+                decimal capitalInvested = rmd - federalTax - stateTax;
                 endYearCapital += capitalInvested;
 
                 // The discounted taxes paid on the RMD are calculated by discounting 
                 // the federal and state taxes paid back to the present value using the inflation rate.
-                this.DiscountedFederalTaxesPaid += federalTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), endYearAge - this.InitialAge );
-                this.DiscountedStateTaxesPaid += stateTax / Math.Pow( 1 + (this.AnnualInflationRate / 100.0), endYearAge - this.InitialAge );
+                this.DiscountedFederalTaxesPaid += federalTax / ( decimal ) Math.Pow( ( double ) (1 + (this.AnnualInflationRate / 100.0m)), endYearAge - this.InitialAge );
+                this.DiscountedStateTaxesPaid += stateTax / ( decimal ) Math.Pow( ( double ) (1 + (this.AnnualInflationRate / 100.0m)), endYearAge - this.InitialAge );
                 this.DiscountedTaxesPaid = this.DiscountedFederalTaxesPaid + this.DiscountedStateTaxesPaid;
                 if ( debug )
                 {
@@ -310,12 +310,12 @@ public partial class Appreciator : ObservableObject
 
             // the federal tax liability upon withdrawal is based on the capital gains tax liability
             // plus the taxes owed on the SEP IRA account balance, which is taxed as ordinary income upon withdrawal.
-            this.WithdrawalFederalTaxLiability = this.SepIraAccountBalance * (this.WithdrawalFederalTaxRate / 100.0);
-            this.FederalCapitalGainsTaxLiability = this.CapitalGain * (this.FederalCapitalGainsTaxRate / 100.0);
+            this.WithdrawalFederalTaxLiability = this.SepIraAccountBalance * (this.WithdrawalFederalTaxRate / 100.0m);
+            this.FederalCapitalGainsTaxLiability = this.CapitalGain * (this.FederalCapitalGainsTaxRate / 100.0m);
 
             // for the state tax liability both the capital gain and the SEP IRA balance are taxed as ordinary income.
-            this.WithdrawalStateTaxLiability = this.SepIraAccountBalance * (this.WithdrawalStateTaxRate / 100.0);
-            this.StateCapitalGainsTaxLiability = this.CapitalGain * (this.StateCapitalGainsTaxRate / 100.0);
+            this.WithdrawalStateTaxLiability = this.SepIraAccountBalance * (this.WithdrawalStateTaxRate / 100.0m);
+            this.StateCapitalGainsTaxLiability = this.CapitalGain * (this.StateCapitalGainsTaxRate / 100.0m);
 
             // the total tax liability upon withdrawal is the sum of the federal and state tax liabilities.
             this.WithdrawalTaxLiability = this.WithdrawalFederalTaxLiability + this.FederalCapitalGainsTaxLiability +

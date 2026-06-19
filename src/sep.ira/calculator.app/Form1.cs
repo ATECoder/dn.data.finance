@@ -147,14 +147,14 @@ public partial class Form1 : Form
         table.Controls.Add( control, 1, row );
     }
 
-    private static NumericUpDown CreateNumericUpDown( double initialValue, double min, double max, decimal increment )
+    private static NumericUpDown CreateNumericUpDown( decimal initialValue, decimal min, decimal max, decimal increment )
     {
         return new NumericUpDown
         {
             Dock = DockStyle.Fill,
-            Minimum = ( decimal ) min,
-            Maximum = ( decimal ) max,
-            Value = ( decimal ) initialValue,
+            Minimum = min,
+            Maximum = max,
+            Value = initialValue,
             Increment = increment,
             DecimalPlaces = increment < 1 ? 2 : 0
         };
@@ -166,24 +166,24 @@ public partial class Form1 : Form
         {
             // Retrieve values from controls
             List<NumericUpDown> controls = this.GetAllNumericControls();
-            if ( controls.Count < 10 )
+            if ( controls.Count < 11 )
             {
                 _ = MessageBox.Show( "Error: Not all input fields are available.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return;
             }
 
             // Extract values
-            double investedAmount = ( double ) controls[0].Value;
+            decimal investedAmount = controls[0].Value;
             int initialAge = ( int ) controls[1].Value;
             int investmentDuration = ( int ) controls[2].Value;
-            double initialFederalTaxRate = ( double ) controls[3].Value;
-            double withdrawalFederalTaxRate = ( double ) controls[4].Value;
-            double initialStateTaxRate = ( double ) controls[5].Value;
-            double withdrawalStateTaxRate = ( double ) controls[6].Value;
-            double federalCapitalGainsTaxRate = ( double ) controls[7].Value;
-            double stateCapitalGainsTaxRate = ( double ) controls[8].Value;
-            double annualInflationRate = ( double ) controls[9].Value;
-            double annualGrownthRate = ( double ) controls[10].Value;
+            decimal initialFederalTaxRate = controls[3].Value;
+            decimal withdrawalFederalTaxRate = controls[4].Value;
+            decimal initialStateTaxRate = controls[5].Value;
+            decimal withdrawalStateTaxRate = controls[6].Value;
+            decimal federalCapitalGainsTaxRate = controls[7].Value;
+            decimal stateCapitalGainsTaxRate = controls[8].Value;
+            decimal annualInflationRate = controls[9].Value;
+            decimal annualGrowthRate = controls[10].Value;
 
             // Validate all inputs
             List<string> validationErrors = AppreciatorInputValidator.ValidateInputs(
@@ -191,7 +191,7 @@ public partial class Form1 : Form
                 initialFederalTaxRate, withdrawalFederalTaxRate,
                 initialStateTaxRate, withdrawalStateTaxRate,
                 federalCapitalGainsTaxRate, stateCapitalGainsTaxRate,
-                annualInflationRate, annualGrownthRate );
+                annualInflationRate, annualGrowthRate );
 
             if ( validationErrors.Count > 0 )
             {
@@ -225,7 +225,7 @@ public partial class Form1 : Form
                 FederalCapitalGainsTaxRate = federalCapitalGainsTaxRate,
                 StateCapitalGainsTaxRate = stateCapitalGainsTaxRate,
                 AnnualInflationRate = annualInflationRate,
-                AnnualGrowthRate = annualGrownthRate
+                AnnualGrowthRate = annualGrowthRate
             };
 
             this._appreciator.CalculateFutureValue();
@@ -259,17 +259,17 @@ public partial class Form1 : Form
     private void ResetButton_Click( object? sender, EventArgs e )
     {
         List<NumericUpDown> controls = this.GetAllNumericControls();
-        controls[0].Value = ( decimal ) AppreciatorInputsInitialValues.InvestedAmount;
+        controls[0].Value = AppreciatorInputsInitialValues.InvestedAmount;
         controls[1].Value = AppreciatorInputsInitialValues.InitialAge;
         controls[2].Value = AppreciatorInputsInitialValues.InvestmentDuration;
-        controls[3].Value = ( decimal ) AppreciatorInputsInitialValues.InitialFederalTaxRate;
-        controls[4].Value = ( decimal ) AppreciatorInputsInitialValues.WithdrawalFederalTaxRate;
-        controls[5].Value = ( decimal ) AppreciatorInputsInitialValues.InitialStateTaxRate;
-        controls[6].Value = ( decimal ) AppreciatorInputsInitialValues.WithdrawalStateTaxRate;
-        controls[7].Value = ( decimal ) AppreciatorInputsInitialValues.FederalCapitalGainsTaxRate;
-        controls[8].Value = ( decimal ) AppreciatorInputsInitialValues.StateCapitalGainsTaxRate;
-        controls[9].Value = ( decimal ) AppreciatorInputsInitialValues.AnnualInflationRate;
-        controls[10].Value = ( decimal ) AppreciatorInputsInitialValues.AnnualGrowthRate;
+        controls[3].Value = AppreciatorInputsInitialValues.InitialFederalTaxRate;
+        controls[4].Value = AppreciatorInputsInitialValues.WithdrawalFederalTaxRate;
+        controls[5].Value = AppreciatorInputsInitialValues.InitialStateTaxRate;
+        controls[6].Value = AppreciatorInputsInitialValues.WithdrawalStateTaxRate;
+        controls[7].Value = AppreciatorInputsInitialValues.FederalCapitalGainsTaxRate;
+        controls[8].Value = AppreciatorInputsInitialValues.StateCapitalGainsTaxRate;
+        controls[9].Value = AppreciatorInputsInitialValues.AnnualInflationRate;
+        controls[10].Value = AppreciatorInputsInitialValues.AnnualGrowthRate;
     }
 
     private List<NumericUpDown> GetAllNumericControls()

@@ -12,24 +12,24 @@ IConfiguration config = new ConfigurationBuilder()
     .Build();
 
 // Fetch the specific section and bind it directly to a dictionary type
-Dictionary<int, double>? dictionary = config.GetSection( "UniformLifetimeTable" )
-    .Get<Dictionary<int, double>>();
+Dictionary<int, decimal>? dictionary = config.GetSection( "UniformLifetimeTable" )
+    .Get<Dictionary<int, decimal>>();
 
 // Update the uniform lifetime table with the deserialized dictionary
 appreciator.UniformLifetimeTable = dictionary ?? appreciator.UniformLifetimeTable;
 
 // Define inputs
-if ( args.Length > 0 ) { appreciator.InvestedAmount = double.Parse( args[0], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 0 ) { appreciator.InvestedAmount = decimal.Parse( args[0], System.Globalization.CultureInfo.CurrentCulture ); }
 if ( args.Length > 1 ) { appreciator.InitialAge = int.Parse( args[1], System.Globalization.CultureInfo.CurrentCulture ); }
 if ( args.Length > 2 ) { appreciator.InvestmentDuration = int.Parse( args[2], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 3 ) { appreciator.InitialFederalTaxRate = double.Parse( args[3], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 4 ) { appreciator.WithdrawalFederalTaxRate = double.Parse( args[4], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 5 ) { appreciator.InitialStateTaxRate = double.Parse( args[5], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 6 ) { appreciator.WithdrawalStateTaxRate = double.Parse( args[6], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 7 ) { appreciator.FederalCapitalGainsTaxRate = double.Parse( args[7], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 8 ) { appreciator.StateCapitalGainsTaxRate = double.Parse( args[8], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 9 ) { appreciator.AnnualInflationRate = double.Parse( args[9], System.Globalization.CultureInfo.CurrentCulture ); }
-if ( args.Length > 10 ) { appreciator.AnnualGrowthRate = double.Parse( args[10], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 3 ) { appreciator.InitialFederalTaxRate = decimal.Parse( args[3], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 4 ) { appreciator.WithdrawalFederalTaxRate = decimal.Parse( args[4], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 5 ) { appreciator.InitialStateTaxRate = decimal.Parse( args[5], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 6 ) { appreciator.WithdrawalStateTaxRate = decimal.Parse( args[6], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 7 ) { appreciator.FederalCapitalGainsTaxRate = decimal.Parse( args[7], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 8 ) { appreciator.StateCapitalGainsTaxRate = decimal.Parse( args[8], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 9 ) { appreciator.AnnualInflationRate = decimal.Parse( args[9], System.Globalization.CultureInfo.CurrentCulture ); }
+if ( args.Length > 10 ) { appreciator.AnnualGrowthRate = decimal.Parse( args[10], System.Globalization.CultureInfo.CurrentCulture ); }
 
 Console.WriteLine();
 AppreciatorReportBuilder.OutputReport( AppreciatorReportBuilder.BuildInputsReport( appreciator, "* Inputs *" ), 1 );

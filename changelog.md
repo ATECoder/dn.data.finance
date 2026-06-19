@@ -2,7 +2,12 @@
 Notable changes to the [Finance Repository] are documented in this file using the 
 [Keep a Changelog] style. The dates specified are in coordinated universal time (UTC).
 
-[1.0.9664]: https://www.github.com/atecoder/dn.data.finance
+[1.0.9666]: https://www.github.com/atecoder/dn.data.finance
+
+## [1.0.9666] - 2026-06-19
+- SEP IRA Calculator
+  - Set financial values as decimal.
+  - Add .NET Maui application.
 
 ## [1.0.9664] - 2026-06-17
 - SEP IRA Calculator Tests

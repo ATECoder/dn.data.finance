@@ -19,11 +19,11 @@ public static class AppreciatorInputValidator
     /// <param name="annualGrowthRate">             The annual growth rate. </param>
     /// <returns>   A list of validation error messages. Empty if all inputs are valid. </returns>
     public static List<string> ValidateInputs(
-        double investedAmount, int initialAge, int investmentDuration,
-        double initialFederalTaxRate, double withdrawalFederalTaxRate,
-        double initialStateTaxRate, double withdrawalStateTaxRate,
-        double federalCapitalGainsTaxRate, double stateCapitalGainsTaxRate,
-        double annualInflationRate, double annualGrowthRate )
+        decimal investedAmount, int initialAge, int investmentDuration,
+        decimal initialFederalTaxRate, decimal withdrawalFederalTaxRate,
+        decimal initialStateTaxRate, decimal withdrawalStateTaxRate,
+        decimal federalCapitalGainsTaxRate, decimal stateCapitalGainsTaxRate,
+        decimal annualInflationRate, decimal annualGrowthRate )
     {
         List<string> errors = [];
 
@@ -47,7 +47,7 @@ public static class AppreciatorInputValidator
         return errors;
     }
 
-    private static void ValidateInvestedAmount( double investedAmount, List<string> errors )
+    private static void ValidateInvestedAmount( decimal investedAmount, List<string> errors )
     {
         if ( investedAmount < AppreciatorInputsRanges.InvestedAmount.Minimum )
         {
@@ -90,9 +90,9 @@ public static class AppreciatorInputValidator
     }
 
     private static void ValidateTaxRates(
-        double initialFederalTaxRate, double withdrawalFederalTaxRate,
-        double initialStateTaxRate, double withdrawalStateTaxRate,
-        double federalCapitalGainsTaxRate, double stateCapitalGainsTaxRate, List<string> errors )
+        decimal initialFederalTaxRate, decimal withdrawalFederalTaxRate,
+        decimal initialStateTaxRate, decimal withdrawalStateTaxRate,
+        decimal federalCapitalGainsTaxRate, decimal stateCapitalGainsTaxRate, List<string> errors )
     {
         // Individual rate validation
         if ( !AppreciatorInputsRanges.InitialFederalTaxRate.Contains( initialFederalTaxRate ) )
@@ -121,7 +121,7 @@ public static class AppreciatorInputValidator
         }
     }
 
-    private static void ValidateEconomicRates( double anualInflationRate, double annualGrowthRate, List<string> errors )
+    private static void ValidateEconomicRates( decimal anualInflationRate, decimal annualGrowthRate, List<string> errors )
     {
         if ( !AppreciatorInputsRanges.AnnualInflationRate.Contains( anualInflationRate ) )
         {
