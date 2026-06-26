@@ -11,4 +11,5 @@
   </Project>
   <Project Path="calculator.xunits/cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj" />
   <Project Path="calculator/cc.isr.Finance.Sep.Ira.Calculator.csproj" />
+  <Project Path="../../../core/ide/src/my/lib/BuildPackages/BuildPackages.csproj" />
 </Solution>

@@ -2,7 +2,10 @@
 Notable changes to the [Finance Repository] are documented in this file using the 
 [Keep a Changelog] style. The dates specified are in coordinated universal time (UTC).
 
-[1.0.9666]: https://www.github.com/atecoder/dn.data.finance
+[1.0.9673]: https://www.github.com/atecoder/dn.data.finance
+
+## [1.0.9673] - 2026-06-26
+Add reference to the BuildPackages project from the [IDE Repo].
 
 ## [1.0.9666] - 2026-06-19
 - SEP IRA Calculator
@@ -38,3 +41,4 @@ Notable changes to the [Finance Repository] are documented in this file using th
 
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Finance Repository]: https://www.github.com/atecoder/dn.data.finance
+[IDE Repo]: https://github.com/ATECoder/vs.ide.git
