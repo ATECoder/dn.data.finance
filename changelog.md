@@ -5,7 +5,12 @@ Notable changes to the [Finance Repository] are documented in this file using th
 [1.0.9673]: https://www.github.com/atecoder/dn.data.finance
 
 ## [1.0.9673] - 2026-06-26
-Add reference to the BuildPackages project from the [IDE Repo].
+- Add reference to the BuildPackages project from the [IDE Repo].
+- XUnits
+  - Define financial values as Decimal.
+  - Run all tests and document.
+- Maui App
+  - Update.
 
 ## [1.0.9666] - 2026-06-19
 - SEP IRA Calculator

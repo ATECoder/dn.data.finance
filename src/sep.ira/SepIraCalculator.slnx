@@ -4,6 +4,7 @@
     <File Path="../../readme.md" />
     <File Path="../../todo.md" />
   </Folder>
+  <Project Path="../../../../core/ide/src/my/lib/BuildPackages/BuildPackages.csproj" />
   <Project Path="calculator.app/SepIraCalculatorFormsApp.csproj" />
   <Project Path="calculator.console/SepIraCalculatorConsoleApp.csproj" />
   <Project Path="calculator.maui/SepIraCalculatorMauiApp.csproj">
@@ -11,5 +12,4 @@
   </Project>
   <Project Path="calculator.xunits/cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj" />
   <Project Path="calculator/cc.isr.Finance.Sep.Ira.Calculator.csproj" />
-  <Project Path="../../../core/ide/src/my/lib/BuildPackages/BuildPackages.csproj" />
 </Solution>

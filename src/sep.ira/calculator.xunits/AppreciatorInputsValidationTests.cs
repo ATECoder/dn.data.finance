@@ -4,12 +4,12 @@ namespace cc.isr.Finance.Sep.Ira;
 /// <remarks>   2026-06-16. </remarks>
 public class AppreciatorInputsValidationTests
 {
-    private const double ValidInvestedAmount = 50000;
+    private const decimal ValidInvestedAmount = 50000;
     private const int ValidInitialAge = 50;
     private const int ValidInvestmentDuration = 20;
-    private const double ValidTaxRate = 25;
-    private const double ValidAnnualInflationRate = 2.75;
-    private const double ValidAnnualGrowthRate = 7;
+    private const decimal ValidTaxRate = 25;
+    private const decimal ValidAnnualInflationRate = 2.75m;
+    private const decimal ValidAnnualGrowthRate = 7;
 
     #region " Invested Amount Validation Tests "
 
@@ -330,7 +330,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeInitialFederalTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeInitialFederalTaxRateReturnsError( decimal taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -353,7 +353,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( 100.1 )]
     [InlineData( 150 )]
-    public void ValidateInputsWithExcessiveWithdrawalFederalTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithExcessiveWithdrawalFederalTaxRateReturnsError( decimal taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -376,7 +376,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeInitialStateTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeInitialStateTaxRateReturnsError( decimal taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -399,7 +399,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeWithdrawalStateTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeWithdrawalStateTaxRateReturnsError( decimal taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -422,7 +422,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeFederalCapitalGainsTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeFederalCapitalGainsTaxRateReturnsError( decimal taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -445,7 +445,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -0.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithNegativeStateCapitalGainsTaxRateReturnsError( double taxRate )
+    public void ValidateInputsWithNegativeStateCapitalGainsTaxRateReturnsError( decimal taxRate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -489,7 +489,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -10.1 )]
     [InlineData( -50 )]
-    public void ValidateInputsWithInflationRateBelowMinimumReturnsError( double rate )
+    public void ValidateInputsWithInflationRateBelowMinimumReturnsError( decimal rate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -512,7 +512,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( 50.1 )]
     [InlineData( 100 )]
-    public void ValidateInputsWithInflationRateAboveMaximumReturnsError( double rate )
+    public void ValidateInputsWithInflationRateAboveMaximumReturnsError( decimal rate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -527,11 +527,11 @@ public class AppreciatorInputsValidationTests
     }
 
     /// <summary>
-    /// (Unit Test Method) validates the inputs with valid annual growth rage no errors.
+    /// (Unit Test Method) validates the inputs with valid annual growth rate no errors.
     /// </summary>
     /// <remarks>   2026-06-16. </remarks>
     [Fact]
-    public void ValidateInputsWithValidAnnualGrowthRageNoErrors()
+    public void ValidateInputsWithValidAnnualGrowthRateNoErrors()
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -544,7 +544,7 @@ public class AppreciatorInputsValidationTests
     }
 
     /// <summary>
-    /// (Data-driven Unit Test Method) validates the inputs with annual growth rage below minimum
+    /// (Data-driven Unit Test Method) validates the inputs with annual growth rate below minimum
     /// returns error described by rate.
     /// </summary>
     /// <remarks>   2026-06-16. </remarks>
@@ -552,7 +552,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( -50.1 )]
     [InlineData( -100 )]
-    public void ValidateInputsWithAnnualGrowthRageBelowMinimumReturnsError( double rate )
+    public void ValidateInputsWithAnnualGrowthRateBelowMinimumReturnsError( decimal rate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
@@ -567,7 +567,7 @@ public class AppreciatorInputsValidationTests
     }
 
     /// <summary>
-    /// (Data-driven Unit Test Method) validates the inputs with annual growth rage above maximum
+    /// (Data-driven Unit Test Method) validates the inputs with annual growth rate above maximum
     /// returns error described by rate.
     /// </summary>
     /// <remarks>   2026-06-16. </remarks>
@@ -575,7 +575,7 @@ public class AppreciatorInputsValidationTests
     [Theory]
     [InlineData( 100.1 )]
     [InlineData( 150 )]
-    public void ValidateInputsWithAnnualGrowthRageAboveMaximumReturnsError( double rate )
+    public void ValidateInputsWithAnnualGrowthRateAboveMaximumReturnsError( decimal rate )
     {
         // Arrange & Act
         List<string> errors = AppreciatorInputValidator.ValidateInputs(
