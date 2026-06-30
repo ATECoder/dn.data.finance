@@ -8,6 +8,7 @@
     <!--
     <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     -->
+    <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
 
     <!-- Note for MacCatalyst:
@@ -26,24 +27,12 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-    <!-- ... existing settings ... -->
-    <!-- 
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>false</PublishReadyToRun>
-    <SelfContained>false</SelfContained>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <SelfContained>true</SelfContained>
-    <TrimMode>partial</TrimMode>
-    <TrimMode>full</TrimMode>
-    -->
-    <!-- Optional: Enable stricter trimming (may require RUC annotations) -->
-    
     <!-- Signature -->
     <!-- MAUI's core libraries are not strong-named-->
     <NoWarn>$(NoWarn);CS8002</NoWarn>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\items\keyPair.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
+    <DelaySign>True</DelaySign>
 
     <!-- Display name -->
     <ApplicationTitle>Sep.Ira.Calculator.Maui.App</ApplicationTitle>
@@ -51,24 +40,22 @@
     <!-- App Identifier -->
     <ApplicationId>cc.isr.finance.sep.ira.calculator.maui</ApplicationId>
 
-    <!-- Versions
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-    <ApplicationVersion>1</ApplicationVersion>
-    -->
-
     <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
     <WindowsPackageType>None</WindowsPackageType>
 
-    <!--
+    <!-- English-only localization -->
+    <NeutralLanguage>en-us</NeutralLanguage>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-    -->
 
-    <!-- English-only localization -->
-    <NeutralLanguage>en</NeutralLanguage>
+    <!-- setting this to true breaks running under the IDE -->
+    <PublishTrimmed>false</PublishTrimmed>
+
+    <!-- the Publish option is still disabled -->
+    <IsPublishable>true</IsPublishable>
 
   </PropertyGroup>
 

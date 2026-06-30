@@ -11,6 +11,10 @@ Notable changes to the [Finance Repository] are documented in this file using th
   - Include version.build.props.
   - Add release version properties.
   - Fix the XAML warnings in AppreciatorPage.xaml by adding x:DataType attributes to enable compiled bindings.
+  - The project is abandoned at this time because:
+    - The Publish option is not enabled after defining publishing profiles.
+    - The release is 100 times larger than a Windows Form application.
+    - The release includes numerouse unnecessary packages.
 
 ## [1.0.9673] - 2026-06-26
 - Add reference to the BuildPackages project from the [IDE Repo].
