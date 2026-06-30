@@ -4,6 +4,14 @@ Notable changes to the [Finance Repository] are documented in this file using th
 
 [1.0.9673]: https://www.github.com/atecoder/dn.data.finance
 
+## [1.0.9677] - 2026-06-30
+- App
+  - Include version.build.props.
+- Maui
+  - Include version.build.props.
+  - Add release version properties.
+  - Fix the XAML warnings in AppreciatorPage.xaml by adding x:DataType attributes to enable compiled bindings.
+
 ## [1.0.9673] - 2026-06-26
 - Add reference to the BuildPackages project from the [IDE Repo].
 - XUnits
