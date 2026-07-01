@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is a simple SVG favicon. Replace with your own icon. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#007bff"/>
+  <text x="50" y="65" font-size="60" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">$</text>
+</svg>

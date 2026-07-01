@@ -10,6 +10,7 @@
   <Project Path="calculator.maui/SepIraCalculatorMauiApp.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
+  <Project Path="calculator.wasm/SepIraCalculatorWebAssembly.csproj" />
   <Project Path="calculator.xunits/cc.isr.Finance.Sep.Ira.Calculator.XUnits.csproj" />
   <Project Path="calculator/cc.isr.Finance.Sep.Ira.Calculator.csproj" />
 </Solution>

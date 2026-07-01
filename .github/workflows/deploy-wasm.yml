@@ -1,0 +1,59 @@
+name: Deploy SEP IRA Calculator to Azure Static Web Apps
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/sep.ira/calculator.wasm/**'
+      - 'src/sep.ira/calculator/**'
+      - '.github/workflows/deploy-wasm.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build src/sep.ira/calculator.wasm/SepIraCalculatorWebAssembly.csproj --configuration Release
+
+      - name: Publish
+        run: dotnet publish src/sep.ira/calculator.wasm/SepIraCalculatorWebAssembly.csproj --configuration Release --output ./publish
+
+      - name: Deploy to Azure Static Web Apps
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          # Fill in the values below based on your Azure Static Web Apps instance
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: "upload"
+          app_location: "publish/wwwroot"
+          skip_app_build: true
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Deployment preview ready at: ${{ steps.builddeploy.outputs.static_web_app_url }}'
+            })

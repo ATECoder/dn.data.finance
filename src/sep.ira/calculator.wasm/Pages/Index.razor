@@ -1,0 +1,373 @@
+@page "/"
+@using cc.isr.Finance.Sep.Ira.WebAssembly.Services
+@inject AppreciatorService AppreciatorService
+
+<div class="container-lg mt-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Title Section -->
+            <div class="text-center mb-4">
+                <h1 class="display-5 fw-bold">SEP IRA Appreciation Calculator</h1>
+                <p class="lead text-muted">Calculate Simple Investment vs. SEP IRA Comparison</p>
+            </div>
+
+            <!-- Status Message -->
+            <div class="alert alert-info mb-4">
+                <p><strong>Status:</strong> Application loaded successfully.</p>
+                <p><strong>Time:</strong> @DateTime.Now.ToString("G")</p>
+                <p><strong>Service Ready:</strong> @(AppreciatorService != null ? "Yes ✓" : "No ✗")</p>
+            </div>
+
+            <!-- Error Message Display -->
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error:</strong> @errorMessage
+                    <button type="button" class="btn-close" @onclick="ClearError"></button>
+                </div>
+            }
+
+            <!-- Form Section -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <form @onsubmit="HandleCalculate">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="investedAmount" class="form-label fw-bold">Invested Amount ($)</label>
+                                <input type="number" class="form-control" id="investedAmount" 
+                                       @bind="invested" placeholder="10000" step="0.01" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="initialAge" class="form-label fw-bold">Initial Age</label>
+                                <input type="number" class="form-control" id="initialAge" 
+                                       @bind="age" placeholder="75" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="investmentDuration" class="form-label fw-bold">Investment Duration (years)</label>
+                                <input type="number" class="form-control" id="investmentDuration" 
+                                       @bind="duration" placeholder="20" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="annualGrowthRate" class="form-label fw-bold">Annual Growth Rate (%)</label>
+                                <input type="number" class="form-control" id="annualGrowthRate" 
+                                       @bind="growthRate" placeholder="7.0" step="0.01" />
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <h5 class="card-title">Federal Taxes</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="initialFederalTaxRate" class="form-label fw-bold">Initial Federal Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="initialFederalTaxRate" 
+                                       @bind="fedTaxInitial" placeholder="35.0" step="0.01" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="withdrawalFederalTaxRate" class="form-label fw-bold">Withdrawal Federal Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="withdrawalFederalTaxRate" 
+                                       @bind="fedTaxWithdraw" placeholder="35.0" step="0.01" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="federalCapitalGainsTaxRate" class="form-label fw-bold">Federal Capital Gains Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="federalCapitalGainsTaxRate" 
+                                       @bind="fedCapGainsTax" placeholder="25.0" step="0.01" />
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <h5 class="card-title">State Taxes</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="initialStateTaxRate" class="form-label fw-bold">Initial State Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="initialStateTaxRate" 
+                                       @bind="stateTaxInitial" placeholder="9.3" step="0.01" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="withdrawalStateTaxRate" class="form-label fw-bold">Withdrawal State Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="withdrawalStateTaxRate" 
+                                       @bind="stateTaxWithdraw" placeholder="9.3" step="0.01" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="stateCapitalGainsTaxRate" class="form-label fw-bold">State Capital Gains Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="stateCapitalGainsTaxRate" 
+                                       @bind="stateCapGainsTax" placeholder="9.3" step="0.01" />
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <h5 class="card-title">Economic Factors</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="annualInflationRate" class="form-label fw-bold">Annual Inflation Rate (%)</label>
+                                <input type="number" class="form-control" id="annualInflationRate" 
+                                       @bind="inflationRate" placeholder="2.75" step="0.01" />
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary btn-lg" disabled="@isCalculating">
+                                @if (isCalculating)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    <span>Calculating...</span>
+                                }
+                                else
+                                {
+                                    <span>Calculate</span>
+                                }
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-lg" @onclick="HandleReset" disabled="@isCalculating">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Display -->
+            @if (hasResults && result != null)
+            {
+                <div class="card shadow-sm border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Calculation Results</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (result.Success)
+                        {
+                            <div class="row">
+                                <!-- Simple Investment Column -->
+                                <div class="col-md-6">
+                                    <h6 class="text-center mb-3 border-bottom pb-2">
+                                        <strong>Simple Investment</strong>
+                                    </h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Initial Investment</strong></td>
+                                                    <td class="text-end">@result.InitialInvestment.ToString("C2")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Initial Tax</strong></td>
+                                                    <td class="text-end">@((result.InitialInvestment * ((result.InitialFederalTaxRate + result.InitialStateTaxRate) / 100.0m)).ToString("C2"))</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Capital After Tax</strong></td>
+                                                    <td class="text-end">@((result.InitialInvestment * (1 - ((result.InitialFederalTaxRate + result.InitialStateTaxRate) / 100.0m))).ToString("C2"))</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Duration (years)</strong></td>
+                                                    <td class="text-end">@result.InvestmentDuration</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Annual Growth Rate</strong></td>
+                                                    <td class="text-end">@result.AnnualGrowthRate.ToString("F2")%</td>
+                                                </tr>
+                                                <tr class="border-top">
+                                                    <td><strong>Future Balance</strong></td>
+                                                    <td class="text-end">@result.SimpleInvestmentBalance.ToString("C2")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Capital Gain</strong></td>
+                                                    <td class="text-end">@((result.SimpleInvestmentBalance - (result.InitialInvestment * (1 - ((result.InitialFederalTaxRate + result.InitialStateTaxRate) / 100.0m)))).ToString("C2"))</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Withdrawal Tax</strong></td>
+                                                    <td class="text-end text-danger">@result.SimpleInvestmentWithdrawalTax.ToString("C2")</td>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <td><strong>Net Cash-Out</strong></td>
+                                                    <td class="text-end"><strong>@result.SimpleInvestmentNetCashOut.ToString("C2")</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- SEP IRA Column -->
+                                <div class="col-md-6">
+                                    <h6 class="text-center mb-3 border-bottom pb-2">
+                                        <strong>SEP IRA with RMD</strong>
+                                    </h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Initial Investment</strong></td>
+                                                    <td class="text-end">@result.InitialInvestment.ToString("C2")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Initial Age</strong></td>
+                                                    <td class="text-end">@result.InitialAge</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Final Age</strong></td>
+                                                    <td class="text-end">@result.FinalAge</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Duration (years)</strong></td>
+                                                    <td class="text-end">@result.InvestmentDuration</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Annual Growth Rate</strong></td>
+                                                    <td class="text-end">@result.AnnualGrowthRate.ToString("F2")%</td>
+                                                </tr>
+                                                <tr class="border-top">
+                                                    <td><strong>SEP IRA Account Balance</strong></td>
+                                                    <td class="text-end">@result.SepIraAccountBalance.ToString("C2")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Capital Account Balance</strong></td>
+                                                    <td class="text-end">@result.CapitalAccountBalance.ToString("C2")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Total Account Balance</strong></td>
+                                                    <td class="text-end">@((result.SepIraAccountBalance + result.CapitalAccountBalance).ToString("C2"))</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Withdrawal Tax Liability</strong></td>
+                                                    <td class="text-end text-danger">@result.WithdrawalTaxLiability.ToString("C2")</td>
+                                                </tr>
+                                                <tr class="table-success">
+                                                    <td><strong>Net Cash-Out Value</strong></td>
+                                                    <td class="text-end"><strong>@result.NetCashOutValue.ToString("C2")</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comparison Summary -->
+                            <hr class="my-4" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-center">SEP IRA Advantage</h6>
+                                    <div class="alert alert-info text-center">
+                                        <h5 class="mb-0">@((result.NetCashOutValue - result.SimpleInvestmentNetCashOut).ToString("C2"))</h5>
+                                        <small>SEP IRA provides @((((result.NetCashOutValue - result.SimpleInvestmentNetCashOut) / result.SimpleInvestmentNetCashOut) * 100).ToString("F2"))% more net value</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-center">Tax Savings</h6>
+                                    <div class="alert alert-success text-center">
+                                        <h5 class="mb-0">@((result.SimpleInvestmentWithdrawalTax - result.WithdrawalTaxLiability).ToString("C2"))</h5>
+                                        <small>SEP IRA saves @((result.SimpleInvestmentWithdrawalTax - result.WithdrawalTaxLiability).ToString("C2")) in taxes</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                <strong>Calculation failed:</strong> @result.ErrorMessage
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private decimal invested = 10000m;
+    private int age = 75;
+    private int duration = 20;
+    private decimal fedTaxInitial = 35.0m;
+    private decimal fedTaxWithdraw = 35.0m;
+    private decimal stateTaxInitial = 9.3m;
+    private decimal stateTaxWithdraw = 9.3m;
+    private decimal fedCapGainsTax = 25.0m;
+    private decimal stateCapGainsTax = 9.3m;
+    private decimal inflationRate = 2.75m;
+    private decimal growthRate = 7.0m;
+
+    private AppreciationResult? result = null;
+    private string? errorMessage = null;
+    private bool isCalculating = false;
+    private bool hasResults = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Console.WriteLine("Index.razor initialized");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in OnInitialized: {ex.Message}");
+        }
+    }
+
+    private async Task HandleCalculate()
+    {
+        try
+        {
+            isCalculating = true;
+            errorMessage = null;
+            hasResults = false;
+
+            if (AppreciatorService == null)
+            {
+                throw new InvalidOperationException("AppreciatorService not available");
+            }
+
+            result = AppreciatorService.CalculateSepIraWithRmd(
+                invested, age, duration, growthRate, inflationRate,
+                fedTaxInitial, stateTaxInitial, fedTaxWithdraw, stateTaxWithdraw,
+                fedCapGainsTax, stateCapGainsTax);
+
+            hasResults = true;
+
+            if (!result.Success)
+            {
+                errorMessage = result.ErrorMessage;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+            Console.WriteLine($"Exception: {ex}");
+        }
+        finally
+        {
+            isCalculating = false;
+        }
+    }
+
+    private void HandleReset()
+    {
+        invested = 10000m;
+        age = 75;
+        duration = 20;
+        fedTaxInitial = 35.0m;
+        fedTaxWithdraw = 35.0m;
+        stateTaxInitial = 9.3m;
+        stateTaxWithdraw = 9.3m;
+        fedCapGainsTax = 25.0m;
+        stateCapGainsTax = 9.3m;
+        inflationRate = 2.75m;
+        growthRate = 7.0m;
+
+        result = null;
+        errorMessage = null;
+        hasResults = false;
+    }
+
+    private void ClearError()
+    {
+        errorMessage = null;
+    }
+}

@@ -11,5 +11,8 @@ The following issue make this a poor choice at this time
 * The release is 100 times larger than a Windows Form application.
 * The release includes numerouse unnecessary packages.
 
+## Web Assembly
+* Ask Haikue: Help set up Azure Static Web Apps deployment
+
 ## User Interface
 * Add Maui, Uno and Avalonia forms applications.

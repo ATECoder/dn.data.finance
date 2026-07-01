@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  sep-ira-calculator:
+    build:
+      context: ../../..
+      dockerfile: src/sep.ira/calculator.wasm/Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: unless-stopped
+    container_name: sep-ira-calculator-wasm
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/index.html"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

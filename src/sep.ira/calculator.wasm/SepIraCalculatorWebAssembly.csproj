@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
+
+    <!-- WebAssembly Runtime Configuration -->
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>full</TrimMode>
+    <TrimmerRootAssembly>Sep.Ira.Calculator.WebAssembly</TrimmerRootAssembly>
+    <EnableTrimAnalyzer>false</EnableTrimAnalyzer>
+    <EnableAotAnalyzer>false</EnableAotAnalyzer>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <WasmEnableSimd>false</WasmEnableSimd>
+    <WasmEnableBulkMemory>false</WasmEnableBulkMemory>
+    <WasmEnableExceptionHandling>true</WasmEnableExceptionHandling>
+    <EmccExtraLLVMFlags>-mwasm-bulk-memory -mwasm-exception-handling -O3</EmccExtraLLVMFlags>
+    <PublishTrimmedInPlace>true</PublishTrimmedInPlace>
+    <DebuggerSupport>false</DebuggerSupport>
+    <WasmStripILAfterLink>true</WasmStripILAfterLink>
+
+    <!-- Assembly Info -->
+    <RootNamespace>cc.isr.Finance.Sep.Ira</RootNamespace>
+    <AssemblyName>Sep.Ira.Calculator.WebAssembly</AssemblyName>
+    <ApplicationTitle>SEP IRA Calculator - Web</ApplicationTitle>
+    <ApplicationId>cc.isr.finance.sep.ira.calculator.wasm</ApplicationId>
+
+    <!-- Signature -->
+    <SignAssembly>false</SignAssembly>
+
+    <!-- Display name -->
+    <OutputType>Exe</OutputType>
+    <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
+</Project>

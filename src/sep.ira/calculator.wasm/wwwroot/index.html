@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEP IRA Calculator - WebAssembly</title>
+    <base href="/" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <!-- Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
+            <div style="text-align: center;">
+                <h2>Loading SEP IRA Calculator...</h2>
+                <p style="color: #666;">Please wait while the application initializes.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui" style="display: none;">
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
+            <div style="padding: 20px; max-width: 600px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; color: #721c24;">
+                <h3 style="margin-top: 0;">An unhandled error has occurred</h3>
+                <p>The SEP IRA Calculator application encountered an error during startup.</p>
+                <p style="font-size: 0.9em; color: #666;">Check the browser console (F12) for detailed error information.</p>
+                <p id="error-details" style="font-size: 0.85em; background: white; padding: 10px; border-radius: 3px; max-height: 200px; overflow-y: auto;"></p>
+                <p style="margin-bottom: 0;">
+                    <a href="" class="reload" style="display: inline-block; padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 3px; margin-right: 10px;">Reload</a>
+                    <a class="dismiss" style="display: inline-block; padding: 8px 16px; background: #6c757d; color: white; text-decoration: none; border-radius: 3px; cursor: pointer;">Dismiss</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Log when script loading starts
+        console.log("SEP IRA Calculator: Initializing Blazor...");
+        console.log("User Agent:", navigator.userAgent);
+        console.log("WebAssembly Support:", typeof WebAssembly !== 'undefined');
+
+        // Store errors before Blazor loads
+        window.startupErrors = [];
+        let errorCount = 0;
+
+        window.addEventListener('error', function(event) {
+            errorCount++;
+            console.error("JavaScript Error #" + errorCount + ":", event.error, event.message);
+            const errorInfo = {
+                type: 'error',
+                error: String(event.error),
+                message: event.message,
+                filename: event.filename,
+                lineno: event.lineno,
+                colno: event.colno,
+                timestamp: new Date().toISOString()
+            };
+            window.startupErrors.push(errorInfo);
+
+            // Also display in error panel
+            const errorDetails = document.getElementById('error-details');
+            if (errorDetails) {
+                errorDetails.innerHTML += '<strong>Error #' + errorCount + ':</strong> ' + event.message + ' at ' + event.filename + ':' + event.lineno + '<br>';
+            }
+        });
+
+        window.addEventListener('unhandledrejection', function(event) {
+            errorCount++;
+            console.error("Unhandled Promise Rejection #" + errorCount + ":", event.reason);
+            const errorInfo = {
+                type: 'unhandledrejection',
+                reason: String(event.reason),
+                stack: event.reason?.stack || 'No stack available',
+                timestamp: new Date().toISOString()
+            };
+            window.startupErrors.push(errorInfo);
+
+            // Also display in error panel
+            const errorDetails = document.getElementById('error-details');
+            if (errorDetails) {
+                errorDetails.innerHTML += '<strong>Promise Rejection #' + errorCount + ':</strong> ' + String(event.reason) + '<br>';
+            }
+        });
+    </script>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+
+    <script>
+        // Log when script is loaded
+        console.log("SEP IRA Calculator: Blazor script loaded");
+
+        // Check if errors occurred
+        if (window.startupErrors && window.startupErrors.length > 0) {
+            console.error("Startup Errors Captured:", window.startupErrors);
+        }
+
+        // Show error panel if there are errors
+        if (errorCount > 0) {
+            document.getElementById('blazor-error-ui').style.display = '';
+        }
+    </script>
+</body>
+
+</html>

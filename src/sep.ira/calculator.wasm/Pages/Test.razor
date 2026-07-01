@@ -1,0 +1,22 @@
+@page "/test"
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h1>Test Page</h1>
+            <p>If you see this, Blazor WebAssembly is working!</p>
+            <p>Current time: @DateTime.Now</p>
+            <button class="btn btn-primary" @onclick="TestClick">Click Me</button>
+            <p>@testMessage</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string testMessage = "Ready";
+
+    private void TestClick()
+    {
+        testMessage = $"Clicked at {DateTime.Now:HH:mm:ss}";
+    }
+}
