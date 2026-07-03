@@ -4,7 +4,7 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 
 ### 📖 Documentation Files
 
-#### 1. **QUICK_START_DEPLOYMENT.md** ⚡ START HERE
+#### 1. **Deployment_StepByStepGuide.md** ⚡ START HERE
    - **Audience**: Everyone (non-technical to DevOps)
    - **Time**: 5-10 minutes to read
    - **Content**: 
@@ -13,7 +13,7 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
      - Post-deployment checklist
    - **Best for**: Getting app live quickly
 
-#### 2. **DEPLOYMENT.md** 📋 DETAILED GUIDE
+#### 2. **Deployment_DetailedGuide.md** 📋 DETAILED GUIDE
    - **Audience**: DevOps, experienced developers
    - **Time**: 30-45 minutes to read
    - **Content**:
@@ -24,7 +24,7 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
      - Troubleshooting guide
    - **Best for**: Understanding all options deeply
 
-#### 3. **DEPLOYMENT_SUMMARY.md** ✅ PROJECT STATUS
+#### 3. **Deployment_Summary.md** ✅ PROJECT STATUS
    - **Audience**: Project managers, team leads
    - **Time**: 10-15 minutes to read
    - **Content**:
@@ -53,14 +53,14 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 
 | Goal | Start With | Then Read |
 |------|-----------|-----------|
-| **Deploy NOW** | `QUICK_START_DEPLOYMENT.md` | → Docker/Azure docs as needed |
-| **Understand options** | `DEPLOYMENT.md` (Deployment Options) | → `QUICK_START_DEPLOYMENT.md` |
-| **Optimize performance** | `DEPLOYMENT.md` (Production Considerations) | → Specific platform docs |
-| **Set up CI/CD** | `DEPLOYMENT.md` (Deployment Options → Azure Static Web Apps) | → `.github/workflows/deploy-wasm.yml` |
-| **Deploy to Docker** | `QUICK_START_DEPLOYMENT.md` (Docker section) | → `Dockerfile` + `docker-compose.yml` |
-| **Deploy to Azure** | `QUICK_START_DEPLOYMENT.md` (Azure Static Web Apps) | → `staticwebapp.config.json` |
-| **Troubleshoot issues** | `README.md` (Troubleshooting) | → `DEPLOYMENT.md` (Troubleshooting) |
-| **Understand security** | `DEPLOYMENT.md` (Production Considerations → Security) | → `staticwebapp.config.json` |
+| **Deploy NOW** | `Deployment_StepByStepGuide.md` | → Docker/Azure docs as needed |
+| **Understand options** | `Deployment_DetailedGuide.md` (Deployment Options) | → `Deployment_StepByStepGuide.md` |
+| **Optimize performance** | `Deployment_DetailedGuide.md` (Production Considerations) | → Specific platform docs |
+| **Set up CI/CD** | `Deployment_DetailedGuide.md` (Deployment Options → Azure Static Web Apps) | → `.github/workflows/deploy-wasm.yml` |
+| **Deploy to Docker** | `Deployment_StepByStepGuide.md` (Docker section) | → `Dockerfile` + `docker-compose.yml` |
+| **Deploy to Azure** | `Deployment_StepByStepGuide.md` (Azure Static Web Apps) | → `staticwebapp.config.json` |
+| **Troubleshoot issues** | `README.md` (Troubleshooting) | → `Deployment_DetailedGuide.md` (Troubleshooting) |
+| **Understand security** | `Deployment_DetailedGuide.md` (Production Considerations → Security) | → `staticwebapp.config.json` |
 
 ### 📁 Configuration Files
 
@@ -72,7 +72,7 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 
 ### ⚡ 5-Minute Deployment Path
 
-1. **Read**: `QUICK_START_DEPLOYMENT.md` (5 min)
+1. **Read**: `Deployment_StepByStepGuide.md` (5 min)
 2. **Choose**: Azure Static Web Apps
 3. **Create**: Resource in Azure Portal (using guide)
 4. **Deploy**: Automatic via GitHub Actions
@@ -82,11 +82,11 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 
 | Platform | Ease | Cost | Setup Time | Read |
 |----------|------|------|-----------|------|
-| **Azure Static Web Apps** | ⭐⭐⭐⭐⭐ | Free | 5 min | `QUICK_START_DEPLOYMENT.md` |
-| **GitHub Pages** | ⭐⭐⭐⭐ | Free | 10 min | `DEPLOYMENT.md` |
-| **Docker** | ⭐⭐⭐ | Varies | 15 min | `QUICK_START_DEPLOYMENT.md` |
-| **Azure App Service** | ⭐⭐⭐⭐ | $$ | 20 min | `DEPLOYMENT.md` |
-| **IIS Self-Hosted** | ⭐⭐⭐ | Infrastructure | 30 min | `DEPLOYMENT.md` |
+| **Azure Static Web Apps** | ⭐⭐⭐⭐⭐ | Free | 5 min | `Deployment_StepByStepGuide.md` |
+| **GitHub Pages** | ⭐⭐⭐⭐ | Free | 10 min | `Deployment_DetailedGuide.md` |
+| **Docker** | ⭐⭐⭐ | Varies | 15 min | `Deployment_StepByStepGuide.md` |
+| **Azure App Service** | ⭐⭐⭐⭐ | $$ | 20 min | `Deployment_DetailedGuide.md` |
+| **IIS Self-Hosted** | ⭐⭐⭐ | Infrastructure | 30 min | `Deployment_DetailedGuide.md` |
 
 ### ✅ Pre-Deployment Checklist
 
@@ -104,7 +104,7 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 ```
 1. Code Ready
    ↓
-2. Choose Platform (QUICK_START_DEPLOYMENT.md)
+2. Choose Platform (Deployment_StepByStepGuide.md)
    ↓
 3. Create Resource (Platform-specific)
    ↓
@@ -124,9 +124,9 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 | Problem | Check | Link |
 |---------|-------|------|
 | App won't load | Browser console | `README.md` → Troubleshooting |
-| WASM not found | MIME types | `DEPLOYMENT.md` → Common Issues |
-| 404 on refresh | SPA routing | `DEPLOYMENT.md` → Troubleshooting |
-| Slow performance | Bundle size | `DEPLOYMENT.md` → Performance Optimization |
+| WASM not found | MIME types | `Deployment_DetailedGuide.md` → Common Issues |
+| 404 on refresh | SPA routing | `Deployment_DetailedGuide.md` → Troubleshooting |
+| Slow performance | Bundle size | `Deployment_DetailedGuide.md` → Performance Optimization |
 | Calculation errors | Input validation | `README.md` → Test Cases |
 
 ### 📞 Support Resources
@@ -147,9 +147,9 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 
 ### 🎓 Learning Path
 
-**Beginner**: `README.md` → `QUICK_START_DEPLOYMENT.md` → Deploy
+**Beginner**: `README.md` → `Deployment_StepByStepGuide.md` → Deploy
 
-**Intermediate**: `README.md` → `DEPLOYMENT.md` (skim) → Choose platform → Deploy
+**Intermediate**: `README.md` → `Deployment_DetailedGuide.md` (skim) → Choose platform → Deploy
 
 **Advanced**: All documentation → Customize configuration → Advanced optimization
 
@@ -157,9 +157,9 @@ This folder contains comprehensive deployment documentation for the SEP IRA Calc
 
 | Document | Pages | Reading Time | Code Examples |
 |----------|-------|--------------|----------------|
-| `QUICK_START_DEPLOYMENT.md` | 2 | 5-10 min | 5 |
-| `DEPLOYMENT.md` | 8 | 30-45 min | 15+ |
-| `DEPLOYMENT_SUMMARY.md` | 5 | 10-15 min | Checklist |
+| `Deployment_StepByStepGuide.md` | 2 | 5-10 min | 5 |
+| `Deployment_DetailedGuide.md` | 8 | 30-45 min | 15+ |
+| `Deployment_Summary.md` | 5 | 10-15 min | Checklist |
 | `README.md` | 6 | 15-20 min | 8 |
 | **Total** | **21** | **60-90 min** | **28+** |
 
@@ -176,7 +176,7 @@ Your deployment is successful when:
 
 ### 🚀 Ready? Start Here!
 
-**👉 [QUICK_START_DEPLOYMENT.md](QUICK_START_DEPLOYMENT.md)** ← Click to begin deployment
+**👉 [Deployment_StepByStepGuide.md](Deployment_StepByStepGuide.md)** ← Click to begin deployment
 
 ---
 

@@ -122,7 +122,7 @@ dotnet run
 
 ### If local works but deployed doesn't:
 - ✅ **Problem is deployment configuration**
-- Review `QUICK_START_DEPLOYMENT.md`
+- Review `Deployment_StepByStepGuide.md`
 - Check Azure Static Web App settings
 - Verify `staticwebapp.config.json` is deployed
 

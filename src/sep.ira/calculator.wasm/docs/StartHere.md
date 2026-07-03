@@ -8,7 +8,7 @@ You now have everything needed to deploy your SEP IRA Calculator WebAssembly app
 
 ## 📖 Documentation Files (Located in `src/sep.ira/calculator.wasm/`)
 
-### 1️⃣ **START HERE** → `QUICK_START_DEPLOYMENT.md`
+### 1️⃣ **START HERE** → `Deployment_StepByStepGuide.md`
 ```
 ⏱️  Reading Time: 5 minutes
 👥 Audience: Everyone
@@ -24,7 +24,7 @@ You now have everything needed to deploy your SEP IRA Calculator WebAssembly app
 
 ---
 
-### 2️⃣ **DETAILED GUIDE** → `DEPLOYMENT.md`  
+### 2️⃣ **DETAILED GUIDE** → `Deployment_DetailedGuide.md`  
 ```
 ⏱️  Reading Time: 30-45 minutes
 👥 Audience: Developers, DevOps engineers
@@ -47,7 +47,7 @@ You now have everything needed to deploy your SEP IRA Calculator WebAssembly app
 
 ---
 
-### 3️⃣ **PROJECT STATUS** → `DEPLOYMENT_SUMMARY.md`
+### 3️⃣ **PROJECT STATUS** → `Deployment_Summary.md`
 ```
 ⏱️  Reading Time: 10-15 minutes
 👥 Audience: Project managers, team leads
@@ -85,7 +85,7 @@ You now have everything needed to deploy your SEP IRA Calculator WebAssembly app
 
 ---
 
-### 5️⃣ **NAVIGATION GUIDE** → `DEPLOYMENT_DOCS_INDEX.md`
+### 5️⃣ **NAVIGATION GUIDE** → `Deployment_DocsIndex.md`
 ```
 ⏱️  Reading Time: 5-10 minutes
 👥 Audience: Everyone
@@ -137,7 +137,7 @@ GitHub Actions CI/CD pipeline
 ### Path 1: Azure Static Web Apps (RECOMMENDED ⭐)
 **Time**: 5 minutes | **Cost**: FREE | **Difficulty**: ⭐⭐
 
-1. Read: `QUICK_START_DEPLOYMENT.md` (Azure section)
+1. Read: `Deployment_StepByStepGuide.md` (Azure section)
 2. Create: Static Web App resource in Azure Portal
 3. Link: GitHub repository
 4. Deploy: Click "Create" and wait 5-10 minutes
@@ -216,12 +216,12 @@ dotnet watch run
 
 | Problem | Solution | Guide |
 |---------|----------|-------|
-| How do I deploy? | Start with QUICK_START_DEPLOYMENT.md | ⏱️ 5 min |
-| Which platform? | Compare table in DEPLOYMENT_DOCS_INDEX.md | ⏱️ 2 min |
+| How do I deploy? | Start with Deployment_StepByStepGuide.md | ⏱️ 5 min |
+| Which platform? | Compare table in Deployment_DocsIndex.md | ⏱️ 2 min |
 | How long does it take? | Azure: 5 min, Docker: 15 min | ⏱️ 1 min |
 | Is it free? | Yes! Azure Static Web Apps free tier | ✅ Free |
 | App won't load? | Check browser console (F12) | README.md |
-| WASM file missing? | Check MIME types in DEPLOYMENT.md | 🔧 Fix |
+| WASM file missing? | Check MIME types in Deployment_DetailedGuide.md | 🔧 Fix |
 
 ---
 
@@ -229,14 +229,14 @@ dotnet watch run
 
 ```
 Your Solution Root/
-├── WEBASSEMBLY_DEPLOYMENT_COMPLETE.md  ← Project completion summary
+├── Deployment_Complete.md  ← Project completion summary
 │
 └── src/sep.ira/
     ├── calculator.wasm/                 ← WebAssembly project
-    │   ├── 📚 QUICK_START_DEPLOYMENT.md        START HERE!
-    │   ├── 📚 DEPLOYMENT.md                    Detailed guide
-    │   ├── 📚 DEPLOYMENT_SUMMARY.md            Status & checklist
-    │   ├── 📚 DEPLOYMENT_DOCS_INDEX.md         Navigation
+    │   ├── 📚 Deployment_StepByStepGuide.md        START HERE!
+    │   ├── 📚 Deployment_DetailedGuide.md                    Detailed guide
+    │   ├── 📚 Deployment_Summary.md            Status & checklist
+    │   ├── 📚 Deployment_DocsIndex.md         Navigation
     │   ├── 📚 README.md                        Overview
     │   ├── ⚙️  Dockerfile                      Docker build
     │   ├── ⚙️  docker-compose.yml              Docker testing
@@ -252,7 +252,7 @@ Your Solution Root/
 ## 🎯 Your Next 5 Steps
 
 ### 1. Read Documentation (5 min)
-Open `src/sep.ira/calculator.wasm/QUICK_START_DEPLOYMENT.md`
+Open `src/sep.ira/calculator.wasm/Deployment_StepByStepGuide.md`
 
 ### 2. Choose Platform (1 min)
 - **Recommended**: Azure Static Web Apps (free tier!)
@@ -319,10 +319,10 @@ Your app is live! Share with users
 ## 📞 Getting Help
 
 **Documentation**:
-- `QUICK_START_DEPLOYMENT.md` - Fastest help
-- `DEPLOYMENT.md` - Detailed help  
+- `Deployment_StepByStepGuide.md` - Fastest help
+- `Deployment_DetailedGuide.md` - Detailed help  
 - `README.md` - Project help
-- `DEPLOYMENT_DOCS_INDEX.md` - Navigation help
+- `Deployment_DocsIndex.md` - Navigation help
 
 **External Resources**:
 - Microsoft Blazor: https://learn.microsoft.com/aspnet/core/blazor
@@ -351,7 +351,7 @@ Your app is live! Share with users
 🚀 Gather user feedback  
 
 ### 📌 What You Should Do Next:
-1. Open `QUICK_START_DEPLOYMENT.md`
+1. Open `Deployment_StepByStepGuide.md`
 2. Choose your deployment platform
 3. Follow the step-by-step guide
 4. Deploy and go live! 🎉
@@ -360,9 +360,9 @@ Your app is live! Share with users
 
 **🚀 You're ready to deploy!**
 
-**Recommended**: Start with `QUICK_START_DEPLOYMENT.md`
+**Recommended**: Start with `Deployment_StepByStepGuide.md`
 
-**Questions?**: See `DEPLOYMENT_DOCS_INDEX.md` for navigation
+**Questions?**: See `Deployment_DocsIndex.md` for navigation
 
 ---
 

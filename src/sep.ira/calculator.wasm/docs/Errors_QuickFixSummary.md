@@ -96,10 +96,10 @@ git push origin main
 
 ## 📚 Documentation
 
-- **`FIX_APPLIED.md`** - Detailed explanation of the fix
-- **`TROUBLESHOOTING.md`** - Debugging guide if issues persist
-- **`QUICK_START_DEPLOYMENT.md`** - How to deploy to production
-- **`HOW_TO_SHARE.md`** - How to share with users
+- **`Errors_FixedUnhandledError.md`** - Detailed explanation of the fix
+- **`Troubleshooting.md`** - Debugging guide if issues persist
+- **`Deployment_StepByStepGuide.md`** - How to deploy to production
+- **`Sharing_StepByStepGuide.md`** - How to share with users
 
 ---
 
@@ -121,7 +121,7 @@ git push origin main
 3. **Clear cache** (Ctrl+Shift+Delete)
 4. **Try incognito mode** (Ctrl+Shift+N)
 5. **Check F12 Network tab** for 404 errors
-6. **Read TROUBLESHOOTING.md** for detailed debugging
+6. **Read Troubleshooting.md** for detailed debugging
 
 ---
 

@@ -19,7 +19,7 @@ Install: Not needed
 
 ### Phase 1: Deploy (If Not Done Yet)
 
-**Follow**: `QUICK_START_DEPLOYMENT.md` (5 minutes)
+**Follow**: `Deployment_StepByStepGuide.md` (5 minutes)
 
 1. Create Azure Static Web App
 2. Link to your GitHub repo
@@ -344,7 +344,7 @@ BOOKMARKING (All Devices)
 2. Bookmark/Save it
 3. Use bookmark to return anytime
 
-TROUBLESHOOTING
+Troubleshooting
 ───────────────
 Blank page?
 - Refresh the page
@@ -394,7 +394,7 @@ Questions?
 
 ## 🚀 Next Steps
 
-1. **Deploy** your app (follow `QUICK_START_DEPLOYMENT.md`)
+1. **Deploy** your app (follow `Deployment_StepByStepGuide.md`)
 2. **Get your URL**
 3. **Share with users** (email, message, QR code)
 4. **Users open in browser** on their device
@@ -405,14 +405,14 @@ Questions?
 
 ## 📚 Documentation
 
-- `QUICK_START_DEPLOYMENT.md` - Deploy your app
-- `DEPLOYMENT.md` - All deployment options
-- `HOW_TO_SHARE.md` - Detailed sharing guide
-- `SHARING_QUICK_REFERENCE.md` - Quick reference
+- `Deployment_StepByStepGuide.md` - Deploy your app
+- `Deployment_DetailedGuide.md` - All deployment options
+- `Sharing_StepByStepGuide.md` - Detailed sharing guide
+- `Sharing_QuickReference.md` - Quick reference
 - `README.md` - Project info
 
 ---
 
 **Ready to share? Your app is production-ready! 🎉**
 
-**Next Step**: Deploy using `QUICK_START_DEPLOYMENT.md`, then share your URL!
+**Next Step**: Deploy using `Deployment_StepByStepGuide.md`, then share your URL!

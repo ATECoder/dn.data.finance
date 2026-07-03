@@ -30,7 +30,7 @@ main {
     align-items: center;
 }
 
-    .top-row ::deep a, .top-row .btn-link {
+    .top-row a, .top-row .btn-link {
         white-space: nowrap;
         margin-left: 1.5rem;
     }
@@ -39,7 +39,7 @@ main {
         margin-left: 0;
     }
 
-.top-row ::deep .btn-link {
+.top-row .btn-link {
     color: inherit;
     border-color: transparent;
 }
@@ -53,7 +53,7 @@ main {
         justify-content: space-between;
     }
 
-        .top-row ::deep a, .top-row .btn-link {
+        .top-row a, .top-row .btn-link {
             margin-left: 0;
         }
 }

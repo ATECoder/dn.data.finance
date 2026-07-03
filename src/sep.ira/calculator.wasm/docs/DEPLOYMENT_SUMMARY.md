@@ -28,9 +28,9 @@
 
 ### Documentation Files
 - ✅ `README.md` - Project overview and usage guide
-- ✅ `DEPLOYMENT.md` - Comprehensive deployment guide (8 sections)
-- ✅ `QUICK_START_DEPLOYMENT.md` - Fast deployment instructions
-- ✅ `DEPLOYMENT_SUMMARY.md` - This file
+- ✅ `Deployment_DetailedGuide.md` - Comprehensive deployment guide (8 sections)
+- ✅ `Deployment_StepByStepGuide.md` - Fast deployment instructions
+- ✅ `Deployment_Summary.md` - This file
 
 ---
 
@@ -239,7 +239,7 @@ Staging (PRs):  https://{your-domain}--{branch}.{region}.azurestaticapps.net
 - A: Enable CDN caching, use Release build, check network bandwidth
 
 ### Getting Help
-1. Review `DEPLOYMENT.md` troubleshooting section
+1. Review `Deployment_DetailedGuide.md` troubleshooting section
 2. Check Azure Portal deployment logs
 3. Review browser console errors (F12)
 4. Open GitHub issue with details
@@ -251,9 +251,9 @@ Staging (PRs):  https://{your-domain}--{branch}.{region}.azurestaticapps.net
 | File | Purpose | Audience |
 |------|---------|----------|
 | `README.md` | Project overview | Developers |
-| `DEPLOYMENT.md` | Detailed deployment guide | DevOps, Developers |
-| `QUICK_START_DEPLOYMENT.md` | Fast setup instructions | Everyone |
-| `DEPLOYMENT_SUMMARY.md` | This checklist | Project managers |
+| `Deployment_DetailedGuide.md` | Detailed deployment guide | DevOps, Developers |
+| `Deployment_StepByStepGuide.md` | Fast setup instructions | Everyone |
+| `Deployment_Summary.md` | This checklist | Project managers |
 
 ---
 
@@ -273,7 +273,7 @@ Staging (PRs):  https://{your-domain}--{branch}.{region}.azurestaticapps.net
 ## 🎯 Next Steps
 
 1. **Choose Deployment Platform** (Azure Static Web Apps recommended)
-2. **Follow Quick Start Guide** (`QUICK_START_DEPLOYMENT.md`)
+2. **Follow Quick Start Guide** (`Deployment_StepByStepGuide.md`)
 3. **Deploy to Production**
 4. **Test Application**
 5. **Share URL with Users**

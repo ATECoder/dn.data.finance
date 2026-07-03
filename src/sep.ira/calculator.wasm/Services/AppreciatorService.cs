@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace cc.isr.Finance.Sep.Ira.WebAssembly.Services;
 
 /// <summary>
@@ -18,11 +16,11 @@ public class AppreciatorService
         decimal initialFederalTaxRate,
         decimal initialStateTaxRate,
         decimal federalCapitalGainsTaxRate,
-        decimal stateCapitalGainsTaxRate)
+        decimal stateCapitalGainsTaxRate )
     {
         try
         {
-            var result = new AppreciationResult { Success = true };
+            AppreciationResult result = new() { Success = true };
 
             // Calculate initial taxes
             decimal initialFederalTax = investedAmount * (initialFederalTaxRate / 100.0m);
@@ -34,7 +32,7 @@ public class AppreciatorService
 
             // Future value calculation
             decimal growthRate = 1 + (annualGrowthRate / 100.0m);
-            decimal futureBalance = capitalAfterTax * (decimal)System.Math.Pow((double)growthRate, investmentDuration);
+            decimal futureBalance = capitalAfterTax * ( decimal ) System.Math.Pow( ( double ) growthRate, investmentDuration );
 
             // Capital gain
             decimal capitalGain = futureBalance - capitalAfterTax;
@@ -56,7 +54,7 @@ public class AppreciatorService
 
             return result;
         }
-        catch (Exception ex)
+        catch ( Exception ex )
         {
             return new AppreciationResult
             {
@@ -80,25 +78,26 @@ public class AppreciatorService
         decimal withdrawalFederalTaxRate,
         decimal withdrawalStateTaxRate,
         decimal federalCapitalGainsTaxRate,
-        decimal stateCapitalGainsTaxRate)
+        decimal stateCapitalGainsTaxRate )
     {
         try
         {
-            var result = new AppreciationResult { Success = true };
-
-            // Store input values
-            result.InitialInvestment = investedAmount;
-            result.InitialAge = initialAge;
-            result.FinalAge = initialAge + investmentDuration;
-            result.InvestmentDuration = investmentDuration;
-            result.AnnualGrowthRate = annualGrowthRate;
-            result.AnnualInflationRate = annualInflationRate;
-            result.InitialFederalTaxRate = initialFederalTaxRate;
-            result.InitialStateTaxRate = initialStateTaxRate;
-            result.WithdrawalFederalTaxRate = withdrawalFederalTaxRate;
-            result.WithdrawalStateTaxRate = withdrawalStateTaxRate;
-            result.FederalCapitalGainsTaxRate = federalCapitalGainsTaxRate;
-            result.StateCapitalGainsTaxRate = stateCapitalGainsTaxRate;
+            AppreciationResult result = new()
+            {
+                Success = true,             // Store input values
+                InitialInvestment = investedAmount,
+                InitialAge = initialAge,
+                FinalAge = initialAge + investmentDuration,
+                InvestmentDuration = investmentDuration,
+                AnnualGrowthRate = annualGrowthRate,
+                AnnualInflationRate = annualInflationRate,
+                InitialFederalTaxRate = initialFederalTaxRate,
+                InitialStateTaxRate = initialStateTaxRate,
+                WithdrawalFederalTaxRate = withdrawalFederalTaxRate,
+                WithdrawalStateTaxRate = withdrawalStateTaxRate,
+                FederalCapitalGainsTaxRate = federalCapitalGainsTaxRate,
+                StateCapitalGainsTaxRate = stateCapitalGainsTaxRate
+            };
 
             // ===== SIMPLE INVESTMENT CALCULATION =====
             decimal simpleInitialFederalTax = investedAmount * (initialFederalTaxRate / 100.0m);
@@ -107,7 +106,7 @@ public class AppreciatorService
             decimal simpleCapitalAfterTax = investedAmount * (1 - ((initialFederalTaxRate + initialStateTaxRate) / 100.0m));
 
             decimal growthRate = 1 + (annualGrowthRate / 100.0m);
-            decimal simpleFutureBalance = simpleCapitalAfterTax * (decimal)System.Math.Pow((double)growthRate, investmentDuration);
+            decimal simpleFutureBalance = simpleCapitalAfterTax * ( decimal ) System.Math.Pow( ( double ) growthRate, investmentDuration );
             decimal simpleCapitalGain = simpleFutureBalance - simpleCapitalAfterTax;
             decimal simpleFederalCapitalGainsTax = simpleCapitalGain * (federalCapitalGainsTaxRate / 100.0m);
             decimal simpleStateCapitalGainsTax = simpleCapitalGain * (stateCapitalGainsTaxRate / 100.0m);
@@ -123,7 +122,7 @@ public class AppreciatorService
 
             // ===== SEP IRA CALCULATION =====
             // IRS Uniform Lifetime Table (simplified)
-            var uniformLifetimeTable = new Dictionary<int, decimal>()
+            Dictionary<int, decimal> uniformLifetimeTable = new()
             {
                 { 72, 27.4m }, { 73, 26.5m }, { 74, 25.5m }, { 75, 24.6m }, { 76, 23.7m },
                 { 77, 22.9m }, { 78, 22.0m }, { 79, 21.1m }, { 80, 20.2m }, { 81, 19.4m },
@@ -147,7 +146,7 @@ public class AppreciatorService
 
             // Calculate year-by-year
             int finalAge = initialAge;
-            for (int age = initialAge; age < initialAge + investmentDuration; age++)
+            for ( int age = initialAge; age < initialAge + investmentDuration; age++ )
             {
                 finalAge = age + 1;
 
@@ -159,7 +158,7 @@ public class AppreciatorService
                 capitalBalance *= growthRate;
 
                 // Calculate RMD if age >= 72
-                if (age >= 72 && uniformLifetimeTable.TryGetValue(age, out decimal rmdDivisor))
+                if ( age >= 72 && uniformLifetimeTable.TryGetValue( age, out decimal rmdDivisor ) )
                 {
                     decimal rmd = previousBalance / rmdDivisor;
                     sepIraBalance -= rmd;
@@ -174,7 +173,7 @@ public class AppreciatorService
 
                     // Track discounted taxes
                     int yearsFromNow = finalAge - initialAge;
-                    decimal discount = (decimal)System.Math.Pow((double)inflationFactor, yearsFromNow);
+                    decimal discount = ( decimal ) System.Math.Pow( ( double ) inflationFactor, yearsFromNow );
                     discountedFederalTaxesPaid += federalTax / discount;
                     discountedStateTaxesPaid += stateTax / discount;
                 }
@@ -201,7 +200,7 @@ public class AppreciatorService
 
             return result;
         }
-        catch (Exception ex)
+        catch ( Exception ex )
         {
             return new AppreciationResult
             {

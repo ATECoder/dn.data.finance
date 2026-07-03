@@ -2,7 +2,13 @@
 Notable changes to the [Finance Repository] are documented in this file using the 
 [Keep a Changelog] style. The dates specified are in coordinated universal time (UTC).
 
-[1.0.9678]: https://www.github.com/atecoder/dn.data.finance
+[1.0.9680]: https://www.github.com/atecoder/dn.data.finance
+
+## [1.0.9680] - 2026-07-03
+- Web Assembly
+  - Add version information to the project.
+  - Apply code analysis recommendations.
+  - Unify the names of the markdown files in the project.
 
 ## [1.0.9678] - 2026-07-01
 - Add Web Assembly calculator.

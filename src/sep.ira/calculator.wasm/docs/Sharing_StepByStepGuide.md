@@ -12,7 +12,7 @@ Your Blazor WebAssembly application can be shared with users in multiple ways. H
 Users access your app in their web browser - no installation needed!
 
 ### For Windows Users
-1. **Deploy to Azure Static Web Apps** (see DEPLOYMENT.md)
+1. **Deploy to Azure Static Web Apps** (see Deployment_DetailedGuide.md)
 2. **Share the URL**: `https://{your-app}.azurestaticapps.net`
 3. Users bookmark the link and access anytime from any browser
 
@@ -35,7 +35,7 @@ Users access your app in their web browser - no installation needed!
 ❌ Limited to browser features  
 
 ### Setup Steps
-1. Complete deployment (see `QUICK_START_DEPLOYMENT.md`)
+1. Complete deployment (see `Deployment_StepByStepGuide.md`)
 2. Copy the URL: `https://{app-name}.azurestaticapps.net`
 3. Share via email, message, link, or QR code
 
@@ -311,7 +311,7 @@ Users can install as "web app":
 ## 📋 Step-by-Step: Share Web URL
 
 ### Step 1: Deploy Application
-Follow `QUICK_START_DEPLOYMENT.md`:
+Follow `Deployment_StepByStepGuide.md`:
 - Create Azure Static Web App
 - GitHub Actions builds automatically
 - Get your URL
@@ -574,7 +574,7 @@ Gets blank page?
 ### **🌟 FOR YOU: Deploy URL + Share Link**
 
 **Setup** (20 minutes):
-1. Follow `QUICK_START_DEPLOYMENT.md`
+1. Follow `Deployment_StepByStepGuide.md`
 2. Deploy to Azure Static Web Apps
 3. Get your URL
 
@@ -595,11 +595,11 @@ Gets blank page?
 
 ## 📚 Related Documentation
 
-- `QUICK_START_DEPLOYMENT.md` - Deploy your app
-- `DEPLOYMENT.md` - All deployment options
+- `Deployment_StepByStepGuide.md` - Deploy your app
+- `Deployment_DetailedGuide.md` - All deployment options
 - `README.md` - Project overview
 - `Dockerfile` - For Docker distribution
 
 ---
 
-**Ready to share? Start with `QUICK_START_DEPLOYMENT.md` to get your URL!**
+**Ready to share? Start with `Deployment_StepByStepGuide.md` to get your URL!**

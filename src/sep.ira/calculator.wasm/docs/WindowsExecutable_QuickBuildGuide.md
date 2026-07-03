@@ -87,11 +87,11 @@ Send the ZIP file via:
 | Need | Command | Result |
 |------|---------|--------|
 | ZIP for distribution | `./build-windows-executable.ps1` | ZIP file (~200 MB) |
-| Professional installer | See: `WINDOWS_EXECUTABLE_GUIDE.md` Option 3 | Inno Setup .exe |
-| Desktop app icon | See: `WINDOWS_EXECUTABLE_GUIDE.md` Option 1 | Electron app |
-| Store deployment | See: `WINDOWS_EXECUTABLE_GUIDE.md` Option 4 | MSIX package |
+| Professional installer | See: `WindowsExecutable_BuildGuide.md` Option 3 | Inno Setup .exe |
+| Desktop app icon | See: `WindowsExecutable_BuildGuide.md` Option 1 | Electron app |
+| Store deployment | See: `WindowsExecutable_BuildGuide.md` Option 4 | MSIX package |
 
-See `WINDOWS_EXECUTABLE_GUIDE.md` for all options.
+See `WindowsExecutable_BuildGuide.md` for all options.
 
 ---
 
@@ -204,7 +204,7 @@ TIPS:
 
 Want an `.exe` installer that installs to Start Menu?
 
-See: `WINDOWS_EXECUTABLE_GUIDE.md` → Option 3 (Inno Setup)
+See: `WindowsExecutable_BuildGuide.md` → Option 3 (Inno Setup)
 
 ---
 
@@ -213,4 +213,4 @@ See: `WINDOWS_EXECUTABLE_GUIDE.md` → Option 3 (Inno Setup)
 ./build-windows-executable.ps1
 ```
 
-**Questions?** See `WINDOWS_EXECUTABLE_GUIDE.md` for detailed options.
+**Questions?** See `WindowsExecutable_BuildGuide.md` for detailed options.

@@ -12,30 +12,30 @@
 ## 📋 Documentation Guide
 
 ### 🚀 Start Here
-1. **`QUICK_FIX_SUMMARY.md`** ← **READ THIS FIRST**
+1. **`Errors_QuickFixSummary.md`** ← **READ THIS FIRST**
    - Quick overview of the fix
    - Next steps to test
    - Deployment instructions
 
 ### 📖 Detailed Information
-2. **`FIX_APPLIED.md`** - Detailed technical explanation
-3. **`CHANGES_MADE.md`** - Exact line-by-line changes
-4. **`TROUBLESHOOTING.md`** - Debugging guide if issues persist
+2. **`Errors_FixedUnhandledError.md`** - Detailed technical explanation
+3. **`WhatWasChanged.md`** - Exact line-by-line changes
+4. **`Troubleshooting.md`** - Debugging guide if issues persist
 
 ### 🚢 Deployment & Sharing
-5. **`QUICK_START_DEPLOYMENT.md`** - Deploy to Azure (5 minutes)
-6. **`DEPLOYMENT.md`** - All deployment options
-7. **`HOW_TO_SHARE.md`** - Share with Windows & iOS users
-8. **`SHARING_GUIDE.md`** - Complete sharing guide
+5. **`Deployment_StepByStepGuide.md`** - Deploy to Azure (5 minutes)
+6. **`Deployment_DetailedGuide.md`** - All deployment options
+7. **`Sharing_StepByStepGuide.md`** - Share with Windows & iOS users
+8. **`Sharing_Guide.md`** - Complete sharing guide
 
 ### 📱 Distribution
-9. **`SHARING_QUICK_REFERENCE.md`** - Quick sharing reference
-10. **`BUILD_WINDOWS_EXECUTABLE.md`** - Build standalone .exe
-11. **`WINDOWS_EXECUTABLE_GUIDE.md`** - Distribute as executable
+9. **`Sharing_QuickReference.md`** - Quick sharing reference
+10. **`WindowsExecutable_QuickBuildGuide.md`** - Build standalone .exe
+11. **`WindowsExecutable_BuildGuide.md`** - Distribute as executable
 
 ### 📚 Reference
-12. **`DEPLOYMENT_DOCS_INDEX.md`** - Navigation guide
-13. **`DEPLOYMENT_SUMMARY.md`** - Deployment status
+12. **`Deployment_DocsIndex.md`** - Navigation guide
+13. **`Deployment_Summary.md`** - Deployment status
 14. **`README.md`** - Project overview
 
 ---
@@ -84,7 +84,7 @@ Then visit your Azure URL:
 - Test page at: `.../test`
 
 ### Step 4: Share with Users (1 minute)
-See **`HOW_TO_SHARE.md`** or **`SHARING_GUIDE.md`** for:
+See **`Sharing_StepByStepGuide.md`** or **`Sharing_Guide.md`** for:
 - ✅ Windows users - share URL
 - ✅ iOS users - URL + "Add to Home Screen" instructions
 - ✅ Distribution options
@@ -126,7 +126,7 @@ See **`HOW_TO_SHARE.md`** or **`SHARING_GUIDE.md`** for:
 3. **Try test page** - Visit `/test` to verify Blazor is working
 4. **Clear cache** - Ctrl+Shift+Delete and retry
 5. **Try different browser** - Chrome, Firefox, Safari, Edge
-6. **Read TROUBLESHOOTING.md** - Detailed debugging guide
+6. **Read Troubleshooting.md** - Detailed debugging guide
 
 ---
 
@@ -184,10 +184,10 @@ git push origin main
 
 ## 📚 Read First
 
-**→ Open:** `QUICK_FIX_SUMMARY.md`  
+**→ Open:** `Errors_QuickFixSummary.md`  
 **Then:** Test locally following the steps above  
-**Then:** Deploy following `QUICK_START_DEPLOYMENT.md`  
-**Then:** Share following `HOW_TO_SHARE.md`
+**Then:** Deploy following `Deployment_StepByStepGuide.md`  
+**Then:** Share following `Sharing_StepByStepGuide.md`
 
 ---
 

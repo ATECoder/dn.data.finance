@@ -75,8 +75,8 @@ calculator.wasm/
 ├── Program.cs                   # Application startup
 ├── _Imports.razor               # Global imports
 ├── SepIraCalculatorWebAssembly.csproj
-├── DEPLOYMENT.md                # Detailed deployment guide
-├── QUICK_START_DEPLOYMENT.md    # Quick deployment steps
+├── Deployment_DetailedGuide.md                # Detailed deployment guide
+├── Deployment_StepByStepGuide.md    # Quick deployment steps
 ├── Dockerfile                   # Docker configuration
 ├── docker-compose.yml           # Docker Compose for testing
 └── staticwebapp.config.json     # Azure Static Web Apps config
@@ -101,7 +101,7 @@ docker run -p 8080:80 sep-ira-calculator:latest
 ```
 
 ### Deploy to Azure Static Web Apps (Recommended)
-See [QUICK_START_DEPLOYMENT.md](QUICK_START_DEPLOYMENT.md) for step-by-step instructions.
+See [Deployment_StepByStepGuide.md](Deployment_StepByStepGuide.md) for step-by-step instructions.
 
 ## 📚 Architecture
 
@@ -241,7 +241,7 @@ In `SepIraCalculatorWebAssembly.csproj`:
 - Free hosting
 - Automatic deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed options.
+See [Deployment_DetailedGuide.md](Deployment_DetailedGuide.md) for detailed options.
 
 ## 📋 Environment Variables
 

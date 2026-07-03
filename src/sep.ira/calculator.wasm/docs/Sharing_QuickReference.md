@@ -3,7 +3,7 @@
 ## 🎯 TL;DR (Too Long; Didn't Read)
 
 ### **Best Way: Share the URL**
-1. Deploy to Azure (follow `QUICK_START_DEPLOYMENT.md`)
+1. Deploy to Azure (follow `Deployment_StepByStepGuide.md`)
 2. Get your URL: `https://sep-ira-calculator.azurestaticapps.net`
 3. Share with users - they open in browser
 4. Done! Works Windows + iOS + Android + Mac
@@ -107,7 +107,7 @@ Offline: ✅
 
 ### Step 1: Deploy
 ```powershell
-# Follow QUICK_START_DEPLOYMENT.md
+# Follow Deployment_StepByStepGuide.md
 # Create Azure Static Web App
 # GitHub Actions deploys automatically
 ```
@@ -267,8 +267,8 @@ Save as app on iPhone:
 
 ## 📚 Full Guide
 
-For complete details, see `HOW_TO_SHARE.md` with all options and step-by-step instructions.
+For complete details, see `Sharing_StepByStepGuide.md` with all options and step-by-step instructions.
 
 ---
 
-**Ready? Follow `QUICK_START_DEPLOYMENT.md` to get your URL! 🚀**
+**Ready? Follow `Deployment_StepByStepGuide.md` to get your URL! 🚀**

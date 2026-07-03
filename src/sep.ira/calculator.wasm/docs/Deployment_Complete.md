@@ -34,10 +34,10 @@ calculator.wasm/
 │
 └── Comprehensive Documentation (5 files)
     ├── README.md                     - Project overview (6 pages)
-    ├── QUICK_START_DEPLOYMENT.md     - Fast setup (2 pages)
-    ├── DEPLOYMENT.md                 - Full guide (8 pages)
-    ├── DEPLOYMENT_SUMMARY.md         - Status & checklist (5 pages)
-    └── DEPLOYMENT_DOCS_INDEX.md      - Navigation guide (3 pages)
+    ├── Deployment_StepByStepGuide.md     - Fast setup (2 pages)
+    ├── Deployment_DetailedGuide.md                 - Full guide (8 pages)
+    ├── Deployment_Summary.md         - Status & checklist (5 pages)
+    └── Deployment_DocsIndex.md      - Navigation guide (3 pages)
 ```
 
 **Total**: 20 files | 3,000+ lines of code & documentation
@@ -84,21 +84,21 @@ calculator.wasm/
 
 ## 📚 Documentation Provided
 
-### 1. **DEPLOYMENT_DOCS_INDEX.md** (Navigation Guide)
+### 1. **Deployment_DocsIndex.md** (Navigation Guide)
    - **Purpose**: Navigate all documentation
    - **Audience**: Everyone
    - **Quick navigation table** with platform comparison
    - **Success criteria** checklist
    - **Troubleshooting quick links**
 
-### 2. **QUICK_START_DEPLOYMENT.md** ⭐ START HERE
+### 2. **Deployment_StepByStepGuide.md** ⭐ START HERE
    - **5-minute setup guide**
    - **Azure Static Web Apps**: Step-by-step (recommended)
    - **Docker deployment**: Build and run commands
    - **Platform comparison**: Features vs. cost
    - **Post-deployment checklist**
 
-### 3. **DEPLOYMENT.md** (Comprehensive)
+### 3. **Deployment_DetailedGuide.md** (Comprehensive)
    - **Local development** instructions
    - **Release build** process
    - **5 deployment options**:
@@ -115,7 +115,7 @@ calculator.wasm/
    - **Troubleshooting section** with common issues
    - **Deployment checklist**
 
-### 4. **DEPLOYMENT_SUMMARY.md**
+### 4. **Deployment_Summary.md**
    - **Project deliverables**: ✅ All items
    - **Build statistics**: Framework, size, metrics
    - **Application statistics**: LOC, dependencies, bundle size
@@ -158,7 +158,7 @@ calculator.wasm/
 
 ### Step 1: Read Documentation
 ```
-START HERE → QUICK_START_DEPLOYMENT.md (5 min)
+START HERE → Deployment_StepByStepGuide.md (5 min)
 ```
 
 ### Step 2: Choose Platform
@@ -179,7 +179,7 @@ START HERE → QUICK_START_DEPLOYMENT.md (5 min)
 
 ### Step 4: Deploy
 ```
-→ Follow platform-specific guide in DEPLOYMENT.md
+→ Follow platform-specific guide in Deployment_DetailedGuide.md
 → GitHub Actions builds and deploys automatically
 ```
 
@@ -270,12 +270,12 @@ All files are in: `src/sep.ira/calculator.wasm/`
 
 ```
 📄 Navigation & Status
-   ├── DEPLOYMENT_DOCS_INDEX.md      ← START: Navigation guide
-   ├── DEPLOYMENT_SUMMARY.md         ← Project status & checklist
+   ├── Deployment_DocsIndex.md      ← START: Navigation guide
+   ├── Deployment_Summary.md         ← Project status & checklist
 
 📄 Implementation Guides
-   ├── QUICK_START_DEPLOYMENT.md     ← FASTEST: 5-min setup
-   ├── DEPLOYMENT.md                 ← DETAILED: All options
+   ├── Deployment_StepByStepGuide.md     ← FASTEST: 5-min setup
+   ├── Deployment_DetailedGuide.md                 ← DETAILED: All options
    └── README.md                     ← PROJECT: Overview & features
 
 ⚙️ Infrastructure Files
@@ -347,7 +347,7 @@ Included in documentation:
 ## 🆘 Quick Help
 
 **Question**: Which documentation should I read?  
-**Answer**: Start with `QUICK_START_DEPLOYMENT.md` (5 minutes)
+**Answer**: Start with `Deployment_StepByStepGuide.md` (5 minutes)
 
 **Question**: What's the fastest way to deploy?  
 **Answer**: Azure Static Web Apps (5 minutes, free tier)
@@ -378,7 +378,7 @@ Included in documentation:
 
 ### 👉 Next Step:
 
-**Read**: `QUICK_START_DEPLOYMENT.md`  
+**Read**: `Deployment_StepByStepGuide.md`  
 **Deploy**: Follow your chosen platform guide  
 **Test**: Verify calculator works  
 **Share**: Give users the URL  
@@ -428,11 +428,11 @@ You now have a **production-ready** Blazor WebAssembly application with:
 
 **🎉 Project Complete!**
 
-**Next Step**: Open `QUICK_START_DEPLOYMENT.md` and begin deployment 🚀
+**Next Step**: Open `Deployment_StepByStepGuide.md` and begin deployment 🚀
 
 ---
 
 *For questions or issues, refer to the troubleshooting sections in:*
-- `QUICK_START_DEPLOYMENT.md` (Quick fixes)
-- `DEPLOYMENT.md` (Detailed troubleshooting)
+- `Deployment_StepByStepGuide.md` (Quick fixes)
+- `Deployment_DetailedGuide.md` (Detailed troubleshooting)
 - `README.md` (Project-specific issues)
