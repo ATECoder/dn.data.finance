@@ -41,7 +41,7 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           # Fill in the values below based on your Azure Static Web Apps instance
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ 26d8bd19ecf3a42541a9bfd10f211e9a9ca86a45c1c7c592eec29d20c327df2e07-524e7caa-9584-4747-93d3-c4a24518cb3901e070001996be1e }}
           action: "upload"
           app_location: "publish/wwwroot"
           skip_app_build: true

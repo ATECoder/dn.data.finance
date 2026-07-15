@@ -2,7 +2,14 @@
 Notable changes to the [Finance Repository] are documented in this file using the 
 [Keep a Changelog] style. The dates specified are in coordinated universal time (UTC).
 
-[1.0.9680]: https://www.github.com/atecoder/dn.data.finance
+[1.0.9692]: https://www.github.com/atecoder/dn.data.finance
+
+## [1.0.9692] - 2026-07-15
+- Update packages.
+- Update web assembly project.
+  - Fix: Add trimmer configuration to preserve Blazor components
+  - Fix: Downgrade to .NET 9, update ASP.NET Core packages to 9.0.0, enhance TrimmerRootDescriptor
+
 
 ## [1.0.9680] - 2026-07-03
 - Web Assembly

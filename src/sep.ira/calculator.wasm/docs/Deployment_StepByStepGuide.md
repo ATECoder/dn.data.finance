@@ -40,7 +40,7 @@
 
 4. **Access Your App**
    - Deployment status appears on Azure Portal
-   - URL: `https://{app-name}.azurestaticapps.net`
+   - URL: `https://sep-ira-calculator.azurestaticapps.net`
    - Share this URL with users!
 
 ### ✅ Your App is Live!

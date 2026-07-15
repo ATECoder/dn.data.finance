@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <!-- Preserve the entire application assembly -->
+  <assembly fullname="Sep.Ira.Calculator.WebAssembly" preserve="all" />
+
+  <!-- Preserve all Blazor framework assemblies -->
+  <assembly fullname="Microsoft.AspNetCore.Components" preserve="all" />
+  <assembly fullname="Microsoft.AspNetCore.Components.Web" preserve="all" />
+  <assembly fullname="Microsoft.AspNetCore.Components.WebAssembly" preserve="all" />
+
+  <!-- Preserve dependency injection -->
+  <assembly fullname="Microsoft.Extensions.DependencyInjection" preserve="all" />
+  <assembly fullname="Microsoft.Extensions.DependencyInjection.Abstractions" preserve="all" />
+
+  <!-- Preserve configuration -->
+  <assembly fullname="Microsoft.Extensions.Configuration" preserve="all" />
+  <assembly fullname="Microsoft.Extensions.Configuration.Abstractions" preserve="all" />
+  <assembly fullname="Microsoft.Extensions.Configuration.Json" preserve="all" />
+
+  <!-- Preserve logging -->
+  <assembly fullname="Microsoft.Extensions.Logging" preserve="all" />
+  <assembly fullname="Microsoft.Extensions.Logging.Abstractions" preserve="all" />
+
+  <!-- Preserve options and primitives -->
+  <assembly fullname="Microsoft.Extensions.Options" preserve="all" />
+  <assembly fullname="Microsoft.Extensions.Primitives" preserve="all" />
+
+  <!-- Preserve JSInterop -->
+  <assembly fullname="Microsoft.JSInterop" preserve="all" />
+  <assembly fullname="Microsoft.JSInterop.WebAssembly" preserve="all" />
+</linker>
