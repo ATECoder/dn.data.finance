@@ -8,6 +8,7 @@ All notable changes to this application will be documented in this file. The for
 - Update packages.
 - Fix: Add trimmer configuration to preserve Blazor components
 - Fix: Downgrade to .NET 9, update ASP.NET Core packages to 9.0.0, enhance TrimmerRootDescriptor
+- docs: Update with correct Azure deployment URL
 
 ## [1.0.9680] - 2026-07-03
 - Add version information to the project.
